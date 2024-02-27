@@ -1,0 +1,134 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{mathptmx}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[section]{placeins}
+\usepackage{placeins}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+% \usepackage{subcaption}
+\usepackage{algorithm,tabularx}
+\usepackage{algpseudocode}
+\usepackage{amsfonts}
+% \usepackage{amsthm}
+\usepackage{cases}
+\usepackage{romannum}
+\usepackage{varwidth}
+\usepackage{algpseudocode}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{dblfloatfix}
+\usepackage{textcomp}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{seqsplit}%
+% \usepackage{enumitem}
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{LastRevised=Sunday, March 29, 2020 14:54:24}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=BibTeX}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+% \IEEEoverridecommandlockouts
+% \overrideIEEEmargins
+\hyphenation{optical networks semiconductor}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\tsup}[1]{\textsuperscript{#1}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\useunder{\uline}{\ul}{}
+\makeatletter
+\newcommand{\multiline}[1]{  \begin{tabularx}{\dimexpr\linewidth-\ALG@thistlm}[t]{@{}X@{}}
+#1
+\end{tabularx}
+}
+\makeatother
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}
+\makeatletter
+\newcommand*{\skipnumber}
+[2][1]{
+{\renewcommand*{\alglinenumber}[1]{}\State #2}
+\addtocounter{ALG@line}{-#1}}
+\makeatother
+\newcommand{\hash}[1]{{\seqsplit{#1}}}
+
+
+\usepackage{picins}
+\renewcommand{\theparagraph}{\alph{paragraph})}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec}
+\titleformat{\paragraph}[runin]
+{\bfseries\itshape}{\theparagraph}{0.5em}{}[:]
+% \titlespacing\paragraph{0pt}{2ex}{2ex}
+% \titlespacing\subsection{0pt}{2ex}{2ex}
+% \setlength{\parskip}{0ex} 
+% \setlength{\parindent}{1em}
+
+\title{\LARGE \bf
+Non-Linear Networked Systems Analysis and Synthesis using Dissipativity Theory
+% Centralized and Decentralized Techniques for Analysis and Synthesis of Non-Linear Networked Systems
+\vspace{-15pt}
+}
+
+\author{Shirantha Welikala, Hai Lin and Panos J. Antsaklis %\vspace{-6mm} 
+% \thanks{$^{\star}$Supported in part by.... } 
+\thanks{This work was supported in part by ... }
+% \thanks{The authors gratefully acknowledge the fruitful discussions with Vince Kurtz about different robustness measures and their implementations.}
+\thanks{Shirantha Welikala is with the Department of Electrical and Computer Engineering, Stevens Institute of Technology, Hoboken, NJ 07030, USA (Email: \texttt{{\small swelikal@stevens.edu}}). Christos G. Cassandras is with the Division of Systems Engineering and Center for Information and Systems Engineering, Boston University, Brookline, MA 02446, USA (Email: \texttt{{\small cgc@bu.edu}}).}}
+
+
+\begin{document}
+
+% \begin{keyword}
+% Multi-agent systems, Optimization, Cooperative Control, Control of networks, Persistent Monitoring, Parametric Control.
+% \end{keyword}
+
+
+%%%% Preliminary info: 
+\textbf{Title:} Invitation to a special session at IEEE CDC 2024 "\textbf{Submodularity in Control, Robotics, and Machine Learning: Applications, Challenges, and Opportunities}"
+
+\textbf{Invitation:} We would like to invite you, and your collaborators, to submit a paper to the session.   
+
+Submodular optimization theory has been widely acknowledged as an effective approach for solving combinatorial resource allocation problems in the field of computer science. However, its potential application in solving systems and engineering problems still needs to be further explored, particularly in terms of incorporating and addressing constraints that arise in these applications. This session will present ground-breaking research on the theory and practice of submodularity theory on control, robotics, and machine learning, with emphasis on systems of the future such as the smart grid, the IoT, and embodied intelligent networks.  Such systems will need to operate under severe resource constraints and limited information access —examples of resource constraints include limited capacity for communication, computation, and information- storage, and limited time for decision-making.  Thus, such systems necessitate new optimization paradigms beyond the classical greedy approaches introduced in computer science and operation research.  
+
+To this end, this invited session aims to cover a broad set of topics related to submodular optimization, both in the continuous and the discrete domains, such as:
+
+Novel applications in control, robotics, and machine learning via identifying and optimizing submodular structures
+Innovative algorithmic solutions that strike a balance between achievable optimality gap and computation cost 
+Quantification of trade-offs between resource constraints and achievable learning optimization performance;                                         
+Self-reconfigurable networked systems for online adaptation to dynamic resource constraints and global performance specifications;                                       
+Attention and resource-allocation for efficient decentralized optimization;
+Near-optimal algorithms subject to severe resource constraints, including runtime, data-storage, computation, and communication constraints
+Quantized, compressed, and/or parallelized communication for distributed submodular optimization 
+ 
+Both theoretical and experimental contributions are welcome. 
+
+\textbf{CGC:} I thought this may be an opportunity to contribute a joint paper on the topic. I don’t think there is anything really new, but I it occurred to me that the last paper was never presented in a conference. One thought I had is to write a tutorial-style or overview paper on using submodularity in the coverage control problem, thus reviewing all our past work without any claim of novelty – unless you have some other ideas.
+
+\textbf{SW:} I have wanted to revisit the submodular optimization problem for some time, especially after seeing the presentation of https://ieeexplore.ieee.org/document/10156009 (I even set up a project for MS students to take, but so far, no luck). Perhaps this might be an opportunity to refresh ourselves on what we did before and closely explore its strengths, weaknesses, applications, and potential future work.  
+
+So, I, too, agree with your proposal to "write a tutorial-style or overview paper on using submodularity in the coverage control problem, thus reviewing all our past work without any claim of novelty." 
+
+\textbf{CGC:} That sounds good, but if we go with this kind of paper, I’d like to run the idea by the session organizers because that’s a “noncanonical” type of paper since it would not really contain much novel research. So, how about we try and zoom a little sooner, say by next Monday, to discuss and see how to proceed? If you can think of a rough outline and put it on Overleaf by then, that would be really helpful!
+
+\end{document}
