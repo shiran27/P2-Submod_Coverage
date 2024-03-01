@@ -334,31 +334,409 @@ for any $A \subset X$ and $y\in X\backslash A$. From \eqref{Eq:Th:SetCoverageSub
 \end{proof}
 
 %%%% Revised up to this
-% Submodularity definition
+\bigskip
+{\color{blue} \textbf{**** Revised up to this point...} }
+\bigskip
 
-The fundamental performance bound
+{\color{blue} The fundamental performance bound. ...}
 
-
+{\color{red}
 
 \section{Improved Performance Bound Guarantees using Curvature Measures}
 \label{Sec:CurvatureMeasures}
 
-The details of the four curvature-based performance bounds. 
+{\color{blue} The details of the four curvature-based performance bounds. }
+
+In this section, we briefly review several tighter performance bounds (i.e., closer to 1 compared to $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound}) established in the literature for the greedy solution given by Alg. \ref{Alg:GreedyAlgorithm} for the class of problems in \eqref{Eq:SubmodularMaximizationProblem}. To the best of the authors' knowledge, the list of performance bounds reviewed here is exhaustive. Note also that even though we consider the same greedy solution $Y^G$, having a tighter performance bound is still important as it allows us to: (\romannum{1}) have a more accurate sense of proximity of $Y^G$ to the global optimal $Y^*$ and (\romannum{2}) make more informed decisions regarding spending extra resources to seek an improved solution (as mentioned in Remark \ref{Rm:Improvements}). 
 
 
-% \section{Extended Greedy Curvature Based Performance Bound}
-% \label{Sec:NewPerformanceBound}
+% a longer version:
+As we will see next, these tighter performance bounds have been established by exploiting structural properties of the objective function $f$, the ground set $X$ and the feasible space $\mathcal{I}^N$ involved in the considered problem \eqref{Eq:SubmodularMaximizationProblem}. In particular, different \emph{curvature} measures that characterize these structural properties have been used to obtain the said tighter performance bounds. In this section, four such established curvature measures along with their respective performance bounds are briefly reviewed, outlining their properties, strengths and weaknesses. 
 
 
-A summary of our extended greedy curvature metric and the corresponding performance bound. 
+\subsection{Total Curvature \cite{Conforti1984}}
+\label{SubSec:TotalCurvature}
+
+For the problem \eqref{Eq:SubmodularMaximizationProblem}, the \emph{total curvature} measure $\alpha_t$ is defined as 
+\begin{equation}\label{Eq:TotalCurvatureCoefficientTheory}
+    \alpha_t \triangleq \max_{\substack{x \in X} }\left[1 - \frac{\Delta f(x \vert X \backslash \{x\})}{\Delta f(x \vert \emptyset)}\right].
+\end{equation}
+The corresponding performance bound $\beta_t$ is given by
+\begin{equation}\label{Eq:TotalCurvatureBoundTheory}
+    \beta_t \triangleq \frac{1}{\alpha_t} \left[ 1 - \left( 1 -\frac{\alpha_t}{N} \right)^N \right] \leq \frac{f(Y^G)}{f(Y^*)}.
+\end{equation}
+Note that $0 \leq \alpha_t \leq 1$ and $\beta_t$ is a decreasing function with respect to $\alpha_t$. Therefore, if $\alpha_t\rightarrow 0$, the corresponding performance bound $\beta_t\rightarrow 1$. In contrast, if $\alpha_t\rightarrow 1$, the corresponding performance bound $\beta_t\rightarrow\beta_f$ (recall that $\beta_f$ is given in \eqref{Eq:FundamentalPerformanceBound}).
 
 
+Note that the $\alpha_t$ expression in \eqref{Eq:TotalCurvatureCoefficientTheory} can be written as
+$$ 
+    \alpha_t = 1 - \min_{x \in X}\left[\frac{\Delta f(x \vert X \backslash \{x\})}{\Delta f(x \vert \emptyset)}\right].
+$$
+Since $f$ is submodular over $X$, $\Delta f(x \vert X \backslash \{x\}) \leq f(x \vert \emptyset), \forall x \in X$. Therefore, $\alpha_t$ will provide an improved performance bound (i.e., $\beta_t \rightarrow 1$) if $f$ and $X$ in \eqref{Eq:SubmodularMaximizationProblem} are such that $\Delta f(x \vert \emptyset) \simeq \Delta f(x \vert X \backslash \{x\}), \forall x \in X$, i.e., in other words, if the submodularity property is \emph{weak} (see also the Rm. \ref{Rm:SubmodularityStrength} given below). Moreover, as $\Delta f(x \vert X \backslash \{x\}) = f(X) - f(X \backslash \{x\})$, evaluating $\alpha_t$ requires evaluating $f(X)$ - which in some applications might be ill-defined (e.g., see \cite{Sun2020}) and also computationally expensive (as often $f(Y)$ is of complexity $O(\vert Y \vert)$). 
+
+\begin{remark}\label{Rm:SubmodularityStrength}
+In the remainder of this paper, we use notions of ``weak'' and ``strong'' to qualify the submodularity; they can be inferred based on the respective qualitative properties: the weakness or strength of satisfaction of an inequality based on the submodularity property. For example, as discussed above, we refer to the submodularity property of $f$ over $X$ as weak or strong based on whether $\Delta f(x \vert X \backslash \{x\}) \simeq f(x \vert \emptyset), \forall x \in X$ or 
+$\Delta f(x \vert X \backslash \{x\}) \ll f(x \vert \emptyset), \forall x \in X$, respectively. 
+\end{remark}
+
+
+\subsection{Greedy Curvature \cite{Conforti1984}}
+\label{SubSec:GreedyCurvature}
+
+
+
+The \emph{greedy curvature} measure $\alpha_g$ is computed based on successive greedy solutions that the greedy algorithm generates (i.e., based on $Z^0,\ldots,Z^N$). Specifically, $\alpha_g$ is defined as   
+\begin{equation}\label{Eq:GreedyCurvatureCoefficientTheory}
+    \alpha_g \triangleq \max_{0 \leq i \leq N-1} \left[ \max_{x \in X^i}\left(1 - \frac{\Delta f(x\vert Z^i)}{\Delta f(x\vert \emptyset)}\right) \right],
+\end{equation}
+where $X^i \triangleq \{x: x \in X \backslash Z^i, (Z^i \cup \{x\}) \in \mathcal{I}^N\}$ (the set of feasible options in the $(i+1)$\tsup{th} greedy iteration). The corresponding performance bound $\beta_g$ is given by  
+\begin{equation}\label{Eq:GreedyCurvatureBoundTheory}
+    \beta_g \triangleq 1-\alpha_g\left(1-\frac{1}{N}\right) \leq \frac{f(Y^G)}{f(Y^*)}. 
+\end{equation}
+Note that $0 \leq \alpha_g \leq 1$ and $\beta_g$ is a decreasing function in $\alpha_g$. Therefore, when $\alpha_g \rightarrow 0$, $\beta_g \rightarrow 1$. However, when $\alpha_g \rightarrow 1$, unlike in the case of $\beta_t$,  $\beta_g \rightarrow \frac{1}{N} < \beta_f$. 
+
+
+The expression of $\alpha_g$ in \eqref{Eq:GreedyCurvatureCoefficientTheory} can be written as
+\begin{equation*}
+    \alpha_g = 1 - \min_{0 \leq i \leq N-1} \left[ \min_{x \in X^i}\left(\frac{\Delta f(x\vert Z^i)}{\Delta f(x\vert \emptyset)}\right) \right].
+\end{equation*}
+Since $f$ is submodular, $\Delta f(x\vert Z^i) \leq \Delta f(x\vert \emptyset)$. Therefore, to get an improved performance bound (i.e., $\beta_g\rightarrow 1$), $f, X$ and $Z^i, i \in \{0,1,\ldots,N\}$ of the problem \eqref{Eq:SubmodularMaximizationProblem} should be such that $\Delta f(x\vert Z^i) \simeq \Delta f(x\vert \emptyset), \forall x \in X\backslash Z^i, i \in \{0,1,\ldots,N-1\}$, i.e., in other words, the submodularity property should be \emph{weak}. Moreover, note that $\beta_g$ in \eqref{Eq:GreedyCurvatureBoundTheory} can be computed in parallel with the execution of the greedy algorithm without requiring any additional numerical evaluations of $f$. Hence, unlike $\beta_t$ in \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ is computationally inexpensive as well as always fully-defined. 
+
+
+% \cite{sun2020} has shown that when the  submodularity properties are very weak, \beta_t<\beta_g
+
+\subsection{Elemental Curvature \cite{Wang2016}}\label{SubSec:ElementalCurvature}
+
+For the problem \eqref{Eq:SubmodularMaximizationProblem}, the \emph{elemental curvature} measure $\alpha_e$ is defined as 
+\begin{equation}\label{Eq:ElementalCurvatureCoefficientTheory}
+    \alpha_e \triangleq \max_{\substack{(Y,x_i,x_j): Y \subset X,\\ x_i,x_j \in X \backslash Y,\ x_i \neq x_j.}}\left[\frac{\Delta f(x_i \vert Y \cup \{x_j\})}{\Delta f(x_i \vert Y)}\right].
+\end{equation}
+The corresponding performance bound $\beta_e$ is given by 
+\begin{equation}\label{Eq:ElementalCurvatureBoundTheory}
+    \beta_e \triangleq 1-\left(\frac{\alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}{1 + \alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}\right)^N \leq \frac{f(Y^G)}{f(Y^*)}.
+\end{equation}
+Note that $0 \leq \alpha_e \leq 1$ and $\beta_e$ is a decreasing function with respect to $\alpha_e$. Therefore, when $\alpha_e \rightarrow 0$, $\beta_e \rightarrow 1$ and when $\alpha_e \rightarrow 1$, similar to the case of $\beta_t$, $\beta_e \rightarrow \beta_f$.
+
+
+
+It can be shown that $f$ is submodular over $X$ if and only if $\Delta f(x_i \vert Y \cup  \{x_j\}) \leq \Delta f(x_i \vert Y)$ for all feasible $(Y,x_i,x_j)$ choices considered in \eqref{Eq:ElementalCurvatureCoefficientTheory} (see \cite[Prop. 2.1]{Nemhauser1978}). 
+Therefore, if $\Delta f(x_i \vert Y \cup  \{x_j\}) = \Delta f(x_i \vert Y)$ occurs for some feasible combination of $(Y,x_i,x_j)$, it means $f$ is \emph{modular} in that region. According to \eqref{Eq:ElementalCurvatureCoefficientTheory}, such an existence of a modular region of $f$ over $X$ causes $\alpha_e = 1$ resulting $\beta_e = \beta_f$. A trivial situation where this ($\beta_e = \beta_f$) occurs is when $f$ and $X$ in problem \eqref{Eq:SubmodularMaximizationProblem} are such that $\exists x_i,x_j \in X$ with $x_i \neq x_j$ where $f(\{x_i\}) + f(\{x_j\}) = f(\{x_i,x_j\})$. Therefore, it is clear that the elemental curvature based performance bound $\beta_e$ fails (i.e., $\beta_e = \beta_f$ occurs) unless $f$ is \emph{strictly submodular} everywhere over its domain, i.e., $\Delta f(x_i \vert Y \cup  \{x_j\}) \ll \Delta f(x_i \vert Y)$ for all feasible $(Y,x_i,x_j)$ choices. We highlight that this particular behavior of $\beta_e$ contrasts from that of $\beta_t$ and $\beta_g$ discussed before (where \emph{weakly submodular} scenarios were preferred). 
+
+Moreover, note that evaluating $\beta_e$ is significantly computationally expensive (even compared to $\beta_t$) as $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:ElementalCurvatureCoefficientTheory}). Hence, such a problem can even be more complicated than the original set function maximization problem \eqref{Eq:SubmodularMaximizationProblem} that we consider unless there are some special structural properties that can be exploited (e.g., see \cite{Sun2019}).
+
+
+
+\subsection{Partial Curvature \cite{Liu2018}}
+\label{SubSec:PartialCurvature}
+
+
+
+The motivation behind the \emph{partial curvature} measure $\alpha_p$ is to be an alternative to the total curvature measure $\alpha_t$ in \eqref{Eq:TotalCurvatureCoefficientTheory}. Unlike $\alpha_t$, $\alpha_p$ can be evaluated when $f$ has a constrained domain, i.e., when $f:\mathcal{I}\rightarrow \R_{\geq0}$ with $\mathcal{I} \subset 2^X$ (where $\alpha_t$ is ill-defined due to its $f(X)$ term). Specifically, $\alpha_p$ is defined as
+\begin{equation}\label{Eq:PartialCurvatureCoefficientTheory}
+    \alpha_p = 
+    \max_{\substack{(Y,x): x \in Y \in \mathcal{I}^N}}\left[1-\frac{\Delta f(x \vert Y \backslash \{x\}) }{\Delta f(x \vert \emptyset)}\right].
+\end{equation}
+The corresponding performance bound $\beta_p$ is given by 
+\begin{equation}\label{Eq:PartialCurvatureBoundTheory}
+    \beta_p \triangleq \frac{1}{\alpha_p}\left[1-\left(1-\frac{\alpha_p}{N}\right)^N\right] \leq \frac{f(Y^G)}{f(Y^*)}.
+\end{equation}
+We highlight that the above $\beta_p$ expression is only valid under a few additional conditions on $f$, $X$ and $\mathcal{I}^N$ (which are omitted here, but can be  found in \cite{Liu2018}). Note that $\beta_p$ in \eqref{Eq:PartialCurvatureBoundTheory} and $\beta_t$ in \eqref{Eq:TotalCurvatureBoundTheory} has identical forms - enabling a direct comparison between $\alpha_t$ and $\alpha_p$. The work in \cite{Liu2018} has shown that $\alpha_p \leq \alpha_t$, which implies that $\beta_p \geq \beta_t$, i.e., $\beta_p$ is always tighter than $\beta_t$. Note also that, similar to $\beta_t$, $\beta_p$ will provide a much improved performance bound (i.e., $\beta_p \rightarrow 1$) if the underlying submodularity property (of $f$ over $X$) is \emph{weak}.  
+
+Moreover, similar to $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory}, evaluating $\alpha_p$ in \eqref{Eq:PartialCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:PartialCurvatureCoefficientTheory}). Therefore, evaluating $\beta_p$ is significantly computationally expensive compared to evaluating $\beta_t$. In fact, evaluating $\beta_p$ can even be more complicated than the original set function maximization problem \eqref{Eq:SubmodularMaximizationProblem} that we consider unless there are some special structural properties that can be exploited (e.g., see \cite[Ch. 3.2.4]{Welikala2021Thesis}).
+
+
+
+
+
+
+
+
+From the review presented in the previous section, three main limitations of existing improved performance bounds (i.e., of $\beta_t$\cite{Conforti1984}, $\beta_g$\cite{Conforti1984}, $\beta_e$\cite{Wang2016} and $\beta_p$\cite{Liu2018}) can be identified: 
+\begin{enumerate}
+    \item \textbf{Computational complexity}: For example, $\beta_e$ and $\beta_p$ (i.e., the most recently proposed performance bounds) require solving hard combinatorial optimization problems. 
+    \item \textbf{Inherent limitations}: For example, $\beta_t, \beta_g$ and $\beta_p$ inherently provide improved performance bounds only when the submodularity property (of $f$ over $X$) is weak.
+    \item \textbf{Technical limitations}: For example, $\beta_t$ and $\beta_p$ have technical conditions that need to be satisfied (by $f$, $X$ and $\mathcal{I}^N$ involved in \eqref{Eq:SubmodularMaximizationProblem}) to validate their usage.
+\end{enumerate}
+
+
+To counter the limitations mentioned above, in this section, a new performance bound (denoted by $\beta_u$) is proposed for the greedy solution $Y^G$ given by Alg. \ref{Alg:GreedyAlgorithm} for the class of problems in \eqref{Eq:SubmodularMaximizationProblem}. Similar to the previously reviewed improved performance bounds, this new performance bound $\beta_u$ is also defined through a corresponding (also new) curvature measure. In particular, we denote this new curvature measure as $\alpha_u$ and call it the \emph{extended greedy curvature}.
+
+
+
+As the name suggests, this new curvature measure $\alpha_u$ (and hence $\beta_u$) is derived exploiting the information computed when executing an extended number of greedy iterations (i.e., more than the usual $N$ greedy iterations executed in Alg. \ref{Alg:GreedyAlgorithm}). As we will see in the sequel, the exact number of extra greedy iterations required depends on the application and the user preference. Since running greedy iterations is computationally inexpensive, the complexity of computing $\beta_u$ is much less than that of $\beta_e$ or $\beta_p$ and is in the same order of computing $\beta_t$ or $\beta_g$. Moreover, as we will see in the sequel, unlike  $\beta_t,\beta_g,\beta_e$ and $\beta_p$, $\beta_u$ does not have any inherent or technical limitations. 
+
+
+{\color{blue} A summary of our extended greedy curvature metric and the corresponding performance bound. }
 % Possible new results?
 % \begin{enumerate}
 %     \item Exit condition for extended greedy iterations?
 %     \item Characterizing the "strength of submodularity"?
 %     \item Sensitivity of the performance bound (w.r.t. the "strength of submodularity")    
 % \end{enumerate}
+
+
+\begin{lemma}\label{Lm:UpperBoundVsPerformanceBound}
+Given the greedy solution performance $f(Y^G)$: 
+\begin{enumerate}
+    \item $\alpha$ is an upper bound for $f(Y^*)$ if and only if 
+    $\beta = \frac{f(Y^G)}{\alpha}$ is a valid performance bound for $f(Y^G)$.
+    \item $\beta$ is a valid performance bound for $f(Y^G)$ if and only if $\alpha = \frac{1}{\beta}f(Y^G)$ is an upper bound for $f(Y^*)$.
+\end{enumerate} 
+\end{lemma}
+\begin{proof}
+Cases (a) and (b) can be proved using the relationships: $\alpha \geq f(Y^*) \iff \frac{f(Y^G)}{\alpha} \leq \frac{f(Y^G)}{f(Y^*)}$ and $\beta \leq \frac{f(Y^G)}{f(Y^*)} \iff f(Y^*) \leq \frac{1}{\beta}f(Y^G)$, respectively.
+\end{proof}
+
+
+
+
+
+% sub-submodular maximization problem
+We now introduce some additional notations. Let $[0,k]$ be the set $\{0,1,2,\ldots,k\}$. Recall the $(Z^i,z^i)$ notation introduced in Section \ref{Sec:PreliminariesAndNotation} for $i\in [0,M]$. Using that, let us define
+\begin{equation}\label{Eq:GreedySolutionBlock}
+    Y^G_n \triangleq Z^{(n+1)N} \backslash Z^{nN} = \{z^{nN+1},z^{nN+2},\ldots,z^{nN+N}\}, 
+\end{equation}
+for any $n\in[0,m-1]$ where $m \triangleq \left \lfloor{\frac{M}{N}}\right \rfloor$ ($\left \lfloor{\cdot}\right \rfloor$ denotes the floor operator). Simply, $Y^G_n$ is the $(n+1)$\textsuperscript{th} block of $N$ greedily selected options. Hence, $\vert Y^G_n \vert = N$ and $Y^G_0 = Y^G$. Along the same lines, let us also define 
+\begin{equation}\label{Eq:groundSetBlock}
+X_n \triangleq X\backslash Z^{nN} \ \ \mbox{ and } \ \  \mathcal{I}_n^N \triangleq \{Y:Y \subseteq X_n, \vert Y \vert \leq N\},   
+\end{equation}
+for any $n\in[0,m-1]$. Simply, $X_n$ is the set of remaining available options after selecting $n$ blocks of $N$ greedy options (i.e., after $nN$ greedy iterations). Hence, $X_0 = X$ and $\mathcal{I}_0^N = \mathcal{I}^N$. Similar to the set system $(X,\mathcal{I}^N)$ considered in \eqref{Eq:SubmodularMaximizationProblem}, the set system $(X_n,\mathcal{I}_n^N)$ is a uniform matroid of rank $N$, for any $n\in[0,m-1]$. 
+
+
+Let us also consider a series of auxiliary set function maximization problems: $\{\mathbf{P}_n\}_{n\in [0,m-1]}$ where 
+\begin{equation}\label{Eq:AuxiliaryProblem}
+    \mathbf{P}_n :\ \ \ \ \ \ \ Y^*_n \triangleq \underset{Y\in\mathcal{I}^N_n}{\arg\max}\ \Delta f(Y\vert Z^{nN}).
+\end{equation}
+According to Lemma \ref{Lm:MarginalGain}, the objective function of $\mathbf{P}_n$ (i.e., $\Delta f(Y\vert Z^{nN})$) is a polymatroid set function over $X_n$. This implies that $\mathbf{P}_n$ aims to find the optimal set $Y^*_n$ that maximizes the polymatroid set function $\Delta f(Y\vert Z^{nN})$ over the uniform matroid $(X_n,\mathcal{I}^N_n)$. Hence, each $\mathbf{P}_n, n\in [0,m-1]$ falls into the same class of problems as in \eqref{Eq:SubmodularMaximizationProblem}, and in fact, $\mathbf{P}_0$ is equivalent to \eqref{Eq:SubmodularMaximizationProblem} (i.e., $Y^*_0 = Y^*$). Moreover, it is easy to see that $Y^G_n$ introduced in \eqref{Eq:GreedySolutionBlock} is the greedy solution to $\mathbf{P}_n$ in \eqref{Eq:AuxiliaryProblem} for $n\in[0,m-1]$.  
+
+
+% main lemma 1
+
+Next, we establish two lemmas that provide two different upper bounds for the global optimal performance of $\mathbf{P}_n$ in \eqref{Eq:AuxiliaryProblem}.
+\begin{lemma}\label{Lm:UpperBound1ForPn} 
+For $n\in[0,m-1]$,
+\begin{equation}\label{Eq:Lm:UpperBound1ForPn}
+\Delta f(Y^*_n\vert Z^{nN}) \leq  \underset{Y\in\mathcal{I}^N_n}{max} \left[ \sum_{y\in Y} \Delta f(y\vert Z^{nN}) \right].
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Due to the normalized and monotone nature of the set function $f$ (see Def. \ref{Def:Submodularity}(a)-(b)), we have $0 \leq f(A \cap B)$ for all $A,B \subseteq X$. Using this result in the second equivalent condition given for the submodularity property in Def. \ref{Def:Submodularity}(c), we can write $f(A \cup B) \leq f(A \cup B) + f(A \cap B) \leq f(A) + f(B)$, i.e., $f(A \cup B) \leq f(A) + f(B)$ for all $A,B\subseteq X$ (notice the resemblance with the triangle inequality). Based on this result, it is easy to see that any normalized monotone submodular set function $f$ defined over a ground set $X$ will follow the property: 
+\begin{equation}\label{Eq:TriangleInequality}
+    f(A)\leq \sum_{a \in A} f(\{a\}), \ \ \forall A \subseteq X.
+\end{equation}
+
+As mentioned before, $\Delta f(Y \vert Z^{nN})$ is a normalized monotone submodular set function in $Y$ over the ground set $X_n$ (from Lemma \ref{Lm:MarginalGain}). Therefore, $\Delta f(Y \vert Z^{nN})$ should follow the property in \eqref{Eq:TriangleInequality}, i.e., 
+\begin{equation}\label{Eq:S1:Lm:UpperBound1ForPn}
+    \Delta f(Y \vert Z^{nN}) \leq \sum_{y \in Y} \Delta f(y\vert Z^{nN}),\ \ \forall Y \in \mathcal{I}^N_n, 
+\end{equation}
+(note that, according to \eqref{Eq:groundSetBlock}, $Y \in \mathcal{I}^N_n \iff Y \subseteq X^n$). Now, taking the maximum of both sides of \eqref{Eq:S1:Lm:UpperBound1ForPn} over all possible $Y \in \mathcal{I}^N_n$, we get 
+\begin{equation}
+    \underset{Y\in\mathcal{I}^N_n}{\max}\ \Delta f(Y \vert Z^{nN}) \leq \underset{Y\in\mathcal{I}^N_n}{\max} \left[\sum_{y \in Y} \Delta f(y\vert Z^{nN})\right].
+\end{equation}
+Finally, using \eqref{Eq:AuxiliaryProblem}, we can rewrite the left hand side (LHS) of the above expression as $\Delta f(Y^*_n\vert Z^{nN})$. This completes the proof. 
+\end{proof}
+
+
+
+
+% main lemma 2 
+
+\begin{lemma} \label{Lm:UpperBound2ForPn}
+For $n\in [0,m-1]$,
+\begin{equation} \label{Eq:Lm:UpperBound2ForPn}
+\Delta f(Y^*_n\vert Z^{nN}) \leq  \frac{1}{\beta_f}\left[ f(Z^{(n+1)N})-f(Z^{nN})\right].      
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Using \eqref{Eq:AuxiliaryProblem}, let us rewrite the LHS of \eqref{Eq:Lm:UpperBound2ForPn} as
+\begin{equation}\label{Eq:S1:Lm:UpperBound2ForPn}
+    \Delta f(Y^*_n\vert Z^{nN}) = \underset{Y\in\mathcal{I}^N_n}{\max}\ \Delta f(Y\vert Z^{nN}).
+\end{equation}
+Since $\Delta f(Y\vert Z^{nN})$ is a polymatroid set function in $Y$ over the uniform matroid $(X_n,\mathcal{I}^N_n)$, the performance bound $\beta_f$ given in \eqref{Eq:FundamentalPerformanceBound} can be applied for a greedy solution of the above set function maximization problem (in right hand side of \eqref{Eq:S1:Lm:UpperBound2ForPn}). In fact, from the used notation, $Y=Y^G_n$ is the greedy solution that maximizes $\Delta f(Y\vert Z^{nN})$. Therefore, using the known performance bound $\beta_f$ and the greedy solution performance $\Delta f(Y^G_n\vert Z^{nN})$ in Lemma \ref{Lm:UpperBoundVsPerformanceBound}(b), we obtain an upper bound to \eqref{Eq:S1:Lm:UpperBound2ForPn} as 
+\begin{equation}\label{Eq:S2:Lm:UpperBound2ForPn}
+    \Delta f(Y^*_n\vert Z^{nN}) = \underset{Y\in\mathcal{I}^N_n}{\max}\ \Delta f(Y\vert Z^{nN}) \leq \frac{1}{\beta_f} \Delta f(Y^G_n\vert Z^{nN}).
+\end{equation}
+Finally, we use \eqref{Eq:MarginalGainNotation} and \eqref{Eq:GreedySolutionBlock} to simplify $\Delta f(Y^G_n\vert Z^{nN})$ as $\Delta f(Y^G_n\vert Z^{nN}) = f(Y^G_n\cup Z^{nN})-f(Z^{nN}) = f(Z^{(n+1)N})-f(Z^{nN})$. Substituting this result in \eqref{Eq:S2:Lm:UpperBound2ForPn} completes the proof. 
+\end{proof}
+
+
+
+
+
+% main lemma 3 
+The following lemma establishes an important equality condition that will be used later on. 
+\begin{lemma}\label{Lm:MaxTransfer}
+For $n\in [0,m-1]$,
+\begin{equation} \label{Eq:Lm:MaxTransfer}
+\underset{Y\in\mathcal{I}^N_n}{\max}\ \Delta f(Y\vert Z^{(n+1)N}) = \underset{Y\in\mathcal{I}^N_{n+1}}{\max}\ \Delta f(Y\vert Z^{(n+1)N}).    
+\end{equation}
+\end{lemma}
+\begin{proof}
+Note that this result is non-trivial as the feasible spaces of the optimization problems on both sides of \eqref{Eq:Lm:MaxTransfer} are related such that $\mathcal{I}^N_n \supset \mathcal{I}^N_{n+1}$. Let us denote $Y=\{y_1,y_2,\ldots,y_N\}\in \mathcal{I}^N_{n}$ and rewrite $\Delta f(Y\vert Z^{(n+1)N})$ as a telescoping sum:
+\begin{align}
+    \Delta f(Y\vert Z^{(n+1)N})
+    =& f(\{y_1,\ldots,y_N\} \cup Z^{(n+1)N}) - f(Z^{(n+1)N}) \nonumber \\
+    =& f(\{y_1,\ldots,y_N\} \cup Z^{(n+1)N}) \nonumber \\
+    &- f(\{y_1,\ldots,y_{N-1}\} \cup Z^{(n+1)N}\})+\cdots       \nonumber \\
+    &\cdots + f(\{y_1\} \cup Z^{(n+1)N}) - f(Z^{(n+1)N}) \nonumber \\
+    =& \sum_{i=1}^N \Delta f(y_i\vert \{y_1,\ldots,y_{i-1}\} \cup Z^{(n+1)N}).\label{Eq:S1:Lm:MaxTransfer}
+\end{align}
+Note that $\Delta f(y_i\vert \{y_1,\ldots,y_{i-1}\} \cup Z^{(n+1)N}) = 0$ for any $y_i \in Z^{(n+1)N}$ and $\Delta f(y_i\vert \{y_1,\ldots,y_{i-1}\} \cup Z^{(n+1)N}) > 0$ for any $y_i\in X\backslash Z^{(n+1)N}$. Therefore, according \eqref{Eq:S1:Lm:MaxTransfer}, when maximizing the set function $\Delta f(Y\vert Z^{(n+1)N})$ with respect to $Y$, selecting $Y \subset X\backslash Z^{(n+1)N}$ (a.k.a. $Y\in \mathcal{I}^N_{n+1}$) is sufficient as opposed to selecting $Y\subseteq X\backslash Z^{nN}$ (a.k.a. $Y\in\mathcal{I}^N_n$). Hence \eqref{Eq:Lm:MaxTransfer} holds.
+\end{proof}
+
+Now, we establish a lemma that provides an upper bound for the performance of the global optimal solution of \eqref{Eq:SubmodularMaximizationProblem}.
+
+
+
+
+\begin{lemma}\label{Lm:UpperBoundForfYStar}
+For $n\in[0,m-1]$,
+\begin{equation}\label{Eq:Lm:UpperBoundForfYStar}
+f(Y^*) \leq f(Z^{nN}) + \Delta f(Y^*_n \vert Z^{nN}).    
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since $\Delta f(Y \vert Z^{nN})$ is a monotone set function in $Y$ over the ground set $X_n$ (from Lemma \ref{Lm:MarginalGain}, for any $n\in[0,m-1]$), 
+\begin{align}
+    \Delta f(Y^*_n &\vert Z^{nN}) 
+    \leq \Delta f(Y^*_n\cup Y^G_n \vert Z^{nN}), \nonumber \\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + \Delta f(Y^*_n\cup Y^G_n \vert Z^{nN}) - \Delta f(Y^G_n \vert Z^{nN}) \nonumber \\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + f(Y^*_n\cup Y^G_n\cup Z^{nN}) - f(Z^{nN}) \nonumber \\
+    &- f(Y^G_n \cup Z^{nN}) + f(Z^{nN}) 
+    \quad \quad \quad \quad \quad \quad \quad \, \mbox{(using \eqref{Eq:MarginalGainNotation})} \nonumber \\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + f(Y^*_n\cup Y^G_n\cup Z^{nN}) - f(Y^G_n \cup Z^{nN}) \nonumber \\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + \Delta f(Y^*_n \vert Y^G_n \cup Z^{nN}) 
+    \quad \quad \quad \quad \, \mbox{(using \eqref{Eq:MarginalGainNotation})}  \nonumber \\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + \Delta f(Y^*_n \vert Z^{(n+1)N}), \quad \quad \quad \quad \ \mbox{(using \eqref{Eq:GreedySolutionBlock})} \nonumber
+\end{align}
+i.e., 
+\begin{equation}\label{Eq:S0:Lm:UpperBoundForfYStar}
+\Delta f(Y^*_n \vert Z^{nN}) \leq \Delta f(Y^G_n \vert Z^{nN}) + \Delta f(Y^*_n \vert Z^{(n+1)N}).   
+\end{equation}
+Note that $\Delta f(Y^*_n \vert Z^{(n+1)N}) \leq \underset{Y \in \mathcal{I}^N_{n}}{\max}\ \Delta f(Y \vert Z^{(n+1)N})$ as $Y^*_n \in \mathcal{I}^N_n$. Using this result in \eqref{Eq:S0:Lm:UpperBoundForfYStar}, we can write
+\begin{align}
+    \Delta f(Y^*_n &\vert Z^{nN}) 
+    \leq \Delta f(Y^G_n \vert Z^{nN}) + \underset{Y \in \mathcal{I}^N_{n}}{\max}\ \Delta f(Y \vert Z^{(n+1)N}) \nonumber\\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + \underset{Y \in \mathcal{I}^N_{n+1}}{\max}\ \Delta f(Y \vert Z^{(n+1)N}) 
+    \quad \mbox{(From Lm. \ref{Lm:MaxTransfer})} \nonumber\\
+    =& \Delta f(Y^G_n \vert Z^{nN}) + \Delta f(Y^*_{n+1} \vert Z^{(n+1)N}). 
+    \quad \quad \quad \ \mbox{(using \eqref{Eq:AuxiliaryProblem})} \nonumber
+\end{align}
+
+
+Replacing $n$ with $k$, the above result can be written as 
+\begin{equation}\label{Eq:S1:Lm:UpperBoundForfYStar}
+    \Delta f(Y^*_k\vert Z^{kN}) \leq \Delta f(Y^G_k\vert Z^{kN}) + \Delta f(Y^*_{k+1}\vert Z^{(k+1)N}),
+\end{equation}
+for $k\in[0,m-1]$. Now summing \eqref{Eq:S1:Lm:UpperBoundForfYStar} for $k\in[0,n-1]$ we get
+\begin{equation}\label{Eq:S2:Lm:UpperBoundForfYStar}
+    \Delta f(Y^*_0\vert Z^0) \leq \sum_{k=0}^{n-1} \Delta f(Y^G_k\vert Z^{kN}) + \Delta f(Y^*_{n}\vert Z^{nN}).
+\end{equation}
+Note that $Y^*_0 = Y^*$ in \eqref{Eq:SubmodularMaximizationProblem} and $Z^0=\emptyset$ by definition. Thus, $\Delta f(Y^*_0\vert Z^0) = f(Y^*)$. Further, using \eqref{Eq:MarginalGainNotation} and \eqref{Eq:GreedySolutionBlock}, we can show that 
+\begin{align}
+    \sum_{k=0}^{n-1} \Delta f(Y^G_k\vert Z^{kN}) 
+    =& \sum_{k=0}^{n-1} \Delta f( Z^{(k+1)N} \backslash Z^{kN} \vert Z^{kN})\nonumber \\
+    =& \sum_{k=0}^{n-1} f(Z^{(k+1)N}) - f(Z^{kN}) \nonumber \\
+    =& f(Z^{nN}).\nonumber 
+\end{align}
+Therefore, using the above two results in  \eqref{Eq:S2:Lm:UpperBoundForfYStar}, we now can obtain \eqref{Eq:Lm:UpperBoundForfYStar}, which holds for any $n\in[0,m-1]$ (equality holds when $n=0$). 
+\end{proof}
+
+
+\subsection{Extended Greedy Curvature Based Performance Bound}
+
+% main theorem
+We now define the proposed extended greedy curvature measure $\alpha_u$ as 
+\begin{equation}\label{Eq:ExtGreedyCurvatureMeasure}
+    \alpha_u \triangleq \min_{i \in Q}\ \alpha^i_u,
+\end{equation}
+where $Q \subseteq \bar{Q} \triangleq \{1,N,N+1,2N,2N+1,\ldots,(m-1)N+1,mN,M\}$ and
+\begin{equation}\label{Eq:UpperBoundAlphaiForfYStar}
+    \alpha^i_u \triangleq 
+    \begin{cases}
+     f(Z^{i-1}) + \underset{Y\in\mathcal{I}^N_{(i-1)/N}}{\max} \left[ \sum_{y\in Y} \Delta f(y \vert Z^{i-1})\right]\\
+     \ \ \ \ \ \ \ \ \ \ \mbox{if }i=1,N+1,2N+1,\ldots, (m-1)N+1,\\
+     f(Z^{i-N}) + \frac{1}{\beta_f}\left[ f(Z^i) - f(Z^{i-N}) \right]\\
+     \hfill \mbox{if }i=N,2N,\ldots, mN,\\
+     f(Z^i) \hfill \mbox{if }i=M. 
+    \end{cases}
+\end{equation}
+We point out that $\bar{Q}$ is a fixed set of greedy iteration indexes upon each of which a corresponding $\alpha^i_u$ value can be computed using already known information. This is because all the $f(\cdot)$ and $\Delta f(\cdot \vert \cdot)$ terms required to evaluate any $\alpha^i_u$ form in \eqref{Eq:UpperBoundAlphaiForfYStar} are automatically computed during the execution of first $i$ greedy iterations. Hence, $\alpha^i_u$ sequence over $i\in \bar{Q}$ can be thought of as a sequence of byproducts generated during (in parallel with) the execution of greedy iterations. In contrast to $\bar{Q}$, $Q$ is an arbitrary subset selected from $\bar{Q}$ based on the user preference. For example, one can simply set $Q=\{1,N,N+1,2N\}$ so that $\alpha_u$ value can be obtained upon executing only $N$ extra greedy iterations (i.e., $2N$ greedy iterations in total).   
+
+The performance bound $\beta_u$ corresponding to the extended greedy curvature measure $\alpha_u$ is given in the following theorem.
+
+
+\begin{theorem}\label{Th:MainTheorem}
+For the submodular maximization problem in \eqref{Eq:SubmodularMaximizationProblem}, the greedy solution $Y^G$ given by Alg. \ref{Alg:GreedyAlgorithm} satisfies the performance bound $\beta_u$ where 
+\begin{equation}\label{Eq:Th:MainTheorem}
+\beta_u \triangleq \frac{f(Y^G)}{\alpha_u} \leq \frac{f(Y^G)}{f(Y^*)}. 
+\end{equation}
+
+
+\begin{proof}
+To prove this result, according to Lemma \ref{Lm:UpperBoundVsPerformanceBound}(a) and \eqref{Eq:ExtGreedyCurvatureMeasure}, we only need to show that $f(Y^*) \leq \alpha_u^i$ for all $i \in \bar{Q}$ (note also that $Q\subseteq \bar{Q}$). We do this in three steps.
+
+First, by adding the main results established in Lemma \ref{Lm:UpperBoundForfYStar} and Lemma \ref{Lm:UpperBound1ForPn} (i.e., \eqref{Eq:Lm:UpperBoundForfYStar} and \eqref{Eq:Lm:UpperBound1ForPn}, respectively) we get 
+\begin{equation}
+    f(Y^*) \leq f(Z^{nN}) +  \underset{Y\in\mathcal{I}^N_n}{max} \left[ \sum_{y\in Y} \Delta f(y\vert Z^{nN}) \right],
+\end{equation}
+for $n\in[0,m-1]$. Now, replacing the variable $n$ with $i$ using the substitution $i=nN+1$ we obtain $f(Y^*) \leq \alpha^i_u$ for $i\in\{1,N+1,2N+1,\ldots,(m-1)N+1\}$.
+
+Second, using the main results of Lemmas \ref{Lm:UpperBound2ForPn} and \ref{Lm:UpperBoundForfYStar}, we get
+\begin{equation}
+    f(Y^*) \leq f(Z^{nN}) + \frac{1}{\beta_f}\left[ f(Z^{(n+1)N})-f(Z^{nN})\right],
+\end{equation}
+for $n\in[0,m-1]$. Now, replacing the variable $n$ with $i$ using the substitution $i=nN+N$ we obtain $f(Y^*) \leq \alpha^i_u$ for $i\in\{N,2N,3N,\ldots,mN\}$.
+
+Finally, we use the monotonicity property of $f$ and the fact that $Y^* \subseteq Z^M=X$ to obtain $f(Y^*) \leq f(Z^i) = \alpha^i_u$ for $i=M$. 
+\end{proof}
+\end{theorem}
+
+
+
+
+
+
+
+
+% why this is practical
+As mentioned earlier, the set $Q$ used for computing $\alpha_u$ in \eqref{Eq:ExtGreedyCurvatureMeasure} can be smaller compared to the set $\bar{Q}$ (specially if the computational cost associated with running extra greedy iterations is a concern). However, based on \eqref{Eq:ExtGreedyCurvatureMeasure} and \eqref{Eq:Th:MainTheorem}, it is easy to show that the performance bound $\beta_u$ is a \emph{monotone set function} in $Q \subseteq \bar{Q}$. This implies that a superset of $Q$ will always provide a higher (or at least equal) $\beta_u$ value compared to the $\beta_u$ value corresponding to the set $Q$.
+
+
+
+% why this does not have inherent weakness of being favoured to one end
+Let us now consider a case where the submodularity property of $f$ is weak (i.e., $f$ is close to being a modular set function, see also Rm. \ref{Rm:SubmodularityStrength}). In a such setting, the $\alpha^1_u$ value (from \eqref{Eq:UpperBoundAlphaiForfYStar}, with $i=1$) can be simplified as
+\begin{align}
+    \alpha_u^1 
+    &= f(Z^0)+\underset{Y\in\mathcal{I}^N_0}{\max}\left[\sum_{y\in Y}\Delta f(y\vert Z^0)\right] 
+    = \underset{Y \in \mathcal{I}^N}{\max} \left[\sum_{y\in Y} f(\{y\}) \right]\nonumber \\\label{Eq:EpsilonParameter}
+    &= \underset{Y \in \mathcal{I}^N}{\max} f(Y) + \epsilon = f(Y^*) + \epsilon, 
+\end{align}
+where $\epsilon\geq0$ is a parameter that represents the strength of the submodularity property ($\epsilon = 0$ if $f$ is modular). The above expression implies that the evaluated $\alpha_u^1$ value will be a tight upper bound for $f(Y^*)$ as $f$ become more modular (i.e., as $\epsilon\rightarrow 0$). Therefore, in a such setting, the corresponding performance bound $\beta_u$ will also be tight (close to 1). In that sense, $\beta_u$ behaves similar to the performance bounds $\beta_t,\beta_g,\beta_p$ discussed in the previous section. 
+
+
+\begin{remark}
+The strength of the submodularity can formally be defined as an additive constant $\epsilon_a\in\R_{\geq 0}$ or a multiplicative constant $\epsilon_m \in \R_{\geq 0}$ applicable for the submodularity inequality provided in Def. \ref{Def:Submodularity}(c). Based on this definition, it can be shown that the parameter $\epsilon$ we introduced in  \eqref{Eq:EpsilonParameter} (to represent the strength of the submodularity) satisfies $\epsilon \geq \epsilon_a$ and $\frac{\epsilon}{f(Y^*)} \geq \epsilon_m$. 
+\end{remark}
+
+
+On the other hand, let us now consider a case where the submodularity property of $f$ is strong. In a such setting, according to the ``diminishing returns'' view of the submodularity property (see Def. \ref{Def:Submodularity}(c)), $f(Z^i)$ should saturate quickly with respect to $i$. Keeping this in mind, let us consider the $\alpha^{2N}_u$ value (from \eqref{Eq:UpperBoundAlphaiForfYStar}, with $i=2N$) that can be simplified as 
+\begin{align}
+    \alpha^{2N}_u &= f(Z^N) + \frac{1}{\beta_f}\left[f(Z^{2N})-f(Z^{N})\right]\nonumber\\ 
+    &= f(Y^G) + \frac{1}{\beta_f}\left[f(Z^{2N})-f(Z^{N})\right].\nonumber
+\end{align}
+Note that when the submodularity property of $f$ is strong, the above difference term $\left[f(Z^{2N})-f(Z^{N})\right]$ will become small. Therefore, $\alpha_u^{2N}\rightarrow f(Y^G)$ and the corresponding performance bound $\beta_u = \frac{f(Y^G)}{\alpha_u^{2N}}\rightarrow 1$ revealing a tight performance bound. In that sense, $\beta_u$ behaves similar to the performance bound $\beta_e$ discussed in the previous section. 
+
+
+Therefore, $\beta_u$ is designed to have the best of both worlds while also being computationally inexpensive and having no additional technical limitations on its applicability. In the next section, we confirm these conclusions using numerical results generated from several different experiments. 
+
+}
+
+
+
 
 \section{Discussion}\label{Sec:Discussion}
 
