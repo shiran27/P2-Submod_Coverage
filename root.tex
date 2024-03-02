@@ -282,7 +282,7 @@ This definition is motivated by the linear relationship \eqref{Eq:SetCoverageFun
 \label{Sec:Preliminaries}
 % Introduce the necessary notations, preliminary definitions, problem formulation, greedy solution, and performance bounds...
 
-In this section, we will show that the greedy solution $S^G$ obtained using Alg. \ref{Alg:GreedyAlgorithm} for the optimal coverage problem \eqref{Eq:SetCoverageMaximization} is not only computationally efficient but also entertains performance guarantees with respect to global optimal coverage solution $S^*$. For this, we first need to introduce some standard set function properties.
+In this section, we will show that the greedy solution $S^G$ obtained using Alg. \ref{Alg:GreedyAlgorithm} for the optimal coverage problem \eqref{Eq:SetCoverageProblem} is not only computationally efficient but also entertains performance guarantees with respect to the global optimal coverage performance $H(S^*)$. For this, we first need to introduce some standard set function properties.
 
 For generality, let us consider an arbitrary set function $F:2^Y \rightarrow \R$ defined over a finite ground set $Y$. Similar to before, the corresponding marginal function is defined as 
 \begin{equation}
@@ -300,7 +300,9 @@ to represent the gain of set function value due to the addition of an extra elem
 \end{enumerate}
 \end{definition}
 
-It is worth noting that the first condition outlined for the submodularity property in Def. \ref{Def:Submodularity}-(3) is more commonly known as the \emph{diminishing returns} property. We require the following property.
+It is worth noting that the first condition outlined for the submodularity property in Def. \ref{Def:Submodularity}-(3) is more commonly known as the \emph{diminishing returns} property. 
+
+The following lemma and the theorem establish the polymatroid nature of the set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction}.
 
 \begin{lemma}\label{Lm:LinearityOfSubmodularity}
 With respect to a common ground set, any positive linear combination of arbitrary polymatroid set functions is also a polymatroid set function.    
@@ -330,8 +332,16 @@ Finally, let us consider the set function $P_M(x,S)$ \eqref{Eq:SetMaxDetection}.
 =&\ \max_{s_i\in A\cup\{y\}} p(x,s_i) - \max_{s_i\in A} p(x,s_i)\nonumber\\
 =&\ \max\{p(x,y)-\max_{s_i\in A} p(x,s_i),0\}, \label{Eq:Th:SetCoverageSubmodularityStep2}
 \end{align}
-for any $A \subset X$ and $y\in X\backslash A$. From \eqref{Eq:Th:SetCoverageSubmodularityStep2}, it is clear that $\Delta P_M(x,y \vert A) \geq 0$ for all $A \subset X$ and $y\in X\backslash A$. Therefore, $P_M(x,S)$ is monotone. Note also that the first term inside the outer max operator in \eqref{Eq:Th:SetCoverageSubmodularityStep2} diminishes with the growth of the set $A$. This property implies that $\Delta P_M(x,y \vert A) \leq \Delta P_M(x,y \vert B)$, for all $y,A,B$ where $B \subseteq A \subset X$ and $y \in Y\backslash A$. Hence $P_M(x,S)$ is submodular. Consequently, $P_M(x,S)$ is a polymatroid set function. As mentioned earlier, this completes the proof.
+for any $A \subset X$ and $y\in X\backslash A$. From \eqref{Eq:Th:SetCoverageSubmodularityStep2}, it is clear that $\Delta P_M(x,y \vert A) \geq 0$ for all $A \subset X$ and $y\in X\backslash A$. Therefore, $P_M(x,S)$ is monotone. Note also that the first term inside the outer max operator in \eqref{Eq:Th:SetCoverageSubmodularityStep2} diminishes with the growth of the set $A$. This property implies that $\Delta P_M(x,y \vert A) \leq \Delta P_M(x,y \vert B)$, for all $y,A,B$ where $B \subseteq A \subset X$ and $y \in Y\backslash A$. Hence $P_M(x,S)$ is submodular. Consequently, $P_M(x,S)$ is a polymatroid set function. This completes the proof.
 \end{proof}
+
+
+As a direct result of this polymatroid nature of the set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction}, we can characterize the proximity of the performance of the greedy solution (i.e., $H(S^G)$) to that of the globally optimal solution (i.e., $H(S^*)$). For this characterization, we particularly use the notion of a \emph{performance bound}, (denoted by $\beta$) defined as a theoretically established lower bound for the ratio $\frac{H(S^G)}{H(S^*)}$, i.e., 
+\begin{equation}\label{Eq:Def:PerformanceBound}
+    \beta \leq \frac{H(S^G)}{f(S^*)}.
+\end{equation}
+Having a performance bound $\beta$ close to $1$ implies that the performance of the greedy solution is close to that of the global optimal solution. Consequently, $\beta$ can also serve as an indicator of the effectiveness of the greedy approach to solve coverage problem \eqref{Eq:SetCoverageProblem}.   
+
 
 %%%% Revised up to this
 \bigskip
@@ -339,6 +349,40 @@ for any $A \subset X$ and $y\in X\backslash A$. From \eqref{Eq:Th:SetCoverageSub
 \bigskip
 
 {\color{blue} The fundamental performance bound. ...}
+
+
+
+
+% the fundamental result
+For the considered class of submodular maximization problems in \eqref{Eq:SubmodularMaximizationProblem}, the seminal paper \cite{Nemhauser1978} has established the performance bound (denoted by $\beta_f$ and referred to as the \emph{fundamental performance bound}):
+\begin{equation}\label{Eq:FundamentalPerformanceBound}
+    \beta_f \triangleq 1-\left(1-\frac{1}{N}\right)^N \leq \frac{f(Y^G)}{f(Y^*)}.
+\end{equation}
+Note that $\beta_f > 1-\frac{1}{e} \simeq 0.6321$ for any $N<\infty$ and $\lim_{N\rightarrow\infty} \beta_f = (1-\frac{1}{e})$. This means that for any submodular maximization problem of the form \eqref{Eq:SubmodularMaximizationProblem}, the corresponding greedy solution will always perform not worse than 63.21\% of the maximum achievable performance level.
+
+
+% further improvements of Y^G and its bound
+\begin{remark}\label{Rm:Improvements}
+Upon obtaining a greedy solution, there are numerous established ways to improve it further. For example, \cite{Sun2019,Sun2020} proposed (continuous) gradient ascent processes while \cite{Nemhauser1978,Welikala2019P3} proposed (discrete) interchange schemes. Even though this paper does not consider such an improvement scheme, the following proposition can be made regarding how an established performance bound for a greedy solution should be modified upon an improvement to that greedy solution. 
+\end{remark}
+
+
+\begin{proposition}\label{Prop:Improvement}
+Consider a greedy solution $Y^G$ that has a performance bound $\beta$. Upon executing an improvement scheme on $Y^G$, 
+if $\bar{Y}^G\in \mathcal{I}^N$ is found with $f(\bar{Y}^G) > f(Y^G)$, its performance bound is $\bar{\beta} \triangleq \beta * \frac{f(\bar{Y}^G)}{f(Y^G)} \leq \frac{f(\bar{Y}^G)}{f(Y^*)}$ and $\bar{\beta}>\beta$. 
+\end{proposition}
+
+\begin{proof}
+The proof follows from multiplying both sides of \eqref{Eq:Def:PerformanceBound} by $\frac{f(\bar{Y}^G)}{f(Y^G)}$ and noticing the fact that $f(\bar{Y}^G)>f(Y^G)$.  
+\end{proof}
+
+% Finally note that we use the notation $Z^i$ 
+Finally, note that in the sequel we use the notation $Z^i = \{z^1,z^2,\ldots,z^i\}$ (with $Z^0=\emptyset$ and $Z^N=Y^G$) to represent the greedy solution constructed after running $i$ greedy iterations in Alg. \ref{Alg:GreedyAlgorithm}. Note also that even though Alg. \ref{Alg:GreedyAlgorithm} is limited to running only $N$ greedy iterations, we use this $(Z^i,z^i)$ notation more liberally for any $i\in\{0,1,2,\ldots,M\}$. 
+
+
+
+
+
 
 {\color{red}
 
@@ -1307,7 +1351,7 @@ Discuss potential applications from other domains like learning, data mining
 % \subsection{Set function approach for multi-agent coverage problems}
 
 % To model the multi-agent coverage problem in \eqref{Eq:CoverageProblem} as a set function maximization problem of the form \eqref{Eq:SubmodularMaximizationProblem}, we use the following set of steps. First, the ground set $X=\{x_1,x_2,\ldots,x_M\}$ is created by discretizing the continuous feasible space $F \subset \R^2$. Next, a set variable is defined as $S = \{s_1,s_2,\ldots,s_N\}$ to represent the selected agent locations from the ground set $X$. Since we are interested in deploying only $N$ agents, a uniform matroid constraint of rank $N$ can be introduced as $S\in\mathcal{I}^N$ where $\mathcal{I}^N = \{Y:Y \subseteq X, \vert Y \vert \leq N\}$. Now the corresponding set function maximization problem for \eqref{Eq:CoverageProblem} can be written as 
-% \begin{equation}\label{Eq:SetCoverageMaximization}
+% \begin{equation}\label{Eq:SetCoverageProblem}
 %     S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S),
 % \end{equation}
 % where $H(S)$ (called the \emph{set coverage function}) is the set function version of the coverage objective function $H(\textbf{s})$, i.e., 
@@ -1316,7 +1360,7 @@ Discuss potential applications from other domains like learning, data mining
 % \end{equation}
 % The work in \cite{Sun2019} has established that $H(S)$ in \eqref{Eq:SetCoverageFunction} is a polymatroid set function. Hence, it is clear that the multi-agent coverage problem in \eqref{Eq:CoverageProblem} is a submodular maximization problem of the form \eqref{Eq:SubmodularMaximizationProblem}. 
 
-% As a consequence, we now can solve the multi-agent coverage problem conveniently using the greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}) and also get a performance bound that characterizes how close the obtained greedy coverage level is to the global optimal coverage level. As mentioned in Remark \ref{Rm:Improvements}, similar to the works in \cite{Sun2019,Sun2020}, a subsequent gradient ascent stage or an interchange stage can be added to further improve any greedy solution obtained for \eqref{Eq:SetCoverageMaximization}. However, as shown in Prop. \ref{Prop:Improvement}, such an improvement will only scale any performance bound (already found for the greedy solution) by a fixed constant factor. Therefore, in this paper, we omit executing such improvement stages and directly study the performance bounds found for the greedy solution. 
+% As a consequence, we now can solve the multi-agent coverage problem conveniently using the greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}) and also get a performance bound that characterizes how close the obtained greedy coverage level is to the global optimal coverage level. As mentioned in Remark \ref{Rm:Improvements}, similar to the works in \cite{Sun2019,Sun2020}, a subsequent gradient ascent stage or an interchange stage can be added to further improve any greedy solution obtained for \eqref{Eq:SetCoverageProblem}. However, as shown in Prop. \ref{Prop:Improvement}, such an improvement will only scale any performance bound (already found for the greedy solution) by a fixed constant factor. Therefore, in this paper, we omit executing such improvement stages and directly study the performance bounds found for the greedy solution. 
 
 
 

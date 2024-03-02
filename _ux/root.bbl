@@ -1,0 +1,74 @@
+\begin{thebibliography}{10}
+
+\bibitem{Conforti1984}
+Michele Conforti and G{\'{e}}rard Cornu{\'{e}}jols.
+\newblock {Submodular Set Functions, Matroids and The Greedy Algorithm: Tight
+  Worst-Case Bounds and Some Generalizations of The Rado-Edmonds Theorem}.
+\newblock {\em Discrete Applied Mathematics}, 7(3):251--274, 1984.
+
+\bibitem{Liu2018}
+Yajing Liu, Edwin K~P Chong, and Ali Pezeshki.
+\newblock {Improved Bounds for The Greedy Strategy in Optimization Problems
+  with Curvature}.
+\newblock {\em Journal of Combinatorial Optimization}, 37(4):1126--1149, 2018.
+
+\bibitem{Nemhauser1978}
+G.~L. Nemhauser, L~A. Wolsey, and M.L. Fisher.
+\newblock {An Analysis of Approximations for Maximizing Submodular Set
+  Functions—I}.
+\newblock {\em Mathematical Programming}, 14(1):265--294, 1978.
+
+\bibitem{Sun2020}
+Chuangchuang Sun, Shirantha Welikala, and Christos~G. Cassandras.
+\newblock {Optimal Composition of Heterogeneous Multi-Agent Teams for Coverage
+  Problems with Performance Bound Guarantees}.
+\newblock {\em Automatica}, 117:108961, 2020.
+\newblock \href {https://doi.org/10.1016/j.automatica.2020.108961}
+  {\path{doi:10.1016/j.automatica.2020.108961}}.
+
+\bibitem{Sun2019}
+Xinmiao Sun, Christos~G Cassandras, and Xiangyu Meng.
+\newblock {Exploiting Submodularity to Quantify Near-Optimality in Multi-Agent
+  Coverage Problems}.
+\newblock {\em Automatica}, 100:349--359, feb 2019.
+
+\bibitem{Wang2016}
+Zengfu Wang, Bill Moran, Xuezhi Wang, and Quan Pan.
+\newblock {Approximation for Maximizing Monotone Non-Decreasing Set Functions
+  with A Greedy Method}.
+\newblock {\em Journal of Combinatorial Optimization}, 31(1):29--43, 2016.
+
+\bibitem{Welikala2021Thesis}
+Shirantha Welikala.
+\newblock {\em {Overcoming Local Optima in Control and Optimization of
+  Cooperative Multi-Agent Systems}}.
+\newblock PhD thesis, Boston University, 2021.
+
+\bibitem{Welikala2019P3}
+Shirantha Welikala and Christos~G. Cassandras.
+\newblock {Asymptotic Analysis for Greedy Initialization of Threshold-Based
+  Distributed Optimization of Persistent Monitoring on Graphs}.
+\newblock In {\em Proc. of 21st IFAC World Congress}, volume~53, pages
+  3433--3438, 2020.
+\newblock URL:
+  \url{https://www.sciencedirect.com/science/article/pii/S2405896320322734},
+  \href {https://doi.org/10.1016/j.ifacol.2020.12.1670}
+  {\path{doi:10.1016/j.ifacol.2020.12.1670}}.
+
+\bibitem{Welikala2019J1}
+Shirantha Welikala and Christos~G. Cassandras.
+\newblock {Distributed Non-Convex Optimization of Multi-Agent Systems Using
+  Boosting Functions to Escape Local Optima}.
+\newblock {\em IEEE Trans. on Automatic Control}, 2020.
+\newblock \href {https://doi.org/10.1109/TAC.2020.3034869}
+  {\path{doi:10.1109/TAC.2020.3034869}}.
+
+\bibitem{WelikalaJ02021}
+Shirantha Welikala, Christos~G. Cassandras, Hai Lin, and Panos~J. Antsaklis.
+\newblock {A New Performance Bound for Submodular Maximization Problems and Its
+  Application to Multi-Agent Optimal Coverage Problems}.
+\newblock {\em Automatica}, 144:110493, 2022.
+\newblock \href {https://doi.org/10.1016/j.automatica.2022.110493}
+  {\path{doi:10.1016/j.automatica.2022.110493}}.
+
+\end{thebibliography}
