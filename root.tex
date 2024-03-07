@@ -1,3 +1,4 @@
+
 % \documentclass[twocolumn]{autart}
 \documentclass[letterpaper, 10 pt, conference]{ieeeconf}
 
@@ -180,9 +181,10 @@ $$
 V(s_i) \triangleq \{x: (qx+(1-q)s_i)\in \Phi, \forall q \in [0,1] \}.
 $$ 
 In terms of agent \emph{sensing capabilities}, agents are assumed to be homogeneous, where each agent has a finite \emph{sensing radius} $\delta \in \R_{\geq 0}$ and \emph{sensing decay rate} $\lambda\in\R_{\geq 0}$. In particular, the probability of an agent placed at $s_i\in \Phi$ detecting an event occurring at $x\in \Phi$ is described by a \emph{sensing function} defined as 
-$$
+\begin{equation}
+\label{Eq:SensingFunction}
 p(x,s_i)\triangleq e^{-\lambda \Vert x - s_i\Vert}\cdot\mathbf{1}_{\{x\in V(s_i)\}}.
-$$
+\end{equation}
 Figure \ref{Fig:CoverageSetup} illustrates an example visibility region and the corresponding sensing function in a 2-D mission space.
 
 % Agnet team detection functions
@@ -259,11 +261,16 @@ One obvious approach to obtaining such a candidate solution efficiently is via a
 \end{equation}
 to iteratively determine the optimal agent placements until $N$ such agent placements have been chosen. Note that, in \eqref{Eq:MarginalCoverage}, we require $S^{i-1}\in\mathcal{I}_N$ and $S^{i-1}\cup\{y\} \in\mathcal{I}_N$, and clearly, $y \in X \backslash S^{i-1}$ (to ensure $\Delta H(y \vert S^{i-1})>0$). While the latter condition means that no two agents are allowed at the same place in the mission space, if necessary, by appropriately defining the ground set $X$, we can relax such placement constraints. 
 
-Before concluding this section, we also define the notion of \emph{marginal detection function} as
+Let us define the notion of \emph{marginal detection function} as
 \begin{equation}\label{Eq:MarginalDetection}
     \Delta P(x, y \vert S^{i-1}) = P(x, S^{i-1}\cup\{y\}) - P(x, S^{i-1}).
 \end{equation}
 This definition is motivated by the linear relationship \eqref{Eq:SetCoverageFunction} between the set coverage function $H(S)$ and the set detection function $P(x,S)$ with respect to the set argument $S$, because a similar linear relationship exists between the corresponding marginal functions $\Delta H(y \vert S)$ \eqref{Eq:MarginalCoverage} and $\Delta P(x,y\vert S)$ \eqref{Eq:MarginalDetection}. In the sequel, we exploit these linear relationships to conclude certain set function properties of $H(S)$ using those of $P(x,S)$ and $\Delta P(x,y\vert S)$.
+
+% Finally note that we use the notation $Z^i$ 
+Finally, we point out that, the notation $S^i \triangleq \{s^1,s^2,\ldots,s^i\}$ (with $S^0=\emptyset$ and $S^N=S^G$) used to represent the greedy solution obtained after $i$ greedy iterations in Alg. \ref{Alg:GreedyAlgorithm} will be used more liberally for any $i\in\{0,1,2,\ldots,M\}$ in the sequel. 
+
+
 
 \begin{algorithm}[!h]
 \caption{The greedy algorithm to solve \eqref{Eq:SetCoverageProblem}}\label{Alg:GreedyAlgorithm}
@@ -278,8 +285,11 @@ This definition is motivated by the linear relationship \eqref{Eq:SetCoverageFun
 \end{algorithm}
 
 
+
+
 \section{The Greedy Solution with Performance Bound Guarantees}
 \label{Sec:Preliminaries}
+
 % Introduce the necessary notations, preliminary definitions, problem formulation, greedy solution, and performance bounds...
 
 In this section, we will show that the greedy solution $S^G$ obtained using Alg. \ref{Alg:GreedyAlgorithm} for the optimal coverage problem \eqref{Eq:SetCoverageProblem} is not only computationally efficient but also entertains performance guarantees with respect to the global optimal coverage performance $H(S^*)$. For this, we first need to introduce some standard set function properties.
@@ -328,7 +338,7 @@ From \eqref{Eq:Th:SetCoverageSubmodularityStep1}, it is clear that $\Delta P_J(x
 
 Finally, let us consider the set function $P_M(x,S)$ \eqref{Eq:SetMaxDetection}. Again, by definition, $P_M(x,\emptyset) = 0$ implying that $P_M(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
 \begin{align}
-\Delta P_M(x,y \vert A) =&\ P_M(x,A\cup\{y\}) - P_J(x,A) \nonumber\\    
+\Delta P_M(x,y \vert A) =&\ P_M(x,A\cup\{y\}) - P_M(x,A) \nonumber\\    
 =&\ \max_{s_i\in A\cup\{y\}} p(x,s_i) - \max_{s_i\in A} p(x,s_i)\nonumber\\
 =&\ \max\{p(x,y)-\max_{s_i\in A} p(x,s_i),0\}, \label{Eq:Th:SetCoverageSubmodularityStep2}
 \end{align}
@@ -338,9 +348,261 @@ for any $A \subset X$ and $y\in X\backslash A$. From \eqref{Eq:Th:SetCoverageSub
 
 As a direct result of this polymatroid nature of the set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction}, we can characterize the proximity of the performance of the greedy solution (i.e., $H(S^G)$) to that of the globally optimal solution (i.e., $H(S^*)$). For this characterization, we particularly use the notion of a \emph{performance bound}, (denoted by $\beta$) defined as a theoretically established lower bound for the ratio $\frac{H(S^G)}{H(S^*)}$, i.e., 
 \begin{equation}\label{Eq:Def:PerformanceBound}
-    \beta \leq \frac{H(S^G)}{f(S^*)}.
+    \beta \leq \frac{H(S^G)}{H(S^*)}.
 \end{equation}
-Having a performance bound $\beta$ close to $1$ implies that the performance of the greedy solution is close to that of the global optimal solution. Consequently, $\beta$ can also serve as an indicator of the effectiveness of the greedy approach to solve coverage problem \eqref{Eq:SetCoverageProblem}.   
+Having a performance bound $\beta$ close to $1$ implies that the performance of the greedy solution is close to that of the global optimal solution. Consequently, $\beta$ can also serve as an indicator of the effectiveness of the greedy approach to solve the interested optimal coverage problem \eqref{Eq:SetCoverageProblem}.   
+
+The seminal work \cite{Nemhauser1978} has established a performance bound (henceforth called the \emph{fundamental performance bound}, and denoted by $\beta_f$) for polymatroid set function maximization problems, which, in light of Th. \ref{Th:SetCoverageSubmodularity}, is applicable to the optimal coverage problem \eqref{Eq:SetCoverageProblem} as: 
+\begin{equation}\label{Eq:FundamentalPerformanceBound}
+    \beta_f \triangleq 1-\left(1-\frac{1}{N}\right)^N \leq \frac{H(S^G)}{H(S^*)}.
+\end{equation}
+Note that, while $\beta_f$ decreases with the number of agents $N$, it is lower-bounded by $1-\frac{1}{e} \simeq 0.6321$, because $\lim_{N\rightarrow\infty} \beta_f = (1-\frac{1}{e})$. This implies that the coverage performance of the greedy solution will always be not worse than 63.21\% of the maximum achievable coverage performance.
+
+Moreover, as shown in \cite{WelikalaJ02021}, upon obtaining the greedy solution $S^G$ from Alg. \ref{Alg:GreedyAlgorithm}, any subsequently improved solution $\bar{S}^G\in\mathcal{I}_N$ (e.g., via a gradient process \cite{Sun2019,Sun2020} or an interchange scheme \cite{Welikala2019P3}), will have an improved performance bound $\bar{\beta}$ than the original performance bound $\beta$ such that  
+$$\beta \leq \bar{\beta} \triangleq \beta * \frac{H(\bar{S}^G)}{H(S^G)} \leq \frac{H(\bar{S}^G)}{H(S^*)}.$$ 
+
+Besides (and independently from) improving the original greedy solution, as we will see in the next section, an improved performance bound can also be achieved by exploiting certain characteristics (called \emph{curvature measures}) of the interested set function maximization problem. 
+
+
+\section{Improved Performance Bound Guarantees using Curvature Measures}
+\label{Sec:CurvatureMeasures}
+
+In this section, we will discuss several improved performance-bound guarantees that are applicable to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem} and its greedy solution $S^G$ given by Alg. \ref{Alg:GreedyAlgorithm}. The goal is to obtain tighter performance bounds for $S^G$, i.e., closer to 1 compared to $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}. This is important as such a performance bound will accurately characterize the proximity of $S^G$ to $S^*$, and thus allow making informed decisions regarding spending extra resources (e.g., computational power, agents and sensing capabilities) to seek a further improved coverage solution beyond $S^G$. 
+
+
+As mentioned earlier, curvature measures are used to obtain such improved performance bounds. These curvature measures are dependent purely on the underlying objective function, the ground set, and the feasible space, which, in the considered optimal coverage problem, are $H(S)$, $X$, and $\mathcal{I}_N$, respectively. In this section, we will report five established curvature measures and their respective performance bounds, outlining their unique characteristics, strengths, and weaknesses in their application to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem}. 
+
+
+\subsection{Total Curvature \cite{Conforti1984}}
+\label{SubSec:TotalCurvature}
+
+By definition, the \emph{total curvature} of \eqref{Eq:SetCoverageProblem} is given by  
+\begin{equation}\label{Eq:TotalCurvatureCoefficientTheory}
+    \alpha_t \triangleq \max_{\substack{y \in X} }\left[1 - \frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)}\right].
+\end{equation}
+The corresponding performance bound $\beta_t$ is given by
+\begin{equation}\label{Eq:TotalCurvatureBoundTheory}
+    \beta_t \triangleq \frac{1}{\alpha_t} \left[ 1 - \left( 1 -\frac{\alpha_t}{N} \right)^N \right] \leq \frac{H(S^G)}{H(S^*)}.
+\end{equation}
+
+From comparing \eqref{Eq:TotalCurvatureBoundTheory} and \eqref{Eq:FundamentalPerformanceBound}, it is clear that when $\alpha_t\rightarrow 1$, the corresponding performance bound $\beta_t\rightarrow\beta_f$ (i.e., no improvement). However, on the other hand, when $\alpha_t\rightarrow 0$, the corresponding performance bound $\beta_t\rightarrow 1$ (i.e., a significant improvement). Moreover, it can be shown that $\beta_t$ is monotonically decreasing in $\alpha_t$. Using the above three facts and \eqref{Eq:TotalCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of:
+\begin{equation}\label{Eq:TotolCurvatureGamma}
+    \gamma_t \triangleq \min_{y \in X}\left[\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)}\right].
+\end{equation}
+The diminishing returns (submodularity) property of $H$ implies $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \leq 1, \forall y\in X$. Therefore, $\gamma_t$ is large only when $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \simeq 1, \forall y\in X$. In other words, a significantly improved performance bound from the total curvature measure can only be obtained when $H$ is just ``weakly'' submodular (i.e., when $H$ is closer to being modular rather than submodular). This is also clear from simplifying the condition $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \simeq 1, \forall y \in X$ using \eqref{Eq:MarginalCoverage}, as it leads to
+\begin{equation}
+\label{Eq:ConditionForWeakSubmodularity}
+     H(X) \simeq H(y) + H(X\backslash \{y\}), \quad \mbox{for all } y\in X
+\end{equation}
+which holds whenever $H$ is modular. 
+
+In particular, as $H$ is the set coverage function \eqref{Eq:SetCoverageFunction}, the above condition \eqref{Eq:ConditionForWeakSubmodularity} holds (leading to improved performance bounds) when an agent deployed at any $y\in X$ and all other agents deployed at $X \backslash \{y\}$ contribute to the coverage objective independently in a modular fashion. This happens when the ground set $X$ is very sparse and/or when the agents have significantly weak non-overlapping sensing capabilities (i.e., small range $\delta$ and high decay $\lambda$ in \eqref{Eq:SensingFunction}). 
+
+However, the condition \eqref{Eq:ConditionForWeakSubmodularity} is easily violated (leading to poor performance bounds) if 
+$$
+H(X) \ll H(y) + H(X\backslash \{y\}), \quad \mbox{ for some } y\in X. 
+$$
+To interpret this condition using \eqref{Eq:SetCoverageFunction}, we need to consider the corresponding detection function \eqref{Eq:SetDetectionFunction} requirement: 
+$$
+P(x,X) \ll P(x,\{y\}) + P(x,X\backslash \{y\}), \quad \mbox{for some } y\in X
+$$
+for a majority of $x\in\Phi$. Now, using \eqref{Eq:Th:SetCoverageSubmodularityStep1} and \eqref{Eq:Th:SetCoverageSubmodularityStep2}, we get 
+\begin{align*}
+0\ll&\ \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))\\
+&+(1-\theta) (p(x,y)-\max\{p(x,y)-\max_{s_i\in X\backslash \{y\}}p(x,s_i),0\}),
+\end{align*}
+where the second term can be further simplified to obtain:
+\begin{align*}
+0\ll&\ \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))\\
+&+(1-\theta) (\min\{\max_{s_i\in X\backslash \{y\}}p(x,s_i),p(x,y)\}).  
+\end{align*}
+Since $\theta \in [0,1]$, we need to consider both terms above separately. However, both terms lead to the same condition:
+$$0 \ll p(x,y) \mbox{ and } 0 \ll p(x,s_i), \mbox{ for some } s_i \in X\backslash \{y\}.$$
+In all, the total curvature measure leads to poor performance bounds when there exists some $y\in X$ and $s_i\in X\backslash \{y\}$ so that 
+$$0\ll p(x,y) \simeq p(x,s_i) \simeq 1,$$
+for many feasible space locations $x\in \Phi$. Evidently, this requirement holds when the ground set $X$ is dense and when the agents have significantly strong overlapping sensing capabilities (i.e., large range $\delta$ and small decay $\lambda$ in \eqref{Eq:SensingFunction}).
+
+One final remark about the total curvature measure is that it requires an evaluation of $H(X)$ and $M(\triangleq \vert X\vert$) evaluations of $H(X\backslash \{y\})$ terms (i.e., for all $y\in X$). In certain coverage applications, this might be ill-defined \cite{Sun2020} and computationally expensive as often $H(S)$ is of the complexity $O(\vert S \vert)$.
+
+
+\subsection{Greedy Curvature \cite{Conforti1984}}
+\label{SubSec:GreedyCurvature}
+
+The \emph{greedy curvature} of \eqref{Eq:SetCoverageProblem} is given by   
+\begin{equation}\label{Eq:GreedyCurvatureCoefficientTheory}
+    \alpha_g \triangleq \max_{0 \leq i \leq N-1} \left[ \max_{y \in X^i}\left(1 - \frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)}\right) \right],
+\end{equation}
+where $X^i \triangleq \{y: y \in X \backslash S^i, (S^i \cup \{y\}) \in \mathcal{I}^N\}$ (i.e., the set of feasible options at the $(i+1)$\tsup{th} greedy iteration). The corresponding performance bound $\beta_g$ is given by  
+\begin{equation}\label{Eq:GreedyCurvatureBoundTheory}
+    \beta_g \triangleq 1-\alpha_g\left(1-\frac{1}{N}\right) \leq \frac{H(S^G)}{H(S^*)}. 
+\end{equation}
+
+Note that $\beta_g$ is a monotonically decreasing function in $\alpha_g$, and due to the submodularity of $H$, $0 \leq \alpha_g \leq 1$. Consequently, as $\alpha_g \rightarrow 0$, $\beta_g \rightarrow 1$, and on the other hand, as $\alpha_g \rightarrow 1$, $\beta_g \rightarrow \frac{1}{N}$ (which may be worse than $\beta_f$, when $\frac{1}{N} < \beta_f$). Using these facts and \eqref{Eq:GreedyCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of 
+\begin{equation}\label{Eq:GreedyCurvatureGamma}
+    \gamma_g \triangleq \min_{0 \leq i \leq N-1} \left[ \min_{y \in X^i}\left(\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)}\right) \right].
+\end{equation}
+Similar to before, the diminishing returns property of $H$ implies that $\gamma_g$ is large only when 
+$\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)} \simeq 1, \forall y\in X^i, i\in \{0,1,2,...,N-1\}$. In other words, similar to the total curvature, the greedy curvature provides a significantly improved performance bound when $H$ is weakly submodular. 
+
+
+In fact, as reported in \cite{Sun2020}, when $H$ is significantly weakly submodular, it can provide better performance bounds even compared to those provided by the total curvature, i.e., $\beta_f \ll \beta_t \leq \beta_g \simeq 1$. This observation can be theoretically justified using \eqref{Eq:TotolCurvatureGamma} and \eqref{Eq:GreedyCurvatureGamma} as follows. Due to submodularity, $\Delta H(y \vert X \backslash \{y\}) \leq \Delta H(y\vert S^i)$ for any $y$ and $S^i$, and thus, $\gamma_t \leq \gamma_g$. This, with weak submodularity of $H$ leads to $\alpha_t \geq \alpha_g \simeq 0$. Now, noticing that the growth of $\beta_g$ is faster as $\alpha_g \rightarrow 0$ compared to that of $\beta_t$ as $\alpha_t \rightarrow 0$, we get $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
+
+
+
+We can follow the same steps and arguments as before to show that such improved performance bounds can only be achieved when the ground set is sparse and/or when the agents have weak sensing capabilities. On the other hand, when the ground set is dense and when the agents have strong sensing capabilities, greedy curvature provides poor performance bounds (often, it may even be worse than $\beta_f$). 
+
+However, compared to the total curvature, greedy curvature has some more redeeming qualities: it is always fully defined, and it can be computed efficiently using only the evaluations of $H$ executed in the greedy algorithm.
+
+
+
+
+
+\subsection{Elemental Curvature \cite{Wang2016}}\label{SubSec:ElementalCurvature}
+
+The \emph{elemental curvature} of \eqref{Eq:SetCoverageFunction} is given by 
+\begin{equation}\label{Eq:ElementalCurvatureCoefficientTheory}
+    \alpha_e \triangleq \max_{\substack{(S,y_i,y_j): S \subset X,\\ y_i,y_j \in X \backslash S,\ y_i \neq y_j.}}\left[\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)}\right].
+\end{equation}
+The corresponding performance bound $\beta_e$ is given by 
+\begin{equation}\label{Eq:ElementalCurvatureBoundTheory}
+    \beta_e \triangleq 1-\left(\frac{\alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}{1 + \alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}\right)^N \leq \frac{H(S^G)}{H(S^*)}.
+\end{equation}
+
+It can be shown that $\beta_e$ is a monotonically decreasing function in $\alpha_e$, and due to the submodularity of $H$, $0 \leq \alpha_e \leq 1$. Consequently, when $\alpha_e \rightarrow 0$, $\beta_e \rightarrow 1$ and when $\alpha_e \rightarrow 1$, $\beta_e \rightarrow \beta_f$ (the latter is unlike $\beta_g$, but similar to $\beta_t$).
+
+Since $H$ is submodular, according to  \cite[Prop. 2.1]{Nemhauser1978}, for all feasible $(S,y_i,y_j)$ considered in \eqref{Eq:ElementalCurvatureCoefficientTheory}, $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \leq 1$. Therefore, based on \eqref{Eq:ElementalCurvatureCoefficientTheory}, whenever there exists some feasible $(S,y_i,y_j)$ such that  $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \simeq 1$, i.e. when $H$ is weakly submodular (or, equivalently, closer to being modular) in that region, the elemental curvature measure will provide poor performance bounds (closer to $\beta_f$). This modularity argument is also evident from considering a simplified case of condition $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \simeq 1$ assuming $S=\emptyset$, as it leads to
+$$
+H(\{y_i,y_j\}) \simeq H(\{y_j\}) + H(\{y_i\}), \quad \mbox{for some } y_i,y_j\in X
+$$
+which holds whenever $H$ is modular.
+
+As we observed before, the coverage function $H$ shows such modular behaviors (leading to poor performance bounds $\beta_e\simeq \beta_f$) when the ground set $X$ is very sparse and/or when agents have significantly weak non-overlapping sensing capabilities. It is worth highlighting that this particular behavior of elemental curvature contrasts from that of previously discussed total curvature and greedy curvature - where weakly submodular scenarios (with agents having weak sensing capabilities) lead to significantly improved performance bounds $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
+
+
+%%%% Revised up to this.
+On the other hand, the elemental curvature provides an improved performance bound when $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \ll 1$ over all feasible $(S,y_i,y_j)$ considered in \eqref{Eq:ElementalCurvatureCoefficientTheory}. To further interpret this condition, we need to consider the corresponding marginal detection function \eqref{Eq:MarginalDetection} requirement:
+\begin{equation}\label{Eq:ConditionForStrongSubmodularity}
+\Delta P(x,y_i \vert S \cup \{y_j\}) \ll \Delta P(x, y_i \vert S), \quad \forall (S,y_i,y_j)    
+\end{equation}
+for a majority of $x\in\Phi$. Since each $\Delta P = \theta \Delta P_J + (1-\theta)\Delta P_M$ where $\theta \in [0,1]$, let us first consider the requirement \eqref{Eq:ConditionForStrongSubmodularity} with respect to the $\Delta P_J$ (i.e., when $\theta = 1$ in \eqref{Eq:SetDetectionFunction}) using \eqref{Eq:Th:SetCoverageSubmodularityStep1}:
+\begin{align}
+    &\Delta P_J(x,y_i \vert S \cup \{y_j\}) \ll \Delta P_J(x, y_i \vert S) \nonumber\\
+    &\iff p(x,y_i)\prod_{s_i\in S\cup\{y_j\}}(1-p(x,s_i))\ll 
+    p(x,y_i)\prod_{s_i\in S}(1-p(x,s_i))\nonumber\\
+    &\iff 0 \ll p(x,y_i)p(x,y_j)\prod_{s_i\in S}(1-p(x,s_i)). \nonumber
+\end{align}
+Clearly, this condition holds if for all feasible $(S,y_i,y_j)$, 
+\begin{equation}\label{Eq:ConditionForStrongSubmodularity1}
+    0 \ll p(x,y_i) \simeq p(x,y_j) \simeq 1 \mbox{ with } 0 \simeq p(x,s_i) \ll 1
+\end{equation}
+for some $s_i\in S$ over many feasible space locations $x\in\Phi$.
+
+Now, let us consider the requirement \eqref{Eq:ConditionForStrongSubmodularity} with respect to the $\Delta P_M$ (i.e., when $\theta = 0$ in \eqref{Eq:SetDetectionFunction}) using \eqref{Eq:SetMaxDetection}:
+\begin{align}
+    &\Delta P_M(x,y_i \vert S \cup \{y_j\}) \ll \Delta P_M(x, y_i \vert S) \nonumber\\
+    & \iff 
+    \max_{s_i\in S\cup\{y_j,y_i\}} p(x,s_i) - \max_{s_i\in S\cup\{y_j\}} p(x,s_i) \nonumber \\
+    &\quad \quad \quad \ll
+    \max_{s_i\in S\cup\{y_i\}} p(x,s_i) - \max_{s_i\in S} p(x,s_i)\nonumber\\
+    &\iff \max_{s_i\in S\cup\{y_j,y_i\}} p(x,s_i) + \max_{s_i\in S} p(x,s_i) 
+    \nonumber\\ \label{Eq:ConditionForStrongSubmodularity2}
+    &\quad \quad \quad \ll \max_{s_i\in S\cup\{y_i\}} p(x,s_i) + \max_{s_i\in S\cup\{y_j\}} p(x,s_i).
+\end{align}
+For notational convenience, let $P_S \triangleq \max_{s_i\in S} p(x,s_i)$, $P_{y_i}\triangleq p(x,y_i)$ and $P_{y_j}\triangleq p(x,y_j)$. Then, \eqref{Eq:ConditionForStrongSubmodularity2} can be restated as
+\begin{align*}
+    &\max\{P_S,P_{y_i},P_{y_j}\} + P_S \ll \max\{P_S,P_{y_i}\} + \max\{P_S,P_{y_j}\} \\
+    &\iff 
+    \max\{2P_S,P_S+P_{y_i},P_S+P_{y_j}\} \\ 
+    &\quad \quad \quad \ll \max\{P_S+\max\{P_S,P_{y_j}\},P_{y_i}+\max\{P_S,P_{y_j}\}\}\\
+    &\iff 
+    \max\{2P_S,P_S+P_{y_i},P_S+P_{y_j}\} \\ 
+    &\quad \quad \quad  \ll \max\{\max\{2P_S,P_S+P_{y_j}\},\max\{P_S+P_{y_i},P_{y_i}+P_{y_j}\}\}\\
+    &\iff 
+    \max\{2P_S,P_S+P_{y_i},P_S+P_{y_j}\} \\ 
+    &\quad \quad \quad  \ll \max\{\max\{2P_S,P_S+P_{y_j},P_S+P_{y_i}\},P_{y_i}+P_{y_j}\}\\
+    &\iff 
+    0 \ll \max\{0,P_{y_i}+P_{y_j} - \max\{2P_S,P_S+P_{y_j},P_S+P_{y_i}\}\}\\
+    &\iff \max\{2P_S,P_S+P_{y_j},P_S+P_{y_i}\} \ll  P_{y_i}+P_{y_j}\\
+    &\iff P_S + \max\{P_S,P_{y_j},P_{y_i}\} \ll  P_{y_i}+P_{y_j}    
+\end{align*}
+Since $P_{y_i}$ and $P_{y_j}$ are interchangeable in the above expression, let us denote $P_y \triangleq P_{y_i} \simeq P_{y_j}$. This makes the above condition:
+\begin{align}
+&P_S + \max\{P_S,P_{y}\} \ll  2P_{y} \nonumber \\
+&\iff     
+\max\{2P_S-2P_y,P_S-P_y\} \ll 0  \iff P_S \ll P_Y  \nonumber \\
+&\iff \max_{s_i \in S} p(x,s_i) \ll p(x,y_i) \simeq p(x,y_j), \nonumber
+\end{align}
+which leads to the same condition obtained in \eqref{Eq:ConditionForStrongSubmodularity1}.
+
+In all, the elemental curvature measure leads to significantly improved performance bounds when for all $(S,y_i,y_j)$ such that $S \subset X, y_i, y_j \in X\backslash S$ and $y_i \neq y_j$,  
+$$
+0 \simeq p(x,s_i) \ll p(x,y_i) \simeq p(x,y_j) \simeq 1
+$$
+for some $s_i \in S$ over many feasible space locations $x\in\Phi$. Clearly, this requirement holds when the ground set $X$ is dense and when the agents have significantly strong overlapping sensing capabilities (i.e., large range $\delta$ and small decay $\lambda$ in \eqref{Eq:SensingFunction}). 
+
+
+Finally, note that the evaluation of the elemental curvature $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory} is computationally expensive (even compared to the total curvature) as it involves solving a set function maximization problem (notice the set variable $S$ in \eqref{Eq:ElementalCurvatureCoefficientTheory}). However, as shown in \cite{Sun2019}, there may be special structural properties that can be exploited to obtain at least an upper bound on $\alpha_e$, leading to a lower bound on $\beta_e$ - which would still be a valid performance bound for the optimal coverage problem \eqref{Eq:SetCoverageProblem}. 
+
+For example, it can be shown that, $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory} is bounded such that
+$$
+\alpha_e \leq \max_{(S,y_i,y_j)} \int_\Phi  \frac{\Delta P_J(x,y_i\vert S\cup\{y_j\})}{\Delta P_J(x,y_i\vert S)} + \frac{\Delta P_M(x,y_i\vert S\cup\{y_j\})}{\Delta P_M(x,y_i\vert S)}dx,
+$$
+independently of the weight factor $\theta$ and the event density $R(x)$. Here, the first term inside the integral directly simplifies to $(1-p(x,y_j))$. However, the second term, even though it simplifies to (using the notations introduced earlier)
+$$
+1-\frac{P_{y_i} + P_{y_j} - P_S - \max\{P_S,P_{y_i},P_{y_j}\}}{\max\{0,P_{y_i}-P_S\}},
+$$
+it cannot be further simplified or upper bounded - except for the obvious upper bound $1$ due to the submodularity of $P_M$. Therefore, a practical elemental curvature metric for the optimal coverage problem would be $\bar{\alpha}_e$ where:
+$$
+\alpha_e \leq \bar{\alpha}_e \triangleq \max_{y_j\in X} \int_\Phi (2-p(x,y_j))dx.
+$$
+
+
+\subsection{Partial Curvature \cite{Liu2018}}
+\label{SubSec:PartialCurvature}
+
+The \emph{partial curvature} of \eqref{Eq:SetCoverageProblem} is given by
+\begin{equation}\label{Eq:PartialCurvatureCoefficientTheory}
+    \alpha_p = 
+    \max_{\substack{(S,y): y \in S \in \mathcal{I}^N}}\left[1-\frac{\Delta H(y \vert S \backslash \{y\}) }{\Delta H(y \vert \emptyset)}\right].
+\end{equation}
+The corresponding performance bound $\beta_p$ is given by 
+\begin{equation}\label{Eq:PartialCurvatureBoundTheory}
+    \beta_p \triangleq \frac{1}{\alpha_p}\left[1-\left(1-\frac{\alpha_p}{N}\right)^N\right] \leq \frac{H(S^G)}{H(S^*)}.
+\end{equation}
+
+This partial curvature measure $\alpha_p$ \eqref{Eq:PartialCurvatureCoefficientTheory} provides an alternative to the total curvature measure $\alpha_t$ \eqref{Eq:TotalCurvatureCoefficientTheory}. In particular, it addresses the potentially ill-defined nature of the $H(X)$ term involved in $\alpha_t$ \eqref{Eq:TotalCurvatureCoefficientTheory}. Consequently, $\alpha_p$ can be evaluated when the domain of $H$ constrained, i.e., when $H:\mathcal{I}\rightarrow \R_{\geq0}$ with some $\mathcal{I} \subset 2^X$.
+
+
+
+The above $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} is only valid under a few additional conditions on $f$, $X$ and $\mathcal{I}^N$ (which are omitted here, but can be found in \cite{Liu2018}). Note that we can directly compare $\alpha_t$ and $\alpha_p$ to conclude regarding the nature of the corresponding performance bounds $\beta_t$ and $\beta_p$, as $\beta_t$ \eqref{Eq:TotalCurvatureBoundTheory} and $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} has identical forms. The work in \cite{Liu2018} has established that $\alpha_p \leq \alpha_t$, which implies that $\beta_p \geq \beta_t$, i.e., $\beta_p$ is always tighter than $\beta_t$. 
+
+Note also that, similar to $\beta_t$, $\beta_p$ will provide significantly improved performance bounds (i.e., $\beta_p \simeq 1$) when $H$ is weakly submodular. As observed before, such a scenario occurs when the ground set is sparse and/or agent sensing capabilities are weak. On the other hand, again, similar to $\beta_t$, $\beta_p$ will provide poor performance bounds (i.e., $\beta_p \simeq \beta_f$) when $H$ is strongly submodular. This happens when the ground set is dense, and agent sensing capabilities are strong.  
+
+
+Unfortunately, similar to the elemental curvature $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory}, evaluating partial curvature $\alpha_p$ \eqref{Eq:PartialCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:PartialCurvatureCoefficientTheory}). Therefore, evaluating $\alpha_p$ is much more computationally expensive compared to evaluating $\alpha_t$ or $\alpha_g$. However, like in the case of  $\alpha_e$, we can exploit some special structural properties of the optimal coverage problem to overcome this challenge. In particular, notice that 
+\begin{align*}
+\alpha_p =&\ 1-\min_{(S,y): y \in S \in \mathcal{I}^N} \frac{\Delta H(y \vert S \backslash \{y\}) }{\Delta H(y \vert \emptyset)}\\
+=&\ 1 + \max_{y \in X} \left(\frac{1}{H(\{y\})}\max_{B \in \mathcal{I}_{N-1}, y\not\in B} [-\Delta H(y\vert B)]\right).     
+\end{align*}
+Now, using the submodularity of $-\Delta H(y\vert B)$ (established in the following lemma), we can provide an upper bound for the inner submodular maximization problem \cite[Lm. 1]{WelikalaJ02021}. This can be used to compute an upper bound to $\alpha_p$, which then will provide a lower bound to $\beta_p$. 
+
+
+\begin{lemma}
+Given $y\in X$, the negated marginal coverage function -$\Delta H (y \vert B)$ is submodular with respect to $B\subset X\backslash \{y\}$. 
+\end{lemma}
+\begin{proof}
+{\color{blue} To be included}
+% First, note that $-\Delta H (y \vert B)$ is not normalized. But, it is monotone. 
+% We need to show that, if $A \subset B$ and $s_i \in (X\backslash\{y\})\backslash B$, then
+% $$-\Delta H (y \vert A\cup\{s_i\})+\Delta H (y \vert A) \geq
+% -\Delta H (y \vert B\cup\{s_i\})+\Delta H (y \vert B)
+% $$
+% which is equivalent to 
+\end{proof}
+
+
+
+\subsection{Extended Greedy Curvature \cite{WelikalaJ02021}}\label{SubSec:ExtendedGreedyCurvature}
 
 
 %%%% Revised up to this
@@ -348,152 +610,8 @@ Having a performance bound $\beta$ close to $1$ implies that the performance of 
 {\color{blue} \textbf{**** Revised up to this point...} }
 \bigskip
 
-{\color{blue} The fundamental performance bound. ...}
-
-
-
-
-% the fundamental result
-For the considered class of submodular maximization problems in \eqref{Eq:SubmodularMaximizationProblem}, the seminal paper \cite{Nemhauser1978} has established the performance bound (denoted by $\beta_f$ and referred to as the \emph{fundamental performance bound}):
-\begin{equation}\label{Eq:FundamentalPerformanceBound}
-    \beta_f \triangleq 1-\left(1-\frac{1}{N}\right)^N \leq \frac{f(Y^G)}{f(Y^*)}.
-\end{equation}
-Note that $\beta_f > 1-\frac{1}{e} \simeq 0.6321$ for any $N<\infty$ and $\lim_{N\rightarrow\infty} \beta_f = (1-\frac{1}{e})$. This means that for any submodular maximization problem of the form \eqref{Eq:SubmodularMaximizationProblem}, the corresponding greedy solution will always perform not worse than 63.21\% of the maximum achievable performance level.
-
-
-% further improvements of Y^G and its bound
-\begin{remark}\label{Rm:Improvements}
-Upon obtaining a greedy solution, there are numerous established ways to improve it further. For example, \cite{Sun2019,Sun2020} proposed (continuous) gradient ascent processes while \cite{Nemhauser1978,Welikala2019P3} proposed (discrete) interchange schemes. Even though this paper does not consider such an improvement scheme, the following proposition can be made regarding how an established performance bound for a greedy solution should be modified upon an improvement to that greedy solution. 
-\end{remark}
-
-
-\begin{proposition}\label{Prop:Improvement}
-Consider a greedy solution $Y^G$ that has a performance bound $\beta$. Upon executing an improvement scheme on $Y^G$, 
-if $\bar{Y}^G\in \mathcal{I}^N$ is found with $f(\bar{Y}^G) > f(Y^G)$, its performance bound is $\bar{\beta} \triangleq \beta * \frac{f(\bar{Y}^G)}{f(Y^G)} \leq \frac{f(\bar{Y}^G)}{f(Y^*)}$ and $\bar{\beta}>\beta$. 
-\end{proposition}
-
-\begin{proof}
-The proof follows from multiplying both sides of \eqref{Eq:Def:PerformanceBound} by $\frac{f(\bar{Y}^G)}{f(Y^G)}$ and noticing the fact that $f(\bar{Y}^G)>f(Y^G)$.  
-\end{proof}
-
-% Finally note that we use the notation $Z^i$ 
-Finally, note that in the sequel we use the notation $Z^i = \{z^1,z^2,\ldots,z^i\}$ (with $Z^0=\emptyset$ and $Z^N=Y^G$) to represent the greedy solution constructed after running $i$ greedy iterations in Alg. \ref{Alg:GreedyAlgorithm}. Note also that even though Alg. \ref{Alg:GreedyAlgorithm} is limited to running only $N$ greedy iterations, we use this $(Z^i,z^i)$ notation more liberally for any $i\in\{0,1,2,\ldots,M\}$. 
-
-
-
-
-
 
 {\color{red}
-
-\section{Improved Performance Bound Guarantees using Curvature Measures}
-\label{Sec:CurvatureMeasures}
-
-{\color{blue} The details of the four curvature-based performance bounds. }
-
-In this section, we briefly review several tighter performance bounds (i.e., closer to 1 compared to $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound}) established in the literature for the greedy solution given by Alg. \ref{Alg:GreedyAlgorithm} for the class of problems in \eqref{Eq:SubmodularMaximizationProblem}. To the best of the authors' knowledge, the list of performance bounds reviewed here is exhaustive. Note also that even though we consider the same greedy solution $Y^G$, having a tighter performance bound is still important as it allows us to: (\romannum{1}) have a more accurate sense of proximity of $Y^G$ to the global optimal $Y^*$ and (\romannum{2}) make more informed decisions regarding spending extra resources to seek an improved solution (as mentioned in Remark \ref{Rm:Improvements}). 
-
-
-% a longer version:
-As we will see next, these tighter performance bounds have been established by exploiting structural properties of the objective function $f$, the ground set $X$ and the feasible space $\mathcal{I}^N$ involved in the considered problem \eqref{Eq:SubmodularMaximizationProblem}. In particular, different \emph{curvature} measures that characterize these structural properties have been used to obtain the said tighter performance bounds. In this section, four such established curvature measures along with their respective performance bounds are briefly reviewed, outlining their properties, strengths and weaknesses. 
-
-
-\subsection{Total Curvature \cite{Conforti1984}}
-\label{SubSec:TotalCurvature}
-
-For the problem \eqref{Eq:SubmodularMaximizationProblem}, the \emph{total curvature} measure $\alpha_t$ is defined as 
-\begin{equation}\label{Eq:TotalCurvatureCoefficientTheory}
-    \alpha_t \triangleq \max_{\substack{x \in X} }\left[1 - \frac{\Delta f(x \vert X \backslash \{x\})}{\Delta f(x \vert \emptyset)}\right].
-\end{equation}
-The corresponding performance bound $\beta_t$ is given by
-\begin{equation}\label{Eq:TotalCurvatureBoundTheory}
-    \beta_t \triangleq \frac{1}{\alpha_t} \left[ 1 - \left( 1 -\frac{\alpha_t}{N} \right)^N \right] \leq \frac{f(Y^G)}{f(Y^*)}.
-\end{equation}
-Note that $0 \leq \alpha_t \leq 1$ and $\beta_t$ is a decreasing function with respect to $\alpha_t$. Therefore, if $\alpha_t\rightarrow 0$, the corresponding performance bound $\beta_t\rightarrow 1$. In contrast, if $\alpha_t\rightarrow 1$, the corresponding performance bound $\beta_t\rightarrow\beta_f$ (recall that $\beta_f$ is given in \eqref{Eq:FundamentalPerformanceBound}).
-
-
-Note that the $\alpha_t$ expression in \eqref{Eq:TotalCurvatureCoefficientTheory} can be written as
-$$ 
-    \alpha_t = 1 - \min_{x \in X}\left[\frac{\Delta f(x \vert X \backslash \{x\})}{\Delta f(x \vert \emptyset)}\right].
-$$
-Since $f$ is submodular over $X$, $\Delta f(x \vert X \backslash \{x\}) \leq f(x \vert \emptyset), \forall x \in X$. Therefore, $\alpha_t$ will provide an improved performance bound (i.e., $\beta_t \rightarrow 1$) if $f$ and $X$ in \eqref{Eq:SubmodularMaximizationProblem} are such that $\Delta f(x \vert \emptyset) \simeq \Delta f(x \vert X \backslash \{x\}), \forall x \in X$, i.e., in other words, if the submodularity property is \emph{weak} (see also the Rm. \ref{Rm:SubmodularityStrength} given below). Moreover, as $\Delta f(x \vert X \backslash \{x\}) = f(X) - f(X \backslash \{x\})$, evaluating $\alpha_t$ requires evaluating $f(X)$ - which in some applications might be ill-defined (e.g., see \cite{Sun2020}) and also computationally expensive (as often $f(Y)$ is of complexity $O(\vert Y \vert)$). 
-
-\begin{remark}\label{Rm:SubmodularityStrength}
-In the remainder of this paper, we use notions of ``weak'' and ``strong'' to qualify the submodularity; they can be inferred based on the respective qualitative properties: the weakness or strength of satisfaction of an inequality based on the submodularity property. For example, as discussed above, we refer to the submodularity property of $f$ over $X$ as weak or strong based on whether $\Delta f(x \vert X \backslash \{x\}) \simeq f(x \vert \emptyset), \forall x \in X$ or 
-$\Delta f(x \vert X \backslash \{x\}) \ll f(x \vert \emptyset), \forall x \in X$, respectively. 
-\end{remark}
-
-
-\subsection{Greedy Curvature \cite{Conforti1984}}
-\label{SubSec:GreedyCurvature}
-
-
-
-The \emph{greedy curvature} measure $\alpha_g$ is computed based on successive greedy solutions that the greedy algorithm generates (i.e., based on $Z^0,\ldots,Z^N$). Specifically, $\alpha_g$ is defined as   
-\begin{equation}\label{Eq:GreedyCurvatureCoefficientTheory}
-    \alpha_g \triangleq \max_{0 \leq i \leq N-1} \left[ \max_{x \in X^i}\left(1 - \frac{\Delta f(x\vert Z^i)}{\Delta f(x\vert \emptyset)}\right) \right],
-\end{equation}
-where $X^i \triangleq \{x: x \in X \backslash Z^i, (Z^i \cup \{x\}) \in \mathcal{I}^N\}$ (the set of feasible options in the $(i+1)$\tsup{th} greedy iteration). The corresponding performance bound $\beta_g$ is given by  
-\begin{equation}\label{Eq:GreedyCurvatureBoundTheory}
-    \beta_g \triangleq 1-\alpha_g\left(1-\frac{1}{N}\right) \leq \frac{f(Y^G)}{f(Y^*)}. 
-\end{equation}
-Note that $0 \leq \alpha_g \leq 1$ and $\beta_g$ is a decreasing function in $\alpha_g$. Therefore, when $\alpha_g \rightarrow 0$, $\beta_g \rightarrow 1$. However, when $\alpha_g \rightarrow 1$, unlike in the case of $\beta_t$,  $\beta_g \rightarrow \frac{1}{N} < \beta_f$. 
-
-
-The expression of $\alpha_g$ in \eqref{Eq:GreedyCurvatureCoefficientTheory} can be written as
-\begin{equation*}
-    \alpha_g = 1 - \min_{0 \leq i \leq N-1} \left[ \min_{x \in X^i}\left(\frac{\Delta f(x\vert Z^i)}{\Delta f(x\vert \emptyset)}\right) \right].
-\end{equation*}
-Since $f$ is submodular, $\Delta f(x\vert Z^i) \leq \Delta f(x\vert \emptyset)$. Therefore, to get an improved performance bound (i.e., $\beta_g\rightarrow 1$), $f, X$ and $Z^i, i \in \{0,1,\ldots,N\}$ of the problem \eqref{Eq:SubmodularMaximizationProblem} should be such that $\Delta f(x\vert Z^i) \simeq \Delta f(x\vert \emptyset), \forall x \in X\backslash Z^i, i \in \{0,1,\ldots,N-1\}$, i.e., in other words, the submodularity property should be \emph{weak}. Moreover, note that $\beta_g$ in \eqref{Eq:GreedyCurvatureBoundTheory} can be computed in parallel with the execution of the greedy algorithm without requiring any additional numerical evaluations of $f$. Hence, unlike $\beta_t$ in \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ is computationally inexpensive as well as always fully-defined. 
-
-
-% \cite{sun2020} has shown that when the  submodularity properties are very weak, \beta_t<\beta_g
-
-\subsection{Elemental Curvature \cite{Wang2016}}\label{SubSec:ElementalCurvature}
-
-For the problem \eqref{Eq:SubmodularMaximizationProblem}, the \emph{elemental curvature} measure $\alpha_e$ is defined as 
-\begin{equation}\label{Eq:ElementalCurvatureCoefficientTheory}
-    \alpha_e \triangleq \max_{\substack{(Y,x_i,x_j): Y \subset X,\\ x_i,x_j \in X \backslash Y,\ x_i \neq x_j.}}\left[\frac{\Delta f(x_i \vert Y \cup \{x_j\})}{\Delta f(x_i \vert Y)}\right].
-\end{equation}
-The corresponding performance bound $\beta_e$ is given by 
-\begin{equation}\label{Eq:ElementalCurvatureBoundTheory}
-    \beta_e \triangleq 1-\left(\frac{\alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}{1 + \alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}\right)^N \leq \frac{f(Y^G)}{f(Y^*)}.
-\end{equation}
-Note that $0 \leq \alpha_e \leq 1$ and $\beta_e$ is a decreasing function with respect to $\alpha_e$. Therefore, when $\alpha_e \rightarrow 0$, $\beta_e \rightarrow 1$ and when $\alpha_e \rightarrow 1$, similar to the case of $\beta_t$, $\beta_e \rightarrow \beta_f$.
-
-
-
-It can be shown that $f$ is submodular over $X$ if and only if $\Delta f(x_i \vert Y \cup  \{x_j\}) \leq \Delta f(x_i \vert Y)$ for all feasible $(Y,x_i,x_j)$ choices considered in \eqref{Eq:ElementalCurvatureCoefficientTheory} (see \cite[Prop. 2.1]{Nemhauser1978}). 
-Therefore, if $\Delta f(x_i \vert Y \cup  \{x_j\}) = \Delta f(x_i \vert Y)$ occurs for some feasible combination of $(Y,x_i,x_j)$, it means $f$ is \emph{modular} in that region. According to \eqref{Eq:ElementalCurvatureCoefficientTheory}, such an existence of a modular region of $f$ over $X$ causes $\alpha_e = 1$ resulting $\beta_e = \beta_f$. A trivial situation where this ($\beta_e = \beta_f$) occurs is when $f$ and $X$ in problem \eqref{Eq:SubmodularMaximizationProblem} are such that $\exists x_i,x_j \in X$ with $x_i \neq x_j$ where $f(\{x_i\}) + f(\{x_j\}) = f(\{x_i,x_j\})$. Therefore, it is clear that the elemental curvature based performance bound $\beta_e$ fails (i.e., $\beta_e = \beta_f$ occurs) unless $f$ is \emph{strictly submodular} everywhere over its domain, i.e., $\Delta f(x_i \vert Y \cup  \{x_j\}) \ll \Delta f(x_i \vert Y)$ for all feasible $(Y,x_i,x_j)$ choices. We highlight that this particular behavior of $\beta_e$ contrasts from that of $\beta_t$ and $\beta_g$ discussed before (where \emph{weakly submodular} scenarios were preferred). 
-
-Moreover, note that evaluating $\beta_e$ is significantly computationally expensive (even compared to $\beta_t$) as $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:ElementalCurvatureCoefficientTheory}). Hence, such a problem can even be more complicated than the original set function maximization problem \eqref{Eq:SubmodularMaximizationProblem} that we consider unless there are some special structural properties that can be exploited (e.g., see \cite{Sun2019}).
-
-
-
-\subsection{Partial Curvature \cite{Liu2018}}
-\label{SubSec:PartialCurvature}
-
-
-
-The motivation behind the \emph{partial curvature} measure $\alpha_p$ is to be an alternative to the total curvature measure $\alpha_t$ in \eqref{Eq:TotalCurvatureCoefficientTheory}. Unlike $\alpha_t$, $\alpha_p$ can be evaluated when $f$ has a constrained domain, i.e., when $f:\mathcal{I}\rightarrow \R_{\geq0}$ with $\mathcal{I} \subset 2^X$ (where $\alpha_t$ is ill-defined due to its $f(X)$ term). Specifically, $\alpha_p$ is defined as
-\begin{equation}\label{Eq:PartialCurvatureCoefficientTheory}
-    \alpha_p = 
-    \max_{\substack{(Y,x): x \in Y \in \mathcal{I}^N}}\left[1-\frac{\Delta f(x \vert Y \backslash \{x\}) }{\Delta f(x \vert \emptyset)}\right].
-\end{equation}
-The corresponding performance bound $\beta_p$ is given by 
-\begin{equation}\label{Eq:PartialCurvatureBoundTheory}
-    \beta_p \triangleq \frac{1}{\alpha_p}\left[1-\left(1-\frac{\alpha_p}{N}\right)^N\right] \leq \frac{f(Y^G)}{f(Y^*)}.
-\end{equation}
-We highlight that the above $\beta_p$ expression is only valid under a few additional conditions on $f$, $X$ and $\mathcal{I}^N$ (which are omitted here, but can be  found in \cite{Liu2018}). Note that $\beta_p$ in \eqref{Eq:PartialCurvatureBoundTheory} and $\beta_t$ in \eqref{Eq:TotalCurvatureBoundTheory} has identical forms - enabling a direct comparison between $\alpha_t$ and $\alpha_p$. The work in \cite{Liu2018} has shown that $\alpha_p \leq \alpha_t$, which implies that $\beta_p \geq \beta_t$, i.e., $\beta_p$ is always tighter than $\beta_t$. Note also that, similar to $\beta_t$, $\beta_p$ will provide a much improved performance bound (i.e., $\beta_p \rightarrow 1$) if the underlying submodularity property (of $f$ over $X$) is \emph{weak}.  
-
-Moreover, similar to $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory}, evaluating $\alpha_p$ in \eqref{Eq:PartialCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:PartialCurvatureCoefficientTheory}). Therefore, evaluating $\beta_p$ is significantly computationally expensive compared to evaluating $\beta_t$. In fact, evaluating $\beta_p$ can even be more complicated than the original set function maximization problem \eqref{Eq:SubmodularMaximizationProblem} that we consider unless there are some special structural properties that can be exploited (e.g., see \cite[Ch. 3.2.4]{Welikala2021Thesis}).
-
-
-
-
-
-
-
 
 From the review presented in the previous section, three main limitations of existing improved performance bounds (i.e., of $\beta_t$\cite{Conforti1984}, $\beta_g$\cite{Conforti1984}, $\beta_e$\cite{Wang2016} and $\beta_p$\cite{Liu2018}) can be identified: 
 \begin{enumerate}
