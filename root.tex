@@ -158,8 +158,8 @@ The paper is organized as follows. We introduce the considered class of multi-ag
 Interesting observations, advantages, limitations, and potential future research directions are summarized in Section \ref{Sec:Discussion}. 
 Several numerical results obtained from different multi-agent optimal coverage problems \cite{Welikala2019J1} are reported in Section \ref{Sec:CaseStudies} before concluding the paper in Section \ref{Sec:Conclusion}. 
 
-\subsection{Notation}
-The sets of real and natural numbers are denoted by $\R$ and $\N$, respectively. $\R_{\geq 0}$ represents the set of non-negative real numbers, $\R^n$ denotes the set of $n$-dimensional real (column) vectors, $\mathbb{N}_n \triangleq \{1,2,\ldots,n\}$ and $[a,b]\triangleq \{x: x\in\R, a\leq x \leq b\}$. $\Vert \cdot \Vert$ represents the Euclidean norm, $\vert \cdot \vert$ denotes the scalar absolute value or set cardinality (based on the type of the argument), and $\mathbf{1}_{\{\cdot\}}$ denotes the indicator function. Given two sets $A$ and $B$, the set subtraction operator is denoted as $A-B = A \backslash B = A\cap B^c$. $2^X$ denotes the power set of a set $X$ and $\emptyset$ is the empty set. 
+\paragraph*{Notation}\ 
+The sets of real and natural numbers are denoted by $\R$ and $\N$, respectively. $\R_{\geq 0}$ represents the set of non-negative real numbers, $\R^n$ denotes the set of $n$-dimensional real (column) vectors, $\mathbb{N}_n \triangleq \{1,2,\ldots,n\}$, $\N_n^0 \triangleq \N_n \cup \{0\}$, and $[a,b]\triangleq \{x: x\in\R, a\leq x \leq b\}$. $\Vert \cdot \Vert$ represents the Euclidean norm, $\vert \cdot \vert$ denotes the scalar absolute value or set cardinality (based on the type of the argument), $\left \lfloor{\cdot}\right \rfloor$ denotes the floor operator, and $\mathbf{1}_{\{\cdot\}}$ denotes the indicator function. Given two sets $A$ and $B$, the set subtraction operator is denoted as $A-B = A \backslash B = A\cap B^c$. $2^X$ denotes the power set of a set $X$ and $\emptyset$ is the empty set. 
 
 
 \section{Multi-Agent Optimal Coverage Problem}
@@ -167,13 +167,13 @@ The sets of real and natural numbers are denoted by $\R$ and $\N$, respectively.
 We begin by providing the details of the considered multi-agent optimal coverage problem. The goal of the considered coverage problem is to determine an optimal placement for a given team of agents (e.g., sensors, cameras, guards, etc.) in a given mission space that maximizes the probability of detecting events that occur randomly over the mission space. 
 
 % Mission space
-We model the \emph{mission space} $\Omega$ as a convex polytope in $\R^n$ that may also contain $h$ polytopic (and possibly non-convex) \emph{obstacles} $\{\Psi_i:\Psi_i\subset\Omega, i\in\mathbb{N}_h\}$. The characteristics of the obstacles are such that they: (1) limit the agent placement to the feasible space $\Phi \triangleq \Omega \backslash \cup_{i\in\N_h} \Psi_i$, (2) obstruct the sensing capabilities of the agents via obstructing their line of sight, and (3) are in areas where no events of interest occur. 
+We model the \emph{mission space} $\Omega$ as a convex polytope in $\R^n$ that may also contain $h$ polytopic (and possibly non-convex) \emph{obstacles} $\{\Psi_i:\Psi_i\subset\Omega, i\in\mathbb{N}_h\}$. The characteristics of the obstacles are such that they: (1) limit the agent placement to the feasible space $\Phi \triangleq \Omega \backslash \cup_{i\in\N_h} \Psi_i$, (2) constrain the sensing capabilities of the agents via obstructing their line of sight, and (3) are in areas where no events of interest occur. 
 
 % Events
-To model the likelihood of random \emph{events} occurring over the mission space, an \emph{event density function} $R:\Omega \rightarrow \R_{\geq0}$ is used, where $R(x) = 0, \forall x \not\in \Phi$ and $\int_\Phi R(x)dx <\infty$. Note that when no prior information is available on $R(x)$, one can use $R(x)=1, \forall x\in \Phi$. 
+To model the likelihood of random \emph{events} occurring over the mission space, an \emph{event density function} $R:\Omega \rightarrow \R_{\geq0}$ is used, where $R(x) = 0, \forall x \not\in \Phi$ and $\int_\Omega R(x)dx <\infty$. Note that when no prior information is available on $R(x)$, one can use $R(x)=1, \forall x\in \Phi$. 
 
 % Agent placement
-To detect these random events, $N$ \emph{agents} are to be placed inside the feasible space $\Phi$. The placement of this team of $N$ agents (i.e., the control variable) is denoted in a compact form by $s = [s_1, s_2, \ldots, s_N]\in\R^{m\times N}$, where each $s_i, i\in\N_N$ represents an agent placement such that $s_i\in \Phi$. 
+To detect these random events, $N$ \emph{agents} are to be placed inside the feasible space $\Phi$. The placement of this team of $N$ agents (i.e., the decision variable) is denoted in a compact form by $s = [s_1, s_2, \ldots, s_N]\in\R^{m\times N}$, where each $s_i, i\in\N_N$ represents an agent placement such that $s_i\in \Phi$. 
 
 % Agent sensing functions
 The ability of an agent to \emph{detect} events is limited by visibility obstruction from obstacles and the agent's sensing capabilities. For an agent placed at $s_i \in \Phi$, its \emph{visibility region} is defined as 
@@ -222,17 +222,17 @@ Consequently, the considered multi-agent optimal coverage problem can be stated 
 \end{equation}
 
 \paragraph*{Continuous Optimization Approach}\ 
-The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex feasible space and a non-convex, non-linear, and non-smooth objective function. While the prior is due to the presence of obstacles in the mission space, the latter is due to the nature of the event density, sensing, joint detection, and coverage function forms. Consequently, it is extremely difficult to solve this problem without using: (1) standard global optimization solvers that are computationally expensive, (2) systematic gradient-based solvers that require extensive domain knowledge, or (3) Voronoi partition techniques that require significant limiting assumptions.   
+The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex feasible space and a non-convex, non-linear, and non-smooth objective function. While the prior is due to the presence of obstacles in the mission space, the latter is due to the nature of the event density, sensing, joint detection, and coverage function forms. Consequently, it is extremely difficult to solve this problem without using: (1) standard global optimization solvers that are computationally expensive, (2) systematic gradient-based solvers that require extensive domain knowledge, or (3) Voronoi partition techniques that require significant limiting assumptions (e.g., convexity \cite{Yu2022} and connectivity \cite{Liu2019}).   
 
 \paragraph*{Combinatorial Optimization Approach}\ Motivated by the aforementioned challenges associated with different continuous optimization approaches, in this paper, we take a combinatorial optimization approach to the formulated the multi-agent optimal coverage problem \eqref{Eq:CoverageProblem}. This requires reformulating \eqref{Eq:CoverageProblem} as a set function maximization problem.
 
 First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. For this discretization, a grid can be placed inside the mission space, and then all the grid points except for those that fall inside obstacles can be considered as the ground set\footnote{If obstacle and/or grid resolution are large (compared to the mission space dimensions), the resulting grid-based ground set needs to be further optimized to ensure uniformity over feasible space. This can be achieved by assuming all points in the obtained ground set are occupied by a set of ``virtual'' agents and then executing a simplified multi-agent optimal coverage solver. The resulting virtual agent locations can then be treated as the ground set.}.
 
-Second, upon formulating the ground set $X$, we define a \emph{set variable} $S = \{s_i:i\in\N\}$ to represent the set of selected locations for agent placement. As we are interested in placing only $N$ agents strictly in locations selected from the ground set $X$, we need to constrain this set variable $S$ such that $S \in \mathcal{I}_N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. It is worth noting that a set system of the form $(X,\mathcal{I}_N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint of the form $S\in\mathcal{I}_N$ is known as a uniform matroid constraint of rank $N$. 
+Second, upon formulating the ground set $X$, we define a \emph{set variable} $S = \{s_i:i\in\N\}$ to represent the set of selected locations for agent placement. As we are interested in placing only $N$ agents strictly in locations selected from the ground set $X$, we need to constrain this set variable $S$ such that $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. It is worth noting that a set system of the form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint of the form $S\in\mathcal{I}^N$ is known as a uniform matroid constraint of rank $N$. 
 
 To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageObjective}, we next define a \emph{set coverage function} as: 
 \begin{equation}\label{Eq:SetCoverageFunction}
-    H(S) \triangleq \int_\Phi R(x)P(x,S)dx,
+    H(S) \triangleq \int_\Omega R(x)P(x,S)dx,
 \end{equation}
 where $P(x,S)$ represents a \emph{set detection function}. Inspired by \eqref{Eq:JointDetection}-\eqref{Eq:DetectionFunction}, this set detection function $P(x,S)$ is selected as:
 \begin{equation}\label{Eq:SetDetectionFunction}
@@ -249,17 +249,17 @@ P_M(x,S) \triangleq \max_{s_i\in S} p(x,s_i).
 
 Finally, we restate the original multi-agent optimal coverage problem \eqref{Eq:CoverageProblem} as a set function maximization problem:
 \begin{equation}\label{Eq:SetCoverageProblem}
-S^* = \underset{S\in\mathcal{I}_N}{\arg\max}\ H(S).
+S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S).
 \end{equation}
 
-Since the size of the set variable search space of the formulated set function maximization problem \eqref{Eq:SetCoverageProblem} is combinatorial (in particular $\vert \mathcal{I}_N \vert = {M \choose N} =  \frac{M!}{(M-N)!N!}$), obtaining an optimal solution (i.e., $S^*$) for it is impossible without significant simplifying assumptions. Therefore the overall goal is to obtain a candidate solution for \eqref{Eq:SetCoverageProblem} (say $S^G$) in an efficient manner with some guarantees on its coverage performance $H(S^G)$ with respect to optimal coverage performance $H(S^*)$. 
+Since the size of the set variable search space of the formulated set function maximization problem \eqref{Eq:SetCoverageProblem} is combinatorial (in particular $\vert \mathcal{I}^N \vert = {M \choose N} =  \frac{M!}{(M-N)!N!}$), obtaining an optimal solution (i.e., $S^*$) for it is impossible without significant simplifying assumptions. Therefore the overall goal is to obtain a candidate solution for \eqref{Eq:SetCoverageProblem} (say $S^G$) in an efficient manner with some guarantees on its coverage performance $H(S^G)$ with respect to optimal coverage performance $H(S^*)$. 
 
 
-One obvious approach to obtaining such a candidate solution efficiently is via a vanilla greedy algorithm as given in Alg. \ref{Alg:GreedyAlgorithm}. Note that it uses the \emph{marginal coverage function} defined as
+One obvious approach to obtaining such a candidate solution efficiently is via a vanilla \emph{greedy algorithm} as given in Alg. \ref{Alg:GreedyAlgorithm}. Note that it uses the \emph{marginal coverage function} defined as
 \begin{equation}\label{Eq:MarginalCoverage}
     \Delta H(y \vert S^{i-1}) \triangleq H(S^{i-1}\cup\{y\}) - H(S^{i-1})
 \end{equation}
-to iteratively determine the optimal agent placements until $N$ such agent placements have been chosen. Note that, in \eqref{Eq:MarginalCoverage}, we require $S^{i-1}\in\mathcal{I}_N$ and $S^{i-1}\cup\{y\} \in\mathcal{I}_N$, and clearly, $y \in X \backslash S^{i-1}$ (to ensure $\Delta H(y \vert S^{i-1})>0$). While the latter condition means that no two agents are allowed at the same place in the mission space, if necessary, by appropriately defining the ground set $X$, we can relax such placement constraints. 
+to iteratively determine the optimal agent placements until $N$ such agent placements have been chosen. Note that, in \eqref{Eq:MarginalCoverage}, we require $S^{i-1}\in\mathcal{I}^N$ and $S^{i-1}\cup\{y\} \in\mathcal{I}^N$, and clearly, $y \in X \backslash S^{i-1}$ (to ensure $\Delta H(y \vert S^{i-1})>0$). While the latter condition means that no two agents are allowed at the same place in the mission space, if necessary, by appropriately defining the ground set $X$, we can relax such placement constraints. 
 
 Let us define the notion of \emph{marginal detection function} as
 \begin{equation}\label{Eq:MarginalDetection}
@@ -306,7 +306,7 @@ to represent the gain of set function value due to the addition of an extra elem
     \item \emph{normalized} if $F(\emptyset) = 0$;
     \item \emph{monotone} if $\Delta F(y \vert A)\geq 0$ for all $y,A$ where $A \subset Y$ and $y\in Y\backslash A$, or equivalently, if $F(B) \leq F(A)$ for all $B,A$ where $B \subseteq A \subseteq Y$;
     \item \emph{submodular} if $\Delta f(y\vert A) \leq \Delta f(y\vert B)$ for all $y,A,B$ where $B\subseteq A \subset Y$ and $y\in Y \backslash A$, or equivalently, \\if $F(A\cup B) + F(A\cap B) \leq F(A) + F(B)$ for all $A,B\subseteq Y$,
-    \item a \emph{polymatroid} set function if it is normalized, monotone and submodular \cite{Liu2018}. 
+    \item a \emph{polymatroid} set function if it is normalized, monotone and submodular \cite{Liu2018,Boros2003}. 
 \end{enumerate}
 \end{definition}
 
@@ -358,7 +358,7 @@ The seminal work \cite{Nemhauser1978} has established a performance bound (hence
 \end{equation}
 Note that, while $\beta_f$ decreases with the number of agents $N$, it is lower-bounded by $1-\frac{1}{e} \simeq 0.6321$, because $\lim_{N\rightarrow\infty} \beta_f = (1-\frac{1}{e})$. This implies that the coverage performance of the greedy solution will always be not worse than 63.21\% of the maximum achievable coverage performance.
 
-Moreover, as shown in \cite{WelikalaJ02021}, upon obtaining the greedy solution $S^G$ from Alg. \ref{Alg:GreedyAlgorithm}, any subsequently improved solution $\bar{S}^G\in\mathcal{I}_N$ (e.g., via a gradient process \cite{Sun2019,Sun2020} or an interchange scheme \cite{Welikala2019P3}), will have an improved performance bound $\bar{\beta}$ than the original performance bound $\beta$ such that  
+Moreover, as shown in \cite{WelikalaJ02021}, upon obtaining the greedy solution $S^G$ from Alg. \ref{Alg:GreedyAlgorithm}, any subsequently improved solution $\bar{S}^G\in\mathcal{I}^N$ (e.g., via a gradient process \cite{Sun2019,Sun2020} or an interchange scheme \cite{Welikala2019P3}), will have an improved performance bound $\bar{\beta}$ than the original performance bound $\beta$ such that  
 $$\beta \leq \bar{\beta} \triangleq \beta * \frac{H(\bar{S}^G)}{H(S^G)} \leq \frac{H(\bar{S}^G)}{H(S^*)}.$$ 
 
 Besides (and independently from) improving the original greedy solution, as we will see in the next section, an improved performance bound can also be achieved by exploiting certain characteristics (called \emph{curvature measures}) of the interested set function maximization problem. 
@@ -367,10 +367,10 @@ Besides (and independently from) improving the original greedy solution, as we w
 \section{Improved Performance Bound Guarantees using Curvature Measures}
 \label{Sec:CurvatureMeasures}
 
-In this section, we will discuss several improved performance-bound guarantees that are applicable to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem} and its greedy solution $S^G$ given by Alg. \ref{Alg:GreedyAlgorithm}. The goal is to obtain tighter performance bounds for $S^G$, i.e., closer to 1 compared to $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}. This is important as such a performance bound will accurately characterize the proximity of $S^G$ to $S^*$, and thus allow making informed decisions regarding spending extra resources (e.g., computational power, agents and sensing capabilities) to seek a further improved coverage solution beyond $S^G$. 
+In this section, we will discuss several improved performance-bound guarantees that are applicable to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem} and its greedy solution $S^G$ given by Alg. \ref{Alg:GreedyAlgorithm}. The goal is to obtain tighter performance bounds for $S^G$, i.e., closer to 1 compared to $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound}. This is important as such a performance bound will accurately characterize the proximity of $S^G$ to $S^*$, and thus allow making informed decisions regarding spending extra resources (e.g., computational power, agents and sensing capabilities) to seek a further improved coverage solution beyond $S^G$. 
 
 
-As mentioned earlier, curvature measures are used to obtain such improved performance bounds. These curvature measures are dependent purely on the underlying objective function, the ground set, and the feasible space, which, in the considered optimal coverage problem, are $H(S)$, $X$, and $\mathcal{I}_N$, respectively. In this section, we will report five established curvature measures and their respective performance bounds, outlining their unique characteristics, strengths, and weaknesses in their application to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem}. 
+As mentioned earlier, curvature measures are used to obtain such improved performance bounds. These curvature measures are dependent purely on the underlying objective function, the ground set, and the feasible space, which, in the considered optimal coverage problem, are $H(S)$, $X$, and $\mathcal{I}^N$, respectively. In this section, we will review five established curvature measures and their respective performance bounds, outlining their unique characteristics, strengths, and weaknesses in their application to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem}. 
 
 
 \subsection{Total Curvature \cite{Conforti1984}}
@@ -416,7 +416,7 @@ where the second term can be further simplified to obtain:
 0\ll&\ \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))\\
 &+(1-\theta) (\min\{\max_{s_i\in X\backslash \{y\}}p(x,s_i),p(x,y)\}).  
 \end{align*}
-Since $\theta \in [0,1]$, we need to consider both terms above separately. However, both terms lead to the same condition:
+Since $\theta \in [0,1]$, we need to consider both terms above separately. However, both terms lead to the same condition (under which the above requirement holds):
 $$0 \ll p(x,y) \mbox{ and } 0 \ll p(x,s_i), \mbox{ for some } s_i \in X\backslash \{y\}.$$
 In all, the total curvature measure leads to poor performance bounds when there exists some $y\in X$ and $s_i\in X\backslash \{y\}$ so that 
 $$0\ll p(x,y) \simeq p(x,s_i) \simeq 1,$$
@@ -476,7 +476,7 @@ H(\{y_i,y_j\}) \simeq H(\{y_j\}) + H(\{y_i\}), \quad \mbox{for some } y_i,y_j\in
 $$
 which holds whenever $H$ is modular.
 
-As we observed before, the coverage function $H$ shows such modular behaviors (leading to poor performance bounds $\beta_e\simeq \beta_f$) when the ground set $X$ is very sparse and/or when agents have significantly weak non-overlapping sensing capabilities. It is worth highlighting that this particular behavior of elemental curvature contrasts from that of previously discussed total curvature and greedy curvature - where weakly submodular scenarios (with agents having weak sensing capabilities) lead to significantly improved performance bounds $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
+As we observed before, the coverage function $H$ shows such modular behaviors (leading to poor performance bounds $\beta_e\simeq \beta_f$) when the ground set $X$ is very sparse and/or when agents have significantly weak non-overlapping sensing capabilities. It is worth highlighting that this particular behavior of elemental curvature contrasts from that of the previously discussed total curvature and greedy curvature - where weakly submodular scenarios (with agents having weak sensing capabilities) lead to significantly improved performance bounds $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
 
 
 %%%% Revised up to this.
@@ -545,7 +545,7 @@ Finally, note that the evaluation of the elemental curvature $\alpha_e$ \eqref{E
 
 For example, it can be shown that, $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory} is bounded such that
 $$
-\alpha_e \leq \max_{(S,y_i,y_j)} \int_\Phi  \frac{\Delta P_J(x,y_i\vert S\cup\{y_j\})}{\Delta P_J(x,y_i\vert S)} + \frac{\Delta P_M(x,y_i\vert S\cup\{y_j\})}{\Delta P_M(x,y_i\vert S)}dx,
+\alpha_e \leq \max_{(S,y_i,y_j)} \int_\Omega  \frac{\Delta P_J(x,y_i\vert S\cup\{y_j\})}{\Delta P_J(x,y_i\vert S)} + \frac{\Delta P_M(x,y_i\vert S\cup\{y_j\})}{\Delta P_M(x,y_i\vert S)}dx,
 $$
 independently of the weight factor $\theta$ and the event density $R(x)$. Here, the first term inside the integral directly simplifies to $(1-p(x,y_j))$. However, the second term, even though it simplifies to (using the notations introduced earlier)
 $$
@@ -553,7 +553,7 @@ $$
 $$
 it cannot be further simplified or upper bounded - except for the obvious upper bound $1$ due to the submodularity of $P_M$. Therefore, a practical elemental curvature metric for the optimal coverage problem would be $\bar{\alpha}_e$ where:
 $$
-\alpha_e \leq \bar{\alpha}_e \triangleq \max_{y_j\in X} \int_\Phi (2-p(x,y_j))dx.
+\alpha_e \leq \bar{\alpha}_e \triangleq \max_{y_j\in X} \int_\Omega (2-p(x,y_j))dx.
 $$
 
 
@@ -579,7 +579,7 @@ The above $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} is only valid under a
 Note also that, similar to $\beta_t$, $\beta_p$ will provide significantly improved performance bounds (i.e., $\beta_p \simeq 1$) when $H$ is weakly submodular. As observed before, such a scenario occurs when the ground set is sparse and/or agent sensing capabilities are weak. On the other hand, again, similar to $\beta_t$, $\beta_p$ will provide poor performance bounds (i.e., $\beta_p \simeq \beta_f$) when $H$ is strongly submodular. This happens when the ground set is dense, and agent sensing capabilities are strong.  
 
 
-Unfortunately, similar to the elemental curvature $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory}, evaluating partial curvature $\alpha_p$ \eqref{Eq:PartialCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:PartialCurvatureCoefficientTheory}). Therefore, evaluating $\alpha_p$ is much more computationally expensive compared to evaluating $\alpha_t$ or $\alpha_g$. However, like in the case of  $\alpha_e$, we can exploit some special structural properties of the optimal coverage problem to overcome this challenge. In particular, notice that 
+Unfortunately, similar to the elemental curvature $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory}, evaluating the partial curvature $\alpha_p$ \eqref{Eq:PartialCurvatureCoefficientTheory} involves solving a set function maximization problem (notice the set variable $Y$ in \eqref{Eq:PartialCurvatureCoefficientTheory}). Therefore, evaluating $\alpha_p$ is much more computationally expensive compared to evaluating $\alpha_t$ or $\alpha_g$. However, like in the case of  $\alpha_e$, we can exploit some special structural properties of the optimal coverage problem to overcome this challenge. In particular, notice that 
 \begin{align*}
 \alpha_p =&\ 1-\min_{(S,y): y \in S \in \mathcal{I}^N} \frac{\Delta H(y \vert S \backslash \{y\}) }{\Delta H(y \vert \emptyset)}\\
 =&\ 1 + \max_{y \in X} \left(\frac{1}{H(\{y\})}\max_{B \in \mathcal{I}_{N-1}, y\not\in B} [-\Delta H(y\vert B)]\right).     
@@ -603,6 +603,48 @@ Given $y\in X$, the negated marginal coverage function -$\Delta H (y \vert B)$ i
 
 
 \subsection{Extended Greedy Curvature \cite{WelikalaJ02021}}\label{SubSec:ExtendedGreedyCurvature}
+
+The \emph{extended greedy curvature}, as the name suggests, requires executing some extra greedy iterations in the greedy algorithm (i.e., Alg. \ref{Alg:GreedyAlgorithm}). This is not an issue as Alg. \ref{Alg:GreedyAlgorithm} can be executed beyond $N$ iterations until $M \triangleq \vert X \vert$ iterations - analogous to a scenario where more than $N$ agents are to be deployed to the mission space in a greedy fashion. 
+
+To define the extended greedy curvature, we first need some additional notations. Recall that we used $(S^i,s^i)$ to denote the greedy (set\,,\,element) observed at the $i$\tsup{th} greedy iteration, where $i\in \N_M^0$. Let $m \triangleq \left \lfloor{\frac{M}{N}}\right \rfloor$, and for any $n\in \N_{m-1}^0$, 
+\begin{equation}\label{Eq:GreedySolutionBlock}
+    S^G_n \triangleq S^{(n+1)N} \backslash S^{nN} = \{s^{nN+1},s^{nN+2},\ldots,s^{nN+N}\}, 
+\end{equation}
+\begin{equation}\label{Eq:groundSetBlock}
+X_n \triangleq X\backslash S^{nN} \ \ \mbox{ and } \ \  
+\mathcal{I}_n^N \triangleq \{S:S \subseteq X_n, \vert S \vert \leq N\}.   
+\end{equation}
+Simply, $S^G_n$ is the $(n+1)$\tsup{th} block of size $N$ greedy agent placements, and $X_n$ is the the set of agent locations remaining after $nN$ greedy iterations. Note that, $S^G_0 = S^G, X_0 = X$ and $\mathcal{I}_0^N = \mathcal{I}^N$. Note also that, for any $n\in\N_{m-1}^0$, the set system $(X_n,\mathcal{I}_n^N)$ is a uniform matroid of rank $N$, and $S^G_n$ is the greedy solution for ${\arg\max}_{S\in\mathcal{I}_n^N} H(S)$.
+
+The extended greedy curvature of \eqref{Eq:SetCoverageProblem} is given by
+\begin{equation}\label{Eq:ExtGreedyCurvatureMeasure}
+    \alpha_u \triangleq \min_{i \in Q}\ \alpha^i_u,
+\end{equation}
+where $Q \subseteq \bar{Q} \triangleq \{i\in\N_M: i = nN+1,\ n\in \N_{m-1}^0 \mbox{ or } i = nN,\ n\in \N_m  \mbox{ or } i = M \}$ and  
+\begin{equation}\label{Eq:UpperBoundAlphaiForfYStar}
+    \alpha^i_u \triangleq 
+    \begin{cases}
+     H(S^{i-1}) + \underset{S\in\mathcal{I}^N_{(i-1)/N}}{\max} \left[ \sum_{y\in Y} \Delta H(y \vert S^{i-1})\right]\\
+     \hfill \mbox{if }i=nN+1,\ n\in\N_{m-1}^0,\\
+     H(S^{i-N}) + \frac{1}{\beta_f}\left[ H(S^i) - H(S^{i-N}) \right]\\
+     \hfill \mbox{if }i=nN,\ n\in\N_m,\\
+     H(S^i) 
+     \hfill \mbox{if }i=M. 
+    \end{cases}
+\end{equation}
+
+% What is the relation between the RHS of the first two cases?
+% Can we generalize for \bar{Q} = \N_M ?
+% Solution: Induction ideas can be used. Note that H(S^i) sequence for i = 1,2,...,M is the same irrespective of N we have. 
+
+Note that $\bar{Q}$ is a fixed set of greedy iteration indexes. For each $i\in \bar{Q}$, a corresponding $\alpha^i_u$ value can be computed using known byproducts generated during the execution of greedy iterations. Unlike $\bar{Q}$, $Q$ is an arbitrary subset selected from $\bar{Q}$ based on the user preference. For example, one may choose $Q=\{1,N,N+1,2N,2N+1\}$ so that $\alpha_u$ value can be obtained upon executing only $N+1$ extra greedy iterations.   
+
+The performance bound $\beta_u$ corresponding to the extended greedy curvature measure $\alpha_u$ is given by
+\begin{equation}\label{Eq:Th:MainTheorem}
+\beta_u \triangleq \frac{H(S^G)}{\alpha_u} \leq \frac{H(S^G)}{f(Y^*)}. 
+\end{equation}
+ 
+
 
 
 %%%% Revised up to this

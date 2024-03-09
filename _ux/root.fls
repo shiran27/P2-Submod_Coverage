@@ -1009,8 +1009,6 @@ INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmbi8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmbi8r.tfm
-INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmri8t.vf
-INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7y.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
@@ -1024,12 +1022,14 @@ INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7m.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\psyro.tfm
+INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7y.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
 INPUT C:\Users\shira\AppData\Local\MiKTeX\fonts\tfm\public\rsfs\rsfs10.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb7t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
+INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmri8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7m.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\psyro.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm

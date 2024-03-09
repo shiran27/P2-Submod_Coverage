@@ -1,5 +1,12 @@
 \begin{thebibliography}{10}
 
+\bibitem{Boros2003}
+E~Boros, K~Elbassioni, V~Gurvich, and L~Khachiyan.
+\newblock {An Inequality for Polymatroid Functions and its Applications}.
+\newblock {\em Discrete Applied Mathematics}, 131(2):255--281, 2003.
+\newblock \href {https://doi.org/10.1016/S0166-218X(02)00455-9}
+  {\path{doi:10.1016/S0166-218X(02)00455-9}}.
+
 \bibitem{Conforti1984}
 Michele Conforti and G{\'{e}}rard Cornu{\'{e}}jols.
 \newblock {Submodular Set Functions, Matroids and The Greedy Algorithm: Tight
@@ -11,6 +18,13 @@ Yajing Liu, Edwin K~P Chong, and Ali Pezeshki.
 \newblock {Improved Bounds for The Greedy Strategy in Optimization Problems
   with Curvature}.
 \newblock {\em Journal of Combinatorial Optimization}, 37(4):1126--1149, 2018.
+
+\bibitem{Liu2019}
+Yajing Liu, Edwin K~P Chong, Ali Pezeshki, and Zhenliang Zhang.
+\newblock {Submodular Optimization Problems and Greedy Strategies: A Survey}.
+\newblock {\em arXiv e-prints}, page 1905.03308, 2019.
+\newblock URL: \url{http://arxiv.org/abs/1905.03308}, \href
+  {https://arxiv.org/abs/1905.03308} {\path{arXiv:1905.03308}}.
 
 \bibitem{Nemhauser1978}
 G.~L. Nemhauser, L~A. Wolsey, and M.L. Fisher.
@@ -38,12 +52,6 @@ Zengfu Wang, Bill Moran, Xuezhi Wang, and Quan Pan.
   with A Greedy Method}.
 \newblock {\em Journal of Combinatorial Optimization}, 31(1):29--43, 2016.
 
-\bibitem{Welikala2021Thesis}
-Shirantha Welikala.
-\newblock {\em {Overcoming Local Optima in Control and Optimization of
-  Cooperative Multi-Agent Systems}}.
-\newblock PhD thesis, Boston University, 2021.
-
 \bibitem{Welikala2019P3}
 Shirantha Welikala and Christos~G. Cassandras.
 \newblock {Asymptotic Analysis for Greedy Initialization of Threshold-Based
@@ -70,5 +78,12 @@ Shirantha Welikala, Christos~G. Cassandras, Hai Lin, and Panos~J. Antsaklis.
 \newblock {\em Automatica}, 144:110493, 2022.
 \newblock \href {https://doi.org/10.1016/j.automatica.2022.110493}
   {\path{doi:10.1016/j.automatica.2022.110493}}.
+
+\bibitem{Yu2022}
+Dengxiu Yu, Hao Xu, C~L~Philip Chen, Wenjie Bai, and Zhen Wang.
+\newblock {Dynamic Coverage Control Based on K-Means}.
+\newblock {\em IEEE Trans. on Industrial Electronics}, 69(5):5333--5341, 2022.
+\newblock \href {https://doi.org/10.1109/TIE.2021.3080205}
+  {\path{doi:10.1109/TIE.2021.3080205}}.
 
 \end{thebibliography}

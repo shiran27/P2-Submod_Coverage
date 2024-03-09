@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.11)  1 MAR 2024 19:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.11)  8 MAR 2024 23:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -555,27 +555,43 @@ Package titlesec Warning: Non standard sectioning command \subparagraph
 File: l3backend-pdftex.def 2022-08-30 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count334
 \l__pdf_internal_box=\box66
-) (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.aux)
+) (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.aux
+
+LaTeX Warning: Label `Eq:GreedySolutionBlock' multiply defined.
+
+
+LaTeX Warning: Label `Eq:groundSetBlock' multiply defined.
+
+
+LaTeX Warning: Label `Eq:ExtGreedyCurvatureMeasure' multiply defined.
+
+
+LaTeX Warning: Label `Eq:UpperBoundAlphaiForfYStar' multiply defined.
+
+
+LaTeX Warning: Label `Eq:Th:MainTheorem' multiply defined.
+
+)
 \openout1 = `root.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 102.
-LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
  (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count335
@@ -590,7 +606,7 @@ LaTeX Font Info:    ... okay on input line 102.
 \makeMPintoPDFobject=\count340
 \everyMPtoPDFconversion=\toks31
 )
-Package hyperref Info: Link coloring OFF on input line 102.
+Package hyperref Info: Link coloring OFF on input line 103.
  (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.out) (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.out)
 \@outlinefile=\write3
 \openout3 = `root.out'.
@@ -599,30 +615,30 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: picins package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-** WARNING: \thanks is locked out when in conference mode (line 108).
-LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line 161.
+** WARNING: \thanks is locked out when in conference mode (line 109).
+LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line 162.
 (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line 161.
+LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line 162.
  (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line 161.
+LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line 162.
  (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line 161.
+LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line 162.
  (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 161.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 162.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 161.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 162.
 
 
-LaTeX Warning: Reference `Fig:CoverageSetup' on page 1 undefined on input line 186.
+LaTeX Warning: Reference `Fig:CoverageSetup' on page 1 undefined on input line 188.
 
 [1{C:/Users/shira/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
 
@@ -631,174 +647,159 @@ LaTeX Warning: Reference `Fig:CoverageSetup' on page 1 undefined on input line 1
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 253.
+(amsmath)                 on input line 255.
 
 [2]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 269.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 276.
 
-Underfull \hbox (badness 10000) in paragraph at lines 310--312
+Underfull \hbox (badness 10000) in paragraph at lines 320--322
  \T1/ptm/m/it/10 Proof:  \T1/ptm/m/n/10 Con-sider $\OML/ztmcm/m/it/10 n$ \T1/ptm/m/n/10 poly-ma-troid set func-tions
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 310--312
+Underfull \hbox (badness 2753) in paragraph at lines 320--322
 \OML/ztmcm/m/it/10 F[]; F[]; [] ; F[]$\T1/ptm/m/n/10 , where each is de-fined over a com-mon
  []
 
 
-Underfull \hbox (badness 1675) in paragraph at lines 310--312
+Underfull \hbox (badness 1675) in paragraph at lines 320--322
 \T1/ptm/m/n/10 Clearly, $\OML/ztmcm/m/it/10 F\OT1/ztmcm/m/n/10 (\OMS/ztmcm/m/n/10 ;\OT1/ztmcm/m/n/10 ) = 0$ \T1/ptm/m/n/10 as $\OML/ztmcm/m/it/10 F[]\OT1/ztmcm/m/n/10 (\OMS/ztmcm/m/n/10 ;\OT1/ztmcm/m/n/10 ) = 0$ \T1/ptm/m/n/10 and $\OML/ztmcm/m/it/10 [] \OMS/ztmcm/m/n/10 ^^U \OT1/ztmcm/m/n/10 0\OML/ztmcm/m/it/10 ; \OMS/ztmcm/m/n/10 8\OML/ztmcm/m/it/10 i \OMS/ztmcm/m/n/10 2 \U/msb/m/n/10 N[]$\T1/ptm/m/n/10 .
  []
 
-[3]
 
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 4 undefined on input line 357.
+Underfull \vbox (badness 2744) has occurred while \output is active []
 
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 4 undefined on input line 361.
-
-
-Underfull \hbox (badness 1742) in paragraph at lines 360--362
-\T1/ptm/m/n/10 Note that $\OML/ztmcm/m/it/10 ^^L[] > \OT1/ztmcm/m/n/10 1 \OMS/ztmcm/m/n/10 ^^@ [] ' \OT1/ztmcm/m/n/10 0\OML/ztmcm/m/it/10 :\OT1/ztmcm/m/n/10 6321$ \T1/ptm/m/n/10 for any $\OML/ztmcm/m/it/10 N < \OMS/ztmcm/m/n/10 1$ \T1/ptm/m/n/10 and
+ [3]
+Underfull \hbox (badness 3872) in paragraph at lines 370--371
+[]\T1/ptm/m/n/10 In this sec-tion, we will dis-cuss sev-eral im-proved
  []
-
-
-Underfull \hbox (badness 1400) in paragraph at lines 392--393
-[]\T1/ptm/m/n/10 The de-tails of the four curvature-based per-for-mance
- []
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 4 undefined on input line 394.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 4 undefined on input line 398.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 401.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 4 undefined on input line 404.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 4 undefined on input line 419.
+(hyperref)                removing `\@ifnextchar' on input line 376.
 
 [4]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 427.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 5 undefined on input line 447.
+(hyperref)                removing `\@ifnextchar' on input line 428.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 452.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 5 undefined on input line 454.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 5 undefined on input line 467.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 5 undefined on input line 469.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 473.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 5 undefined on input line 489.
+(hyperref)                removing `\@ifnextchar' on input line 460.
 
 [5]
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 6 undefined on input line 502.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 6 undefined on input line 506.
-
-
-LaTeX Warning: Reference `Sec:PreliminariesAndNotation' on page 6 undefined on input line 539.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 6 undefined on input line 547.
-
-
-LaTeX Warning: Reference `Lm:MarginalGain' on page 6 undefined on input line 554.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 6 undefined on input line 554.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 6 undefined on input line 554.
-
-
-LaTeX Warning: Reference `Lm:MarginalGain' on page 6 undefined on input line 573.
-
-[6]
-
-LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 7 undefined on input line 605.
-
-
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 7 undefined on input line 633.
-
-
-LaTeX Warning: Reference `Lm:MarginalGain' on page 7 undefined on input line 646.
-
-
-LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 7 undefined on input line 658.
-
-
-LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 7 undefined on input line 658.
-
-
-LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 7 undefined on input line 658.
-
-
-LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 7 undefined on input line 658.
-
-
-Overfull \hbox (1.1361pt too wide) detected at line 658
+Overfull \hbox (5.41504pt too wide) detected at line 493
 []
  []
 
 
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 7 undefined on input line 682.
+Overfull \hbox (1.3828pt too wide) detected at line 527
+[]
+ []
 
 
-LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 7 undefined on input line 682.
+Underfull \vbox (badness 1325) has occurred while \output is active []
+
+ [6]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 560.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 605.
 
 [7]
 
-LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 8 undefined on input line 717.
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 8 undefined on input line 662.
 
-[8] (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 27.
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 8 undefined on input line 666.
+
+
+LaTeX Warning: Reference `Sec:PreliminariesAndNotation' on page 8 undefined on input line 699.
+
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 8 undefined on input line 707.
+
+
+LaTeX Warning: Reference `Lm:MarginalGain' on page 8 undefined on input line 714.
+
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 8 undefined on input line 714.
+
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 8 undefined on input line 714.
+
+
+LaTeX Warning: Reference `Lm:MarginalGain' on page 8 undefined on input line 733.
+
+[8]
+
+LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 9 undefined on input line 765.
+
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 9 undefined on input line 793.
+
+
+LaTeX Warning: Reference `Lm:MarginalGain' on page 9 undefined on input line 806.
+
+
+LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 9 undefined on input line 818.
+
+
+LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 9 undefined on input line 818.
+
+
+LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 9 undefined on input line 818.
+
+
+LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 9 undefined on input line 818.
+
+
+Overfull \hbox (1.1361pt too wide) detected at line 818
+[]
+ []
+
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 9 undefined on input line 842.
+
+
+LaTeX Warning: Reference `Eq:MarginalGainNotation' on page 9 undefined on input line 842.
+
+[9]
+
+LaTeX Warning: Reference `Eq:SubmodularMaximizationProblem' on page 10 undefined on input line 877.
+
+
+LaTeX Warning: Reference `Rm:SubmodularityStrength' on page 10 undefined on input line 915.
+
+(c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 8.
  (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-Underfull \hbox (badness 2680) in paragraph at lines 48--57
+) [10]
+Underfull \hbox (badness 2680) in paragraph at lines 56--65
 []\T1/ptm/m/n/8 Shirantha We-likala and Chris-tos G. Cas-san-dras.  Asymp-totic
  []
 
 
-Underfull \hbox (badness 2790) in paragraph at lines 48--57
+Underfull \hbox (badness 2790) in paragraph at lines 56--65
 \T1/ptm/m/n/8 Op-ti-miza-tion of Per-sis-tent Mon-i-tor-ing on Graphs.  In \T1/ptm/m/it/8 Proc.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--57
+Underfull \hbox (badness 10000) in paragraph at lines 56--65
 \T1/ptm/m/it/8 of 21st IFAC World Congress\T1/ptm/m/n/8 , vol-ume 53, pages 3433--
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--57
+Underfull \hbox (badness 10000) in paragraph at lines 56--65
 \T1/ptm/m/n/8 3438, 2020.  URL: []$\T1/pcr/m/n/8 https : / / www . sciencedirect .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 48--57
+Underfull \hbox (badness 10000) in paragraph at lines 56--65
 \T1/pcr/m/n/8 com / science / article / pii / S2405896320322734$[]\T1/ptm/m/n/8 ,
  []
 
@@ -814,27 +815,30 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the US letter (8.5in X 11in) paper size.
 
-[9
+[11
 
 ] (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `root.out' has not changed.
-(rerunfilecheck)             Checksum: 47560266F2B86961EE0C0FA68125FFDA;2638.
+(rerunfilecheck)             Checksum: 77928E39B069445CE2AB057B768B74F4;2807.
  ) 
 Here is how much of TeX's memory you used:
- 14056 strings out of 475389
- 232495 string characters out of 2777000
- 587527 words of memory out of 3000000
- 35062 multiletter control sequences out of 15000+600000
+ 14078 strings out of 475389
+ 232875 string characters out of 2777000
+ 590164 words of memory out of 3000000
+ 35070 multiletter control sequences out of 15000+600000
  598536 words of font info for 179 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
- 60i,11n,67p,1723b,632s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 60i,11n,67p,1723b,574s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on "c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.pdf" (9 pages, 257335 bytes).
+Output written on "c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.pdf" (11 pages, 284055 bytes).
 PDF statistics:
- 406 PDF objects out of 1000 (max. 8388607)
- 105 named destinations out of 1000 (max. 500000)
+ 470 PDF objects out of 1000 (max. 8388607)
+ 119 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
 
