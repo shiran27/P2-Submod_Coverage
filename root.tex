@@ -685,6 +685,7 @@ for some $s_i \in S$ over many feasible space locations $x\in\Phi$. Clearly, thi
 Finally, note that the evaluation of the elemental curvature $\alpha_e$ \eqref{Eq:ElementalCurvatureCoefficientTheory} is computationally expensive (even compared to the total curvature) as it involves solving a set function maximization problem (notice the set variable $S$ in \eqref{Eq:ElementalCurvatureCoefficientTheory}). However, as shown in \cite{Sun2019}, there may be special structural properties that can be exploited to obtain at least an upper bound on $\alpha_e$, leading to a lower bound on $\beta_e$ - which would still be a valid performance bound for the optimal coverage problem \eqref{Eq:SetCoverageProblem}. The following proposition serves this purpose.
 
 \begin{proposition}
+\label{Pr:ElementalCurvatureBound}
 An upper-bound for the elemental curvature $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} is given by 
 \begin{equation}\label{Eq:Pr:ElementalCurvatureBound}
 \alpha_e \leq \bar{\alpha}_e \triangleq
@@ -1050,7 +1051,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 
 
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \begin{minipage}{\columnwidth}
 \centering
@@ -1113,7 +1114,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 
 
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \begin{minipage}{\columnwidth}
 \centering
@@ -1175,7 +1176,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \begin{minipage}{\columnwidth}
 \centering
@@ -1237,7 +1238,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \begin{minipage}{\columnwidth}
 \centering
@@ -1298,46 +1299,35 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \end{figure}
 
 %%%% Revised up to this
-\bigskip
-{\color{blue} \textbf{**** Revised up to this point...} }
-\bigskip
+% \bigskip
+% {\color{blue} \textbf{**** Revised up to this point...} }
+% \bigskip
 
 
-In our numerical experiments, we considered a square-shaped mission space (each side is of length $600$ units) with three different obstacle arrangements named ``Blank,'' ``Maze'' and ``General'' as can be seen in Fig. ... . Note that, in such figures, obstacles are shown as dark green-colored blocks, candidate agent locations (ground set $X$) are shown as small black dots, and agent locations are shown as numbered pink-colored circles. Note also that light-colored areas indicate low coverage (event detection probability) levels, while dark-colored areas indicate the opposite. 
+In our numerical experiments, we considered a square-shaped mission space (each side is of length $600$ units) with three different obstacle arrangements named ``Blank,'' ``Maze'' and ``General'' as can be seen in Fig. ... . Note that, in such figures, obstacles are shown as dark green-colored blocks, candidate agent locations (ground set $X$) are shown as small black dots, and agent locations are shown as numbered pink-colored circles. Note also that light-colored areas indicate low coverage (i.e., low event detection probability) levels, while dark-colored areas indicate the opposite. 
 
-Figure \ref{Fig:DetectionFunction} illustrates how coverage levels vary with the chosen weight parameter $\theta$ in the detection function \eqref{Eq:DetectionFunction}. Recall that, as stated in Rm. \ref{Rm:DetectionFunction}, choosing $\theta=1$ (i.e., joint detection \eqref{Eq:JointDetection}) motivates collaboration while choosing $\theta=0$ (i.e., max detection \eqref{Eq:MaxDetection}) motivates compartmentalization in sensing. It is worth noting that both the greedy solution and its performance bounds are affected by the choice of $\theta$. ...
+The greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}) and the reviewed performance bounds $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}, $\beta_t$ \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ \eqref{Eq:GreedyCurvatureBoundTheory}, $\beta_e$ \eqref{Eq:ElementalCurvatureBoundTheory}, $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} and $\beta_u$ \eqref{Eq:ExtGreedyCurvatureBoundTheory} were all implemented for the considered class of multi-agent optimal coverage problems in an interactive JavaScript-based simulator which is available at \url{https://github.com/shiran27/P2-Submod_Coverage}. This simulator may be used by the reader to reproduce the reported results and also to try different new problem configurations. It is worth noting that, in evaluating the performance bounds $\beta_e$ and $\beta_p$, we have used the proposed techniques in Props. \ref{Pr:ElementalCurvatureBound} and \ref{Pr:PartialCurvatureBound}. Unlike sampling based techniques used in prior work, these techniques are computationally efficient and provide theoretically valid performance bounds. In evaluaing the extended greedy curvature, following \cite{WelikalaJ02021}, we used \eqref{Eq:ExtGreedyCurvatureMeasure} with $Q=\bar{Q}$.
 
 
+Figure \ref{Fig:DetectionFunction} illustrates how the greedy solution and the coverage level patterns vary with the chosen weight parameter $\theta$ in the detection function \eqref{Eq:DetectionFunction}. As stated in Rm. \ref{Rm:DetectionFunction}, choosing $\theta=1$ (i.e., promoting joint detection \eqref{Eq:JointDetection}) motivates cooperation while choosing $\theta=0$ (i.e., promoting max detection \eqref{Eq:MaxDetection}) motivates compartmentalization in sensing. Consequently, when $\theta \simeq 0$, agents are spread out in the mission space - potentially leaving blind regions in the middle but covering a wider area in the mission space (e.g., see the greedy solution shown in Fig. \ref{Fig:...}). On the other hand, when $\theta$ is high, agents are flocked together - not leaving blind regions in the middle but failing cover outer regions of the mission space (e.g., see the greedy solution shown in Fig. \ref{Fig:...}). 
+
+Besides, the nature of the greedy solution, the weight parameter also affect the performance bounds. This is evident from the given performance boundvalues in        
+
+It is worth noting that both the greedy solution and its performance bounds are affected by the choice of $\theta$. ...
 
 
 
 In our numerical experiments, we mainly used the weight parameter $\theta=0.5$. However, to explore the behavior of performance bounds and greedy solutions,  
 
-Besides the greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}), the reviewed performance bounds $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}, $\beta_t$ \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ \eqref{Eq:GreedyCurvatureBoundTheory}, $\beta_e$ \eqref{Eq:ElementalCurvatureBoundTheory}, $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} and $\beta_u$ \eqref{Eq:ExtGreedyCurvatureBoundTheory} were all implemented for the considered class of multi-agent coverage problems in an interactive JavaScript-based simulator which is available at \url{https://github.com/shiran27/CoverageControl}
-
-
-
-
-The greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}), the newly proposed performance bound $\beta_u$ \eqref{Eq:ExtGreedyCurvatureBoundTheory} ($\alpha_u$ in \eqref{Eq:ExtGreedyCurvatureBoundTheory} was determined using \eqref{Eq:ExtGreedyCurvatureMeasure} with $Q=\bar{Q}$) and the existing other performance bounds: $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}, $\beta_t$ \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ \eqref{Eq:GreedyCurvatureBoundTheory}, $\beta_e$ \eqref{Eq:ElementalCurvatureBoundTheory} and $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} were all implemented for the considered class of multi-agent coverage problems in an interactive JavaScript-based simulator
-
-We have implemented the considered class of multi-agent optimal coverage problems and  in an interactive JavaScript-based simulator which is available at \url{http://www.bu.edu/codes/simulations/shiran27/CoverageFinal/} (the source code is available at: \url{https://github.com/shiran27/CoverageControl}). In our numerical experiments, we consider a square-shaped mission space where a  
-all implemented for the 
-It may be used by the reader to reproduce the reported results and also to try different new problem configurations.   
-
-
-
-
-% Detection function Joint vs Max
-We start by demonstrating the impact of the proposed detection function \eqref{Eq:DetectionFunction}.  
 
 
 
 
 
 
-Results from coverage control experiments, ...
 
-Discuss potential applications from other domains like learning, data mining 
+% \section{Conclusion}
+% \label{Sec:Conclusion}
 
 
 
@@ -1606,8 +1596,7 @@ Discuss potential applications from other domains like learning, data mining
 
 
 
-\section{Conclusion}
-\label{Sec:Conclusion}
+
 
 % In this paper, we considered the class of monotone submodular set function maximization problems subject to cardinality constraints. Different curvature measures and corresponding performance bounds found in the literature were reviewed for this class of problems, outlining their strengths and weaknesses. In particular, computational complexity, technical requirements and inherent limitations were the main weaknesses observed. A novel curvature measure was proposed along with a corresponding performance bound that does not suffer from the limitations identified in its predecessors. We named this curvature measure as the \emph{extended greedy curvature} since it thrives on the information seen when executing additional greedy iterations. A well-known class of multi-agent coverage problems was used to examine the effectiveness of the proposed performance bound compared to the other performance bounds found in the literature. Ongoing research explores the effectiveness of this new performance bound on other applications and under different quantified strength levels of the submodularity property.
 

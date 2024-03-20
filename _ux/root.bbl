@@ -7,11 +7,26 @@ E~Boros, K~Elbassioni, V~Gurvich, and L~Khachiyan.
 \newblock \href {https://doi.org/10.1016/S0166-218X(02)00455-9}
   {\path{doi:10.1016/S0166-218X(02)00455-9}}.
 
+\bibitem{Cohen2008}
+Reuven Cohen and Liran Katzir.
+\newblock {The Generalized Maximum Coverage Problem}.
+\newblock {\em Information Processing Letters}, 108(1):15--22, 2008.
+\newblock \href {https://doi.org/10.1016/j.ipl.2008.03.017}
+  {\path{doi:10.1016/j.ipl.2008.03.017}}.
+
 \bibitem{Conforti1984}
 Michele Conforti and G{\'{e}}rard Cornu{\'{e}}jols.
 \newblock {Submodular Set Functions, Matroids and The Greedy Algorithm: Tight
   Worst-Case Bounds and Some Generalizations of The Rado-Edmonds Theorem}.
 \newblock {\em Discrete Applied Mathematics}, 7(3):251--274, 1984.
+
+\bibitem{Corneuejols1977}
+Gerard Corneuejols, Marshall~L. Fisher, and George~L. Nemhauser.
+\newblock {Location of Bank Accounts to Optimize Float: An Analytic Study of
+  Exact and Approximate Algorithms}.
+\newblock {\em Management Science}, 23(8):789--810, 1977.
+\newblock \href {https://doi.org/10.1287/mnsc.23.8.789}
+  {\path{doi:10.1287/mnsc.23.8.789}}.
 
 \bibitem{Liu2018}
 Yajing Liu, Edwin K~P Chong, and Ali Pezeshki.
@@ -19,18 +34,26 @@ Yajing Liu, Edwin K~P Chong, and Ali Pezeshki.
   with Curvature}.
 \newblock {\em Journal of Combinatorial Optimization}, 37(4):1126--1149, 2018.
 
-\bibitem{Liu2019}
-Yajing Liu, Edwin K~P Chong, Ali Pezeshki, and Zhenliang Zhang.
-\newblock {Submodular Optimization Problems and Greedy Strategies: A Survey}.
-\newblock {\em arXiv e-prints}, page 1905.03308, 2019.
-\newblock URL: \url{http://arxiv.org/abs/1905.03308}, \href
-  {https://arxiv.org/abs/1905.03308} {\path{arXiv:1905.03308}}.
+\bibitem{Luo2019}
+Wenhao Luo and Katia Sycara.
+\newblock {Voronoi-Based Coverage Control with Connectivity Maintenance for
+  Robotic Sensor Networks}.
+\newblock In {\em Intl. Symp. on Multi-Robot and Multi-Agent Systems}, pages
+  148--154, 2019.
+\newblock \href {https://doi.org/10.1109/MRS.2019.8901078}
+  {\path{doi:10.1109/MRS.2019.8901078}}.
 
 \bibitem{Nemhauser1978}
 G.~L. Nemhauser, L~A. Wolsey, and M.L. Fisher.
 \newblock {An Analysis of Approximations for Maximizing Submodular Set
   Functions—I}.
 \newblock {\em Mathematical Programming}, 14(1):265--294, 1978.
+
+\bibitem{Rezazadeh2019}
+Navid Rezazadeh and Solmaz~S. Kia.
+\newblock {A Sub-Modular Receding Horizon Approach to Persistent Monitoring for
+  A Group of Mobile Agents Over an Urban Area}.
+\newblock In {\em IFAC-PapersOnLine}, volume~52, pages 217--222, 2019.
 
 \bibitem{Sun2020}
 Chuangchuang Sun, Shirantha Welikala, and Christos~G. Cassandras.
@@ -85,5 +108,11 @@ Dengxiu Yu, Hao Xu, C~L~Philip Chen, Wenjie Bai, and Zhen Wang.
 \newblock {\em IEEE Trans. on Industrial Electronics}, 69(5):5333--5341, 2022.
 \newblock \href {https://doi.org/10.1109/TIE.2021.3080205}
   {\path{doi:10.1109/TIE.2021.3080205}}.
+
+\bibitem{Zhong2011}
+M~Zhong and C~G Cassandras.
+\newblock {Distributed Coverage Control and Data Collection with Mobile Sensor
+  Networks}.
+\newblock {\em IEEE Trans. on Automatic Control}, 56(10):2445--2455, 2011.
 
 \end{thebibliography}
