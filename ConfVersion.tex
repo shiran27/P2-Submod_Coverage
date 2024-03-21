@@ -118,18 +118,7 @@ Performance-Guaranteed Solutions for Multi-Agent Optimal Coverage Problems using
 
 \begin{abstract}
 % What is multi agent coverage control
-We consider a class of multi-agent optimal coverage problems where the goal is to determine the optimal placement of a group of agents in a given mission space such that they maximize a joint ``coverage'' objective. This class of problems is extremely challenging due to the non-convex nature of the mission space and of the coverage objective. With this motivation, we propose to use a \emph{greedy algorithm} as a means of getting feasible coverage solutions efficiently. Even though such greedy solutions are suboptimal, the \emph{submodularity} (diminishing returns) property of the coverage objective can be exploited to provide performance bound guarantees - not only for the greedy solutions but also for any subsequently improved solutions. Moreover, we show that improved performance bound guarantees (beyond the standard (1-1/e) performance bound) can be established using various \emph{curvature measures} that further characterize the considered coverage problem. In particular, we provide a brief review of all existing popular curvature measures found in the submodular maximization literature, including a recent curvature measure that we proposed, and discuss in detail their applicability, practicality, and effectiveness in the context of optimal coverage problems. Moreover, we characterize the dependence of the effectiveness of different curvature measures (in providing improved performance bound guarantees) on the agent sensing capabilities. Finally, we provide several numerical results to support our findings and propose several potential future research directions. 
-
-
-% The coverage objective represents the joint detection probability of events of interest that may randomly occur in the considered mission space.
-
-
-% Maximization of a set function subject to a set cardinality constraint is a prevalent problem form that arises in critical application domains such as multi-agent optimization, machine learning, data mining, resource allocation, and many others. 
-% In particular, the interested set function in such problems often shows \emph{monotonicity} and \emph{submodularity} (i.e., diminishing returns) properties with respect to the set argument. 
-% However, the maximization of a monotone submodular set function under a set cardinality constraint is a well-known NP-hard problem. Motivated by the application potential and the challenging nature of this class of submodular maximization problems, it has attracted the attention of many researchers. Almost all existing solutions for this class of problems are rooted in greedy algorithms due to their computational efficiency and the ability to provide performance bounds such as the celebrated (1-1/e) performance bound. Recent work on this topic has focused on: (1) studying generalized/specialized variants of the problem, (2) developing specialized greedy solutions, and/or (3) establishing improved (i.e., tighter) performance bounds. 
-
-% In this paper, our focus is on the latter objective - due to its broad implications. In particular, here we provide an overview of the latest attempts at establishing improved performance bounds (for generic greedy solutions of generic submodular maximization problems). Typically, improved performance bounds are obtained using different \emph{curvature} properties of the set function, and they: (1) require additional assumptions, (2) involve excessive computations, and (3) face inherent insensitivities. 
-% In this paper, we first provide an overview of the fundamental performance bounds along with the latest curvature metrics and corresponding performance bounds, and discuss each of their underlying assumptions, computations and insensitivities. Next, a very recently proposed curvature metric and a corresponding performance bound by the authors are summarized. This performance bound is computed in parallel with the execution of the greedy algorithm, and, notably, does not require any additional assumptions while also being computationally efficient and widely sensitive. Subsequently, we discuss several implications and limitations of this approach along with potential future research directions. Finally, we discuss several possible applications and report numerical results obtained from a toy example and a well-known class of multi-agent coverage problems. 
+We consider a class of multi-agent optimal coverage problems in which the goal is to determine the optimal placement of a group of agents in a given mission space so that they maximize a coverage objective that represents a blend of individual and collaborative event detection capabilities. This class of problems is extremely challenging due to the non-convex nature of the mission space and of the coverage objective. With this motivation, we propose to use a \emph{greedy algorithm} as a means of getting feasible coverage solutions efficiently. Even though such greedy solutions are suboptimal, the \emph{submodularity} (diminishing returns) property of the coverage objective can be exploited to provide performance bound guarantees. Moreover, we show that improved performance bound guarantees (beyond the standard (1-1/e) performance bound) can be established using various \emph{curvature measures} of the coverage problem. In particular, we provide a brief review of all existing popular applicable curvature measures, including a recent curvature measure that we proposed, and discuss their effectiveness and computational complexity, in the context of optimal coverage problems. We also propose novel computationally efficient techniques to estimate some curvature measures. Finally, we provide several numerical results to support our findings and propose several potential future research directions. 
 \end{abstract}
 
 
@@ -137,146 +126,138 @@ We consider a class of multi-agent optimal coverage problems where the goal is t
 
 \section{Introduction}
 
-%% Multi-agent optimal coverage applications and their background.
-Our research focuses on multi-agent optimal coverage problems, which often arise in critical applications such as (but not limited to) surveillance, security, agriculture, and search and rescue \cite{Rezazadeh2019,Cohen2008}. In these problems, the overall goal is to find an effective placement (decision variable) for the agent team so that they can jointly and optimally ``cover'' (i.e., detect events of interest randomly occurring in) the mission space \cite{Zhong2011}. 
 
-%% Typical continuous optimization formulations and their solutions.
-Due to their wide applicability, several variants of multi-agent optimal coverage problems have been extensively studied in the literature \cite{Zhong2011,Luo2019,Welikala2019J1,Yu2022}. Typically, these are formulated as continuous optimization problems inspired by real-world conditions (e.g., continuous mission/decision spaces). However, their corresponding solutions are computationally expensive - unless significant simplifying assumptions are made regarding the particular coverage problem setup. This is mainly due to the overall challenging nature of coverage problems resulting from the often non-linear, non-convex, and non-smooth coverage objectives and non-convex mission spaces involved.   
 
-%% Combinatorial optimization formulation and its solution 
-In this paper, we adopt an alternative approach that has been taken in the literature \cite{Sun2019,Sun2020},  
-% {\color{blue} But we are not the first ones to do this, so maybe we can say that this is an alternative approach that has been taken in the literature and which we also adopt?}
-and formulate the multi-agent optimal coverage problem as a combinatorial optimization problem by discretizing the associated mission/decision space. The coverage objective function, in this setting, is proven to be a \emph{submodular} set function. In other words, the coverage objective function shows \emph{diminishing returns} when the deployed set of agents is expanded. While this combinatorial formulation simplifies the coverage problem to a certain level, the resulting problem, which now takes the form of a submodular maximization problem, is well known to be NP-hard \cite{Corneuejols1977,Nemhauser1978}.    
+%% Multi-agent optimal coverage applications and their background:
+Our research focuses on multi-agent optimal coverage problems, which often arise in critical applications such as (but not limited to) surveillance, security, agriculture, and search and rescue \cite{Rezazadeh2019,Cohen2008}. In these problems, the overall goal is to find an effective placement (decision variable) for the agent team so that they can optimally ``cover'' (i.e., individually and/or collaboratively detect events of interest randomly occurring in) the mission space. 
+
+%% Typical continuous optimization formulations and their solutions:
+Due to their wide applicability, several variants of multi-agent optimal coverage problems have been extensively studied in the literature \cite{Zhong2011,Luo2019,Welikala2019J1,Yu2022}. Typically, these are formulated as continuous optimization problems inspired by real-world conditions. However, their corresponding solutions are computationally expensive unless significant simplifying assumptions are made regarding the particular coverage problem setup. This is mainly due to the overall challenging nature of coverage problems resulting from the often non-linear, non-convex, and non-smooth coverage objectives and non-convex mission spaces involved.   
+
+%% Combinatorial optimization formulation and its solution :
+In this paper, we adopt an alternative approach that has been taken in the literature \cite{Sun2019,Sun2020}, and formulate the multi-agent optimal coverage problem as a combinatorial optimization problem by discretizing the associated mission/decision space. The coverage objective function, in this setting, is proven to be a \emph{submodular} set function. In other words, the coverage objective function shows \emph{diminishing returns} when the deployed set of agents is expanded. While this combinatorial formulation simplifies the coverage problem to a certain level, it now takes the form of a submodular maximization problem that is known to be NP-hard \cite{Corneuejols1977,Nemhauser1978}.    
 
 %% Greedy solutions
-\emph{Greedy algorithms} are commonly used to solve submodular maximization problems due to their simplicity and computational efficiency. Most importantly, the resulting greedy solutions, even though suboptimal, entertain performance bounds that characterize their proximity to the global optimal solution. The seminal work in \cite{Nemhauser1978} has established a $1-(1-\frac{1}{N})^N$ performance bound, which becomes $(1-\frac{1}{e}) \simeq 0.6321$ as the solution set size (i.e., in the coverage problem, the number of agents) $N\rightarrow \infty$. This implies that the greedy solution is not worse than $63.21\%$ of the global optimal solution. Recent literature on submodular maximization problems has focused on developing improved performance bounds beyond this fundamental performance bound. 
+\emph{Greedy algorithms} are commonly used to solve submodular maximization problems due to their simplicity and computational efficiency. Most importantly, the resulting greedy solutions, even though suboptimal, entertain performance bounds that characterize their proximity to the global optimal solution. The seminal work in \cite{Nemhauser1978} has established a $1-(1-\frac{1}{N})^N$ performance bound, which becomes $(1-\frac{1}{e}) \simeq 0.6321$ as the solution set size (i.e., in the coverage problem, the number of agents) $N\rightarrow \infty$. Hence the greedy solution is not worse than $63.21\%$ of the global optimal solution. Recent literature has focused on developing improved performance bounds beyond this fundamental performance bound. 
 
 
 %% The need for curvature measures and challenges
-To this end, various \emph{curvature measures} have been proposed to further characterize any given submodular maximization problem \cite{Conforti1984,Wang2016,Liu2018,WelikalaJ02021}. These curvature measures provide corresponding performance bounds, which may or may not significantly improve upon the fundamental performance bound - depending on the nature of the considered problem/application. 
-% Moreover, this search for improved performance bounds via curvature measures has been mostly a theoretical pursuit, in particular, more and more recently.
-% {\color{blue} This last sentence is a little odd, as if denigatring the importance of curvature. Perhaps we can omit it and instead start the next sentence with "however these curvature measures are computationally expensive" depending on the application}
-However, often these curvature measures are computationally expensive to evaluate. 
-Moreover, given the variety of curvature measures available and the variations in their effectiveness with respect to problem parameters, selecting a curvature measure that is likely to provide significantly improved performance bounds for a particular application is challenging.    
+To this end, various \emph{curvature measures} have been proposed to further characterize any given submodular maximization problem \cite{Conforti1984,Wang2016,Liu2018,WelikalaJ02021}. These curvature measures provide corresponding performance bounds, which may or may not significantly improve upon the fundamental performance bound - depending on the nature of the considered problem/application. However, often these curvature measures are computationally expensive to evaluate. Moreover, given the variety of curvature measures available and the variations in their effectiveness with respect to problem parameters, selecting a curvature measure that is likely to provide significantly improved performance bounds for a particular application is challenging.    
 
 %% Our prior work. 
-Our previous work in \cite{Sun2019} considered a widely studied multi-agent optimal coverage problem (e.g., see \cite{Zhong2011,Welikala2019J1}) and showed that the \emph{total curvature} \cite{Conforti1984} and \emph{elemental curvature} \cite{Wang2016} can collectively provide improved performance bounds irrespective of the used agent sensing capabilities (weak or strong). The subsequent work in \cite{Sun2020} considered a slightly different coverage problem (i.e., the optimal agent team selection for coverage problem) and showcased the effectiveness of the \emph{greedy curvature} \cite{Conforti1984} and \emph{partial curvature} \cite{Liu2018} in providing improved performance bounds. Our most recent work in \cite{WelikalaJ02021} considered the general submodular maximization problem and proposed a new curvature measure called the \emph{extended greedy curvature}. Then, using the coverage problem, the effectiveness of this new curvature measure compared to all other curvature measures mentioned above was illustrated. 
-In this paper, we consider a more general and comprehensive coverage problem and investigate the effectiveness of all these curvature measures through theoretical analysis and numerical experiments. 
+Our previous work in \cite{Sun2019} considered a widely studied multi-agent optimal coverage problem (e.g., see \cite{Zhong2011,Welikala2019J1}) and showed that the \emph{total curvature} \cite{Conforti1984} and \emph{elemental curvature} \cite{Wang2016} can collectively provide improved performance bounds. The subsequent work in \cite{Sun2020} considered a slightly different coverage problem with a team selection element and showcased the effectiveness of the \emph{greedy curvature} \cite{Conforti1984} and \emph{partial curvature} \cite{Liu2018} in providing improved performance bounds. Our most recent work in \cite{WelikalaJ02021} considered the general submodular maximization problem and proposed a new curvature measure called the \emph{extended greedy curvature}. Then, using the coverage problem, its effectiveness compared to all other curvature measures mentioned above was illustrated. 
+In this paper, we consider a more general coverage problem than before and investigate the effectiveness and complexity of all these curvature measures through theoretical analysis, development, and numerical experiments. 
    
 
 
 % Our contributions
-Our contributions are as follows: 
-(1) We consider a significantly more general coverage problem (compared to those in \cite{WelikalaJ02021,Sun2019});
-(2) Submodularity and several other key properties of the considered set coverage function are established; 
+In particular, our contributions are as follows: 
+(1) We consider a more general coverage problem (compared to those in \cite{WelikalaJ02021,Sun2019});
+(2) Submodularity and several other key properties of the considered coverage problem are established; 
 (3) We review five curvature measures that are applicable to the considered coverage problem (to the best of our knowledge, this review is exhaustive);
-(4) Special properties and techniques for numerical evaluation of curvature measures in the context of considered coverage problems are discussed; 
-(5) We detail the effectiveness of different curvature metrics with respect to the coverage problem parameters (e.g., agent sensing capabilities);
-(6) We implement the proposed coverage problem setup in a simulation environment and evaluate different curvature measures, along with their performance bounds, under a diverse set of problem conditions;
+(4) Special properties and techniques for numerical evaluation of some complex curvature measures for coverage problems are discussed; 
+(5) We detail the effectiveness complexity of different curvature metrics with respect to various coverage problem parameters; and 
+(6) We implement the proposed coverage problem setup in a simulation environment and evaluate different curvature measures and their performance bounds under different problem conditions.
 
 
 
 
 
-
-% The salient feature that characterizes a \emph{submodular} set function is its \emph{diminishing returns} property. Simply, this property means that the marginal gain (return) of adding an element to a set decreases as the set grows (accumulates new elements). In this sense, submodularity bears a similarity to concavity. However, it has been established that maximizing submodular set functions is NP-hard \cite{Corneuejols1977,Nemhauser1978} while minimizing them can be achieved in polynomial time \cite{Grotschel1981,Schrijver2000}. Therefore, submodularity also has a resemblance to convexity. Despite this duality, submodular set functions appear naturally in many real-world problems such as in the coverage control \cite{Sun2020,Sun2019}, persistent monitoring \cite{Rezazadeh2019}, feature selection \cite{Das2008}, document summarization \cite{lin-bilmes-2011-class}, image segmentation \cite{Jegelka2011}, marketing \cite{Kempe2003}, data mining \cite{Mirzasoleiman2013}, machine scheduling \cite{LiuSiwen2020} and recommender systems \cite{El-Arini2011}.
-
-
-
-% Motivated by its applicability, submodular maximization problems have been theoretically studied in the literature under a diverse set of conditions \cite{Liu2020}. For example, the submodular \emph{objective function} is assumed to be: monotone in \cite{Wang2016}, non-monotone in \cite{Fahrbach2019} and weakly submodular in \cite{Khanna2017}. Similarly, different types of set variable \emph{constraints} such as cardinality \cite{Nemhauser1978}, matroid \cite{Fisher1978}, knapsack \cite{Wolsey1984} and matchoid \cite{Badanidiyuru2020} have been considered throughout the literature. 
-% Even though submodular maximization problems have been studied under various conditions, their solutions are predominantly based on greedy algorithms.
-% % Despite having such a variety of possibilities, many \emph{solutions} developed for submodular maximization problems rely on greedy algorithms. 
-% In this paper, similar to \cite{Nemhauser1978,Conforti1984,Wang2016,Liu2018}, we consider the class of submodular maximization problems where the objective function is monotone, the set variable is cardinality constrained, and the solution is obtained by a vanilla greedy algorithm. Such maximization problems arise naturally from applications like coverage control \cite{Sun2020,Sun2019}, persistent monitoring \cite{Rezazadeh2019}, machine scheduling \cite{LiuSiwen2020} and resource allocation \cite{Liu2020}.
-% However, in contrast to the prior work in \cite{Nemhauser1978,Conforti1984,Wang2016,Liu2018}, here we propose a novel \emph{performance bound} for the obtained greedy solutions. 
-% % The effectiveness of this novel performance bound is validated by applying it to solve a class of coverage problems.     
-
-
-
-% Formally, a performance bound of a greedy solution is a lower bound to the ratio $f^G/f^*$ so that $\beta \leq f^{G}/f^{\ast}$, where $f^{G}$ and $f^{\ast}$ correspond to the objective function values under the greedy solution and the global optimal solution, respectively. For monotone submodular objective functions, the seminal papers \cite{Fisher1978} and \cite{Nemhauser1978} respectively show that $\beta = \frac{1}{2}$ when the set variable is constrained over a general matroid and $\beta = (1-(1-\frac{1}{N})^N)$  when the set variable's cardinality is constrained by $N$. Note that having a performance bound closer to $1$ is preferred, as it implies that the greedy solution is almost globally optimal.
-
-% Recent work on this class of problems has shown an increasing interest in improving the aforementioned conventional performance bounds by exploiting structural properties of the underlying problem. The typical approach is first to define a \emph{curvature} measure that characterizes the structural properties of the underlying objective function, the feasible space and the generated greedy solution. Then, based on this curvature measure, an improved (closer to $1$ compared to conventional counterparts) performance bound is established. For example, \cite{Conforti1984} defined a curvature measure named \emph{total curvature} based on the nature of the objective function and the feasible space. Then, a provably improved performance bound was  developed using the said total curvature measure. The authors of \cite{Conforti1984} also proposed another curvature metric named \emph{greedy curvature} based on the generated greedy solution and used it to develop another performance bound. The same procedure was followed in \cite{Wang2016} and \cite{Liu2018} to propose two new curvature metrics named \emph{elemental curvature} and \emph{partial curvature} respectively and then to develop corresponding performance bounds. 
-
-
-
-% In this work, we first review the aforementioned total, greedy, elemental and partial curvature measures proposed in \cite{Conforti1984,Wang2016,Liu2018} while outlining their strengths and weaknesses. In particular, we point out that some of these curvature measures can be: (i) computationally expensive to obtain, (ii) require enforcing additional assumptions and (iii) may have inherent limitations that prevent them from providing improved performance bounds (e.g., if the submodularity property of the objective function is strong or weak). We next propose a novel curvature measure (which we named the \emph{extended greedy curvature}) along with a corresponding performance bound that can be computed efficiently in parallel with the execution of the greedy algorithm. We show that this performance bound may be improved by executing extra greedy iterations (hence the name ``extended''). This new performance bound does not require any additional assumptions, and it also does not suffer from the said inherent limitations of its predecessors. Finally, we use a widely studied class of multi-agent coverage problems \cite{Sun2019,Sun2020} and implement all the aforementioned performance bounds to highlight the effectiveness of the proposed performance bound in this paper.  
 
 \paragraph*{Organization}\ 
-The paper is organized as follows. We introduce the considered class of multi-agent optimal coverage problem in Section \ref{Sec:CoverageProblem}. Some notations, preliminary concepts, and the proposed greedy solution are reported in Section \ref{Sec:Preliminaries}. Different curvature measures found in the literature, along with discussions on their applicability, practicality, and effectiveness in the context of optimal coverage problems, are provided in Section \ref{Sec:CurvatureMeasures}. 
-Interesting observations, advantages, limitations, and potential future research directions are summarized in Section \ref{Sec:Discussion}. 
-Several numerical results obtained from different multi-agent optimal coverage problems \cite{Welikala2019J1} are reported in Section \ref{Sec:CaseStudies} before concluding the paper in Section \ref{Sec:Conclusion}. 
+We introduce the considered coverage problem in Section \ref{Sec:CoverageProblem}. Some notations, preliminary concepts, and the proposed greedy solution are reported in Section \ref{Sec:Preliminaries}. Different curvature measures found in the literature, along with discussions on their effectiveness and complexity in the context of optimal coverage problems, are provided in Section \ref{Sec:CurvatureMeasures}. 
+A summary and some future research directions are given in Section \ref{Sec:Discussion}. 
+Several numerical results are reported in Section \ref{Sec:CaseStudies} before concluding the paper in Section \ref{Sec:Conclusion}. 
 
-\paragraph*{Notation}\ 
-{\color{blue} In the interest of space, I am comfortable leaving this out since almost all notation is pretty standard. The only somewhat nonstandard notation is 
-$\mathbb{N}_n, \N_n^0$ and we can just bring that in when first needed
-}
-The sets of real and natural numbers are denoted by $\R$ and $\N$, respectively. $\R_{\geq 0}$ represents the set of non-negative real numbers, $\R^n$ denotes the set of $n$-dimensional real (column) vectors, $\mathbb{N}_n \triangleq \{1,2,\ldots,n\}$, $\N_n^0 \triangleq \N_n \cup \{0\}$, and $[a,b]\triangleq \{x: x\in\R, a\leq x \leq b\}$. $\Vert \cdot \Vert$ represents the Euclidean norm, $\vert \cdot \vert$ denotes the scalar absolute value or set cardinality (based on the type of the argument), $\left \lfloor{\cdot}\right \rfloor$ denotes the floor operator, and $\mathbf{1}_{\{\cdot\}}$ denotes the indicator function. Given two sets $A$ and $B$, the set subtraction operator is denoted as $A-B = A \backslash B = A\cap B^c$. $2^X$ denotes the power set of a set $X$ and $\emptyset$ is the empty set. 
+% \paragraph*{Notation}\ 
+% {\color{blue} In the interest of space, I am comfortable leaving this out since almost all notation is pretty standard. The only somewhat nonstandard notation is 
+% $\mathbb{N}_n, \N_n^0$ and we can just bring that in when first needed
+% }
+% The sets of real and natural numbers are denoted by $\R$ and $\N$, respectively. $\R_{\geq 0}$ represents the set of non-negative real numbers, $\R^n$ denotes the set of $n$-dimensional real (column) vectors, $\mathbb{N}_n \triangleq \{1,2,\ldots,n\}$, $\N_n^0 \triangleq \N_n \cup \{0\}$, and $[a,b]\triangleq \{x: x\in\R, a\leq x \leq b\}$. $\Vert \cdot \Vert$ represents the Euclidean norm, $\vert \cdot \vert$ denotes the scalar absolute value or set cardinality (based on the type of the argument), $\left \lfloor{\cdot}\right \rfloor$ denotes the floor operator, and $\mathbf{1}_{\{\cdot\}}$ denotes the indicator function. Given two sets $A$ and $B$, the set subtraction operator is denoted as $A-B = A \backslash B = A\cap B^c$. $2^X$ denotes the power set of a set $X$ and $\emptyset$ is the empty set. 
+
 
 
 \section{Multi-Agent Optimal Coverage Problem}
 \label{Sec:CoverageProblem}
 We begin by providing the details of the considered multi-agent optimal coverage problem. The goal of the considered coverage problem is to determine an optimal placement for a given team of agents (e.g., sensors, cameras, guards, etc.) in a given mission space that maximizes the probability of detecting events that occur randomly over the mission space. 
 
+
 % Mission space
-We model the \emph{mission space} $\Omega$ as a convex polytope in $\R^n$ that may also contain $h$ polytopic (and possibly non-convex) \emph{obstacles} $\{\Psi_i:\Psi_i\subset\Omega, i\in\mathbb{N}_h\}$. The characteristics of the obstacles are such that they: (1) limit the agent placement to the feasible space $\Phi \triangleq \Omega \backslash \cup_{i\in\N_h} \Psi_i$, (2) constrain the sensing capabilities of the agents via obstructing their line of sight, and (3) are in areas where no events of interest occur. 
+We model the \emph{mission space} $\Omega$ as a convex polytope in $\R^n$ that may also contain $h$ polytopic (and possibly non-convex) \emph{obstacles} $\{\Psi_i:\Psi_i\subset\Omega, i\in\mathbb{N}_h\}$ (note that: $\mathbb{N}_n \triangleq \{1,2,\ldots,n\}$). The obstacles: (1) limit the agent placement to the feasible space $\Phi \triangleq \Omega \backslash \cup_{i\in\N_h} \Psi_i$, (2) constrain the sensing capabilities of agents via obstructing their line of sight, and (3) are in areas where no events of interest occur. 
 
 % Events
-To model the likelihood of random \emph{events} occurring over the mission space, an \emph{event density function} $R:\Omega \rightarrow \R_{\geq0}$ is used, where $R(x) = 0, \forall x \not\in \Phi$ and $\int_\Omega R(x)dx <\infty$. Note that when no prior information is available on $R(x)$, one can use $R(x)=1, \forall x\in \Phi$. 
+To model the likelihood of random \emph{events} occurring over the mission space, an \emph{event density function} $R:\Omega \rightarrow \R_{\geq0}$ is used, where $R(x) = 0, \forall x \not\in \Phi$ and $\int_\Omega R(x)dx <\infty$. If no prior information on $R(x)$ is known, one can use $R(x)=1, \forall x\in \Phi$. 
 
 % Agent placement
-To detect these random events, $N$ \emph{agents} are to be placed inside the feasible space $\Phi$. The placement of this team of $N$ agents (i.e., the decision variable) is denoted in a compact form by $s = [s_1, s_2, \ldots, s_N]\in\R^{m\times N}$, where each $s_i, i\in\N_N$ represents an agent placement such that $s_i\in \Phi$. 
+To detect these random events, $N$ \emph{agents} are to be placed inside the feasible space $\Phi$, where their placement (i.e., the decision variable) is denoted by a matrix $s \triangleq [s_1, s_2, \ldots, s_N]\in\R^{m\times N}$ or a set $S\triangleq \{s_i:i\in\N_N, s_i\in\R^m\}$, where each $s_i, i\in\N_N$ represents an agent placement such that $s_i \in \Phi$. 
+
+
 
 % Agent sensing functions
-The ability of an agent to \emph{detect} events is limited by visibility obstruction from obstacles and the agent's sensing capabilities. For an agent placed at $s_i \in \Phi$, its \emph{visibility region} is defined as 
+The ability of an agent to \emph{detect} events is limited by its sensing capabilities and visibility obstruction from obstacles. For an agent at $s_i \in \Phi$, its \emph{visibility region} is defined as 
 $$
 V(s_i) \triangleq \{x: (qx+(1-q)s_i)\in \Phi, \forall q \in [0,1] \}.
 $$ 
-In terms of agent \emph{sensing capabilities}, agents are assumed to be homogeneous, where each agent has a finite \emph{sensing radius} $\delta \in \R_{\geq 0}$ and \emph{sensing decay rate} $\lambda\in\R_{\geq 0}$. In particular, the probability of an agent placed at $s_i\in \Phi$ detecting an event occurring at $x\in \Phi$ is described by a \emph{sensing function} defined as 
+Agents are assumed to be homogeneous in their \emph{sensing capabilities}. In particular, each agent has a finite \emph{sensing radius} $\delta \in \R_{\geq 0}$ and \emph{sensing decay rate} $\lambda\in\R_{\geq 0}$ that defines the probability of an agent at $s_i\in \Phi$ detecting an event at $x\in \Phi$ via a \emph{sensing function} of the form 
 \begin{equation}
 \label{Eq:SensingFunction}
 p(x,s_i)\triangleq e^{-\lambda \Vert x - s_i\Vert}\cdot\mathbf{1}_{\{x\in V(s_i)\}}.
 \end{equation}
-Figure \ref{Fig:Geometry} illustrates visibility regions and the corresponding sensing functions in a 2-D mission space with two agents and three obstacles.
 
-\begin{figure}[!b]
-    \centering
-    \includegraphics[width=2.5in]{Figures/Geometry.png}
-    \caption{A mission space with two agents.}
-    \label{Fig:Geometry}
-\end{figure}
-
+% Figure \ref{Fig:Geometry} illustrates visibility regions and the corresponding sensing functions in a 2-D mission space with two agents and three obstacles.
+% \begin{figure}[!b]
+%     \centering
+%     \includegraphics[width=2in]{Figures/Geometry.png}
+%     \caption{A mission space with two agents.}
+%     \label{Fig:Geometry}
+% \end{figure}
 % Agnet team detection functions
-Given the placement $s$ of the team of agents, their combined ability to detect an event occurring at $x \in \Phi$ is characterized by a \emph{detection function} $P(x,s)$. One popular detection function is the \emph{joint detection function} given by 
+
+
+
+Given agent team placement $s$ (or, equivalently, $S$), their ability to detect an event at $x \in \Phi$ is described by a \emph{detection function} $P(x,s)$. For this, the \emph{joint detection function}: 
 \begin{equation}\label{Eq:JointDetection}
 P_J(x,s) \triangleq 1-\prod_{i\in\N_N}(1-p(x,s_i)),
 \end{equation}
-which represents the probability of detection by at least one agent (assuming agents detect events independently from each other). Another widely used detection function is the \emph{max detection function} given by 
+is a popular choice that represents the probability of detection by at least one agent (assuming independently detecting agents). Moreover, the \emph{max detection function} given by 
 \begin{equation}\label{Eq:MaxDetection}
 P_M(x,s) \triangleq \max_{i\in\N_N} p(x,s_i),
 \end{equation}
-which represents the maximum probability of detection by any agent. The following remark summarizes the pros and cons of using \eqref{Eq:JointDetection} or \eqref{Eq:MaxDetection} as the detection function $P(x,s)$.  
+is also a widely used choice that represents the maximum probability of detection by any agent. The following remark summarizes the pros and cons of using \eqref{Eq:JointDetection} or \eqref{Eq:MaxDetection} as $P(x,s)$.  
 
 \begin{remark}\label{Rm:DetectionFunction}
-The joint detection function \eqref{Eq:JointDetection} aggregates the contributions of all agents and, thus, offers a comprehensive view of coverage. This method is suitable for applications that benefit from the collective capabilities of the agent team. However, it can be computationally demanding to compute. 
-On the other hand, the max detection function \eqref{Eq:MaxDetection} prioritizes the most effective agent at each point and, thus, offers a conservative estimate of coverage. This method is simpler and may be preferred in critical applications where ensuring the highest detection probability at every point is paramount. However, it can lead to under-utilization of the agent team as it does not fully account for the combined coverage provided by multiple sensors.
-Ultimately, the choice between these detection functions should consider the coverage application's comprehensiveness and reliability requirements, the nature of the agents, and the available computational resources.
+The joint detection function \eqref{Eq:JointDetection} offers a complete but computationally intensive view of coverage by combining all agent efforts. Thus it is suited for scenarios where collaborative detection is needed. Conversely, the max detection function \eqref{Eq:MaxDetection} focuses on the top-performing agent at each point, providing a simpler yet non-smooth and potentially under-utilizing approach. Thus it is suited for scenarios where individual yet maximum detection is needed. Choosing between these depends on the application's needs, agent characteristics, and available computational resources.
 \end{remark}
 
-Motivated by the contrasting nature of the joint and max detection functions \eqref{Eq:JointDetection}-\eqref{Eq:MaxDetection}, in this paper, we consider the detection function
+% \begin{remark}\label{Rm:DetectionFunction}
+% The joint detection function \eqref{Eq:JointDetection} aggregates the contributions of all agents and, thus, offers a comprehensive view of coverage. This method is suitable for applications that benefit from the collective capabilities of the agent team. However, it can be computationally demanding to compute. 
+% On the other hand, the max detection function \eqref{Eq:MaxDetection} prioritizes the most effective agent at each point and, thus, offers a conservative estimate of coverage. This method is simpler and may be preferred in critical applications where ensuring the highest detection probability at every point is paramount. However, it can lead to under-utilization of the agent team as it does not fully account for the combined coverage provided by multiple sensors.
+% Ultimately, the choice between these detection functions should consider the coverage application's comprehensiveness and reliability requirements, the nature of the agents, and the available computational resources.
+% \end{remark}
+
+%%% Revised up to this
+\bigskip
+{\color{blue} \textbf{**** Compressed up to this point...} }
+\bigskip
+
+Motivated by the contrasting nature of the joint and max detection functions, we propose the detection function
 \begin{equation}\label{Eq:DetectionFunction}
     P(x,s) \triangleq \theta P_J(x,s) + (1-\theta) P_M(x,s),
 \end{equation}
-where $\theta\in[0,1]$ is a predefined weight. 
+where $\theta\in[0,1]$ is a predefined weight (e.g., see Fig. \ref{Fig:DetectionFunction}).  
 
 
 % Coverage function and coverage problem
-Using the notions of event density function $R(x)$ and detection function $P(x,s)$ introduced above, the considered \emph{coverage function} is defined as 
+Using the defined event density and detection functions, the interested optimal coverage problem now can be defined as 
 \begin{equation}\label{Eq:CoverageObjective}
-H(s) \triangleq \int_\Omega R(x)P(x,s)dx.     
+H(s) \triangleq \int_\Omega R(x)P(x,s)dx,     
 \end{equation}
-Consequently, the considered multi-agent optimal coverage problem can be stated as
+The considered optimal coverage problem can be stated as
 \begin{equation}\label{Eq:CoverageProblem}
- s^* = \underset{s:s_i\in \Phi, i\in \N_N}{\arg\max}\ H(s).  
+ s^* = \underset{s:s_i\in \Phi, i\in \N_N}{\arg\max}\ H(s) \triangleq \int_\Omega R(x)P(x,s)dx,  
 \end{equation}
+where $H(s)$ (or equivalently $H(S)$) is the \emph{coverage function}.
+
 
 \paragraph*{Continuous Optimization Approach}\ 
 The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex feasible space and a non-convex, non-linear, and non-smooth objective function. While the prior is due to the presence of obstacles in the mission space, the latter is due to the nature of the event density, sensing, joint detection, and coverage function forms. Consequently, it is extremely difficult to solve this problem without using: (1) standard global optimization solvers that are computationally expensive, (2) systematic gradient-based solvers that require extensive domain knowledge, or (3) Voronoi partition techniques that require significant limiting assumptions (e.g., convexity \cite{Yu2022} and connectivity \cite{Luo2019}).   
@@ -287,7 +268,7 @@ First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $
 
 Second, upon formulating the ground set $X$, we define a \emph{set variable} $S = \{s_i:i\in\N\}$ to represent the set of selected locations for agent placement. As we are interested in placing only $N$ agents strictly in locations selected from the ground set $X$, we need to constrain this set variable $S$ such that $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. It is worth noting that a set system of the form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint of the form $S\in\mathcal{I}^N$ is known as a uniform matroid constraint of rank $N$. 
 
-To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageObjective}, we next define a \emph{set coverage function} as: 
+To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageProblem}, we next define a \emph{set coverage function} as: 
 \begin{equation}\label{Eq:SetCoverageFunction}
     H(S) \triangleq \int_\Omega R(x)P(x,S)dx,
 \end{equation}
@@ -864,7 +845,7 @@ Evaluating the partial curvature upper-bound $\bar{\alpha}_p$ proposed in \eqref
 
 The \emph{extended greedy curvature}, as the name suggests, requires executing some extra greedy iterations in the greedy algorithm (i.e., Alg. \ref{Alg:GreedyAlgorithm}). This is not an issue as Alg. \ref{Alg:GreedyAlgorithm} can be executed beyond $N$ iterations until $M \triangleq \vert X \vert$ iterations - analogous to a scenario where more than $N$ agents are to be deployed to the mission space in a greedy fashion. 
 
-To define the extended greedy curvature, we first need some additional notations. Recall that we used $(S^i,s^i)$ to denote the greedy (set\,,\,element) observed at the $i$\tsup{th} greedy iteration, where $i\in \N_M^0$. Let $m \triangleq \left \lfloor{\frac{M}{N}}\right \rfloor$, and for any $n\in \N_{m-1}^0$, 
+To define the extended greedy curvature, we first need some additional notations. Recall that we used $(S^i,s^i)$ to denote the greedy (set\,,\,element) observed at the $i$\tsup{th} greedy iteration, where $i\in \N_M^0 \triangleq \N_M \cup\{0\}$. Let $m \triangleq \left \lfloor{\frac{M}{N}}\right \rfloor$, and for any $n\in \N_{m-1}^0$, 
 \begin{equation}\label{Eq:GreedySolutionBlock}
     S^G_n \triangleq S^{(n+1)N} \backslash S^{nN} = \{s^{nN+1},s^{nN+2},\ldots,s^{nN+N}\}, 
 \end{equation}
@@ -1010,106 +991,106 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \label{Sec:CaseStudies}
 
 
-\begin{figure*}[!h]
+\begin{figure}[!h]
     \centering
-    \begin{subfigure}[t]{0.4\columnwidth}
+    \begin{subfigure}[t]{0.32\columnwidth}
         \centering
         \includegraphics[width=\columnwidth]{Figures/DetFun_0.png}
-        \caption{$\theta = 0 \rightarrow \beta_u=0.837$}
+        \caption{$\theta = 0, \beta_u=0.84$}
     \end{subfigure}%
+    % \hfill
+    % \begin{subfigure}[t]{0.4\columnwidth}
+    %     \centering
+    %     \includegraphics[width=\columnwidth]{Figures/DetFun_30.png}
+    %     \caption{$\theta = 0.3 \rightarrow \beta_u=0.853$}
+    % \end{subfigure}%
     \hfill
-    \begin{subfigure}[t]{0.4\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{Figures/DetFun_30.png}
-        \caption{$\theta = 0.3 \rightarrow \beta_u=0.853$}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[t]{0.4\columnwidth}
+    \begin{subfigure}[t]{0.32\columnwidth}
         \centering
         \includegraphics[width=\columnwidth]{Figures/DetFun_50.png}
-        \caption{$\theta = 0.5 \rightarrow \beta_u=0.872$}
+        \caption{$\theta = 0.5,\beta_u=0.87$}
     \end{subfigure}%
+    % \hfill
+    % \begin{subfigure}[t]{0.4\columnwidth}
+    %     \centering
+    %     \includegraphics[width=\columnwidth]{Figures/DetFun_70.png}
+    %     \caption{$\theta = 0.7 \rightarrow \beta_u=0.886$}
+    % \end{subfigure}%
     \hfill
-    \begin{subfigure}[t]{0.4\columnwidth}
-        \centering
-        \includegraphics[width=\columnwidth]{Figures/DetFun_70.png}
-        \caption{$\theta = 0.7 \rightarrow \beta_u=0.886$}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[t]{0.4\columnwidth}
+    \begin{subfigure}[t]{0.32\columnwidth}
         \centering
         \includegraphics[width=\columnwidth]{Figures/DetFun_100.png}
-        \caption{$\theta = 1 \rightarrow \beta_u=0.916$}
+        \caption{$\theta = 1, \beta_u=0.92$}
     \end{subfigure}%
     \caption{Greedy solutions, coverage level patterns, and the tightest performance bounds observed under different weight parameters $\theta \in [0,1]$ in the Blank mission space with $N=4$ agents with sensing range $\delta=200$ and decay $\lambda = 0.012$.}
     \label{Fig:DetectionFunction}
     % \vspace{-5mm}
-\end{figure*}
-
-
-
-
-
-\begin{figure}[!h]
-\centering
-\begin{minipage}{\columnwidth}
-\centering
-\captionof{table}{Performance bounds observed under different sensing range $\delta$ values in the Blank mission space with $N=10$ agents with sensing decay $\lambda=0.003$.}
-\label{Tab:BlankRange}
-\resizebox{0.85\columnwidth}{!}{%
-\begin{tabular}{lllllll}
-\hline
-\multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\delta=35$}} \\ \hline
-\multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
-\multicolumn{1}{|r|}{0} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.896} & \multicolumn{1}{l|}{0.834} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.885} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
-\multicolumn{1}{|r|}{0.5} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.900} & \multicolumn{1}{l|}{0.841} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.890} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
-\multicolumn{1}{|r|}{1} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.904}} & \multicolumn{1}{l|}{\textbf{0.848}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.895}} & \multicolumn{1}{l|}{{\ul \textbf{1.000}}} \\ \hline
-\multicolumn{7}{l}{\cellcolor[HTML]{C0C0C0}} \\ \hline
-\multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\delta$ at $\theta = 0.5$}} \\ \hline
-\multicolumn{1}{|c|}{\textbf{$\delta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
-\multicolumn{1}{|r|}{35} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.900}} & \multicolumn{1}{l|}{\textbf{0.841}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.890}} & \multicolumn{1}{l|}{{\ul \textbf{1.000}}} \\ \hline
-\multicolumn{1}{|r|}{40} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.790} & \multicolumn{1}{l|}{0.637} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.743} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
-\multicolumn{1}{|r|}{50} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.677} & \multicolumn{1}{l|}{0.521} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
-\multicolumn{1}{|r|}{75} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.653} & \multicolumn{1}{l|}{0.435} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.971}} \\ \hline
-\multicolumn{1}{|r|}{100} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.652} & \multicolumn{1}{l|}{0.157} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.895}} \\ \hline
-\multicolumn{1}{|r|}{150} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.652} & \multicolumn{1}{l|}{0.133} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.864}} \\ \hline
-\multicolumn{1}{|r|}{200} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.652} & \multicolumn{1}{l|}{0.120} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.917}} \\ \hline
-\multicolumn{1}{|r|}{300} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.108} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.946}} \\ \hline
-\multicolumn{1}{|r|}{400} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.105} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.948}} \\ \hline
-\multicolumn{1}{|r|}{600} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.953}} \\ \hline
-\multicolumn{1}{|r|}{700} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.954}} \\ \hline
-\multicolumn{1}{|r|}{800} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.954}} \\ \hline
-\multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
-\multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\delta=800$}}\\ \hline
-\multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
-\multicolumn{1}{|r|}{0} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.652}} & \multicolumn{1}{l|}{\textbf{0.104}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.910}} \\ \hline
-\multicolumn{1}{|r|}{0.5} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.954}} \\ \hline
-\multicolumn{1}{|r|}{1} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{\textbf{0.798}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{{\ul \textbf{0.997}}} \\ \hline
-\end{tabular}%
-}
-\vspace{2mm}
-\end{minipage}
-\centering
-\begin{subfigure}[t]{0.3\columnwidth}
-    \centering
-    \includegraphics[width=\columnwidth]{Figures/BlankRange35.png}
-    \caption{$\delta=35$}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.3\columnwidth}
-    \centering
-    \includegraphics[width=\columnwidth]{Figures/BlankRange400.png}
-    \caption{$\delta=400$}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.3\columnwidth}
-    \centering
-    \includegraphics[width=\columnwidth]{Figures/BlankRange800.png}
-    \caption{$\delta=800$}
-\end{subfigure}%
-\caption{Greedy solutions and coverage level patterns observed under different sensing range $\delta$ values considered in Tab. \ref{Tab:BlankRange}.}
-\label{Fig:BlankRange}
 \end{figure}
+
+
+
+
+
+% \begin{figure}[!h]
+% \centering
+% \begin{minipage}{\columnwidth}
+% \centering
+% \captionof{table}{Performance bounds observed under different sensing range $\delta$ values in the Blank mission space with $N=10$ agents with sensing decay $\lambda=0.003$.}
+% \label{Tab:BlankRange}
+% \resizebox{0.85\columnwidth}{!}{%
+% \begin{tabular}{lllllll}
+% \hline
+% \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\delta=35$}} \\ \hline
+% \multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
+% \multicolumn{1}{|r|}{0} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.896} & \multicolumn{1}{l|}{0.834} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.885} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
+% \multicolumn{1}{|r|}{0.5} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.900} & \multicolumn{1}{l|}{0.841} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.890} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
+% \multicolumn{1}{|r|}{1} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.904}} & \multicolumn{1}{l|}{\textbf{0.848}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.895}} & \multicolumn{1}{l|}{{\ul \textbf{1.000}}} \\ \hline
+% \multicolumn{7}{l}{\cellcolor[HTML]{C0C0C0}} \\ \hline
+% \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\delta$ at $\theta = 0.5$}} \\ \hline
+% \multicolumn{1}{|c|}{\textbf{$\delta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
+% \multicolumn{1}{|r|}{35} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.900}} & \multicolumn{1}{l|}{\textbf{0.841}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.890}} & \multicolumn{1}{l|}{{\ul \textbf{1.000}}} \\ \hline
+% \multicolumn{1}{|r|}{40} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.790} & \multicolumn{1}{l|}{0.637} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.743} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
+% \multicolumn{1}{|r|}{50} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.677} & \multicolumn{1}{l|}{0.521} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{1.000}} \\ \hline
+% \multicolumn{1}{|r|}{75} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.653} & \multicolumn{1}{l|}{0.435} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.971}} \\ \hline
+% \multicolumn{1}{|r|}{100} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.652} & \multicolumn{1}{l|}{0.157} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.895}} \\ \hline
+% \multicolumn{1}{|r|}{150} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.652} & \multicolumn{1}{l|}{0.133} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.864}} \\ \hline
+% \multicolumn{1}{|r|}{200} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.652} & \multicolumn{1}{l|}{0.120} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.917}} \\ \hline
+% \multicolumn{1}{|r|}{300} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.108} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.946}} \\ \hline
+% \multicolumn{1}{|r|}{400} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.105} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.948}} \\ \hline
+% \multicolumn{1}{|r|}{600} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.953}} \\ \hline
+% \multicolumn{1}{|r|}{700} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.954}} \\ \hline
+% \multicolumn{1}{|r|}{800} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.954}} \\ \hline
+% \multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
+% \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\delta=800$}}\\ \hline
+% \multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
+% \multicolumn{1}{|r|}{0} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.652}} & \multicolumn{1}{l|}{\textbf{0.104}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.910}} \\ \hline
+% \multicolumn{1}{|r|}{0.5} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{\textbf{0.954}} \\ \hline
+% \multicolumn{1}{|r|}{1} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{0.103} & \multicolumn{1}{l|}{\textbf{0.798}} & \multicolumn{1}{l|}{0.651} & \multicolumn{1}{l|}{{\ul \textbf{0.997}}} \\ \hline
+% \end{tabular}%
+% }
+% \vspace{2mm}
+% \end{minipage}
+% \centering
+% \begin{subfigure}[t]{0.3\columnwidth}
+%     \centering
+%     \includegraphics[width=\columnwidth]{Figures/BlankRange35.png}
+%     \caption{$\delta=35$}
+% \end{subfigure}%
+% \hfill
+% \begin{subfigure}[t]{0.3\columnwidth}
+%     \centering
+%     \includegraphics[width=\columnwidth]{Figures/BlankRange400.png}
+%     \caption{$\delta=400$}
+% \end{subfigure}%
+% \hfill
+% \begin{subfigure}[t]{0.3\columnwidth}
+%     \centering
+%     \includegraphics[width=\columnwidth]{Figures/BlankRange800.png}
+%     \caption{$\delta=800$}
+% \end{subfigure}%
+% \caption{Greedy solutions and coverage level patterns observed under different sensing range $\delta$ values considered in Tab. \ref{Tab:BlankRange}.}
+% \label{Fig:BlankRange}
+% \end{figure}
 
 
 
@@ -1120,7 +1101,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \centering
 \captionof{table}{Performance bounds observed under different sensing decay $\lambda$ values in the Blank mission space with $N=10$ agents with sensing range $\delta=800$.}
 \label{Tab:BlankDecay}
-\resizebox{0.85\columnwidth}{!}{%
+\resizebox{0.75\columnwidth}{!}{%
 \begin{tabular}{|lllllll|}
 \hline
 \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\lambda=0.05$}} \\ \hline
@@ -1182,7 +1163,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \centering
 \captionof{table}{Performance bounds observed under different sensing range $\delta$ values in the Maze mission space with $N=10$ agents with sensing range $\lambda=0.012$.}
 \label{Tab:MazeRange}
-\resizebox{0.85\columnwidth}{!}{%
+\resizebox{0.75\columnwidth}{!}{%
 \begin{tabular}{|rrrrrrr|}
 \hline
 \multicolumn{7}{|c|}{Perf. bounds with respect to $\theta$ at $\delta=50$} \\ \hline
@@ -1193,7 +1174,7 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
 \multicolumn{7}{|c|}{Perf. bounds with respect to $\delta$  at $\theta = 0.5$} \\ \hline
 \multicolumn{1}{|c|}{$\delta$} & \multicolumn{1}{c|}{$\beta_f$} & \multicolumn{1}{c|}{$\beta_t$} & \multicolumn{1}{c|}{$\beta_g$} & \multicolumn{1}{c|}{$\beta_e$} & \multicolumn{1}{c|}{$\beta_p$} & \multicolumn{1}{c|}{$\beta_u$} \\ \hline
-\multicolumn{1}{|r|}{50} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.718}} & \multicolumn{1}{r|}{\textbf{0.729}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.992} \\ \hline
+\multicolumn{1}{|r|}{50} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.718}} & \multicolumn{1}{r|}{\textbf{0.729}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.651}} & \textbf{0.992} \\ \hline
 \multicolumn{1}{|r|}{100} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.660} & \multicolumn{1}{r|}{0.401} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.976} \\ \hline
 \multicolumn{1}{|r|}{150} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.657} & \multicolumn{1}{r|}{0.347} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.919} \\ \hline
 \multicolumn{1}{|r|}{200} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.657} & \multicolumn{1}{r|}{0.342} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.892} \\ \hline
@@ -1238,65 +1219,65 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \end{figure}
 
 
-\begin{figure}[!h]
-\centering
-\begin{minipage}{\columnwidth}
-\centering
-\captionof{table}{Performance bounds observed under different sensing decay $\lambda$ values in the General mission space with $N=10$ agents with sensing range $\delta=200$.}
-\label{Tab:GeneralDecay}
-\resizebox{0.85\columnwidth}{!}{%
-\begin{tabular}{|rrrrrrr|}
-\hline
-\multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\lambda=0.05$}} \\ \hline
-\multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
-\multicolumn{1}{|r|}{0} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.711} & \multicolumn{1}{r|}{0.579} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.926} \\ \hline
-\multicolumn{1}{|r|}{0.5} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.747} & \multicolumn{1}{r|}{0.636} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.686} & \textbf{0.940} \\ \hline
-\multicolumn{1}{|r|}{1} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.786}} & \multicolumn{1}{r|}{\textbf{0.831}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.751}} & {\ul \textbf{0.972}} \\ \hline
-\multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
-\multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\lambda$ at $\theta = 0.5$}} \\ \hline
-\multicolumn{1}{|c|}{\textbf{$\lambda$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
-\multicolumn{1}{|r|}{0.05} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.747}} & \multicolumn{1}{r|}{\textbf{0.636}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.686}} & \textbf{0.940} \\ \hline
-\multicolumn{1}{|r|}{0.045} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.729} & \multicolumn{1}{r|}{0.600} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.660} & \textbf{0.920} \\ \hline
-\multicolumn{1}{|r|}{0.04} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.710} & \multicolumn{1}{r|}{0.562} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.901} \\ \hline
-\multicolumn{1}{|r|}{0.035} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.693} & \multicolumn{1}{r|}{0.520} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.878} \\ \hline
-\multicolumn{1}{|r|}{0.03} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.677} & \multicolumn{1}{r|}{0.476} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.840} \\ \hline
-\multicolumn{1}{|r|}{0.025} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.666} & \multicolumn{1}{r|}{0.433} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.808} \\ \hline
-\multicolumn{1}{|r|}{0.02} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.658} & \multicolumn{1}{r|}{0.382} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.748} \\ \hline
-\multicolumn{1}{|r|}{0.015} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.655} & \multicolumn{1}{r|}{0.320} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.686} \\ \hline
-\multicolumn{1}{|r|}{0.01} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.653} & \multicolumn{1}{r|}{0.243} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.716} \\ \hline
-\multicolumn{1}{|r|}{0.005} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.652} & \multicolumn{1}{r|}{0.154} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.820} \\ \hline
-\multicolumn{1}{|r|}{0.003} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.652} & \multicolumn{1}{r|}{0.135} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.897} \\ \hline
-\multicolumn{1}{|r|}{0.001} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.107} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & {\ul \textbf{0.968}} \\ \hline
-\multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
-\multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\lambda=0.001$}} \\ \hline
-\multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
-\multicolumn{1}{|r|}{0} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.651}} & \multicolumn{1}{r|}{0.103} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.964} \\ \hline
-\multicolumn{1}{|r|}{0.5} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.107} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.968} \\ \hline
-\multicolumn{1}{|r|}{1} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.109}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & {\ul \textbf{0.975}} \\ \hline
-\end{tabular}}
-\vspace{3mm}
-\end{minipage}
-\centering
-\begin{subfigure}[t]{0.3\columnwidth}
-    \centering
-    \includegraphics[width=\columnwidth]{Figures/GeneralDecay05.png}
-    \caption{$\lambda = 0.05$}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.3\columnwidth}
-    \centering
-    \includegraphics[width=\columnwidth]{Figures/GeneralDecay025.png}
-    \caption{$\lambda = 0.025$}
-\end{subfigure}%
-\hfill
-\begin{subfigure}[t]{0.3\columnwidth}
-    \centering
-    \includegraphics[width=\columnwidth]{Figures/GeneralDecay001.png}
-    \caption{$\lambda = 0.001$}
-\end{subfigure}%
-\caption{Greedy solutions and coverage level patterns observed under different sensing decay $\lambda$ values considered in Tab. \ref{Tab:GeneralDecay}.}
-\label{Fig:GeneralDecay}
-\end{figure}
+% \begin{figure}[!h]
+% \centering
+% \begin{minipage}{\columnwidth}
+% \centering
+% \captionof{table}{Performance bounds observed under different sensing decay $\lambda$ values in the General mission space with $N=10$ agents with sensing range $\delta=200$.}
+% \label{Tab:GeneralDecay}
+% \resizebox{0.85\columnwidth}{!}{%
+% \begin{tabular}{|rrrrrrr|}
+% \hline
+% \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\lambda=0.05$}} \\ \hline
+% \multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
+% \multicolumn{1}{|r|}{0} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.711} & \multicolumn{1}{r|}{0.579} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.926} \\ \hline
+% \multicolumn{1}{|r|}{0.5} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.747} & \multicolumn{1}{r|}{0.636} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.686} & \textbf{0.940} \\ \hline
+% \multicolumn{1}{|r|}{1} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.786}} & \multicolumn{1}{r|}{\textbf{0.831}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.751}} & {\ul \textbf{0.972}} \\ \hline
+% \multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
+% \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\lambda$ at $\theta = 0.5$}} \\ \hline
+% \multicolumn{1}{|c|}{\textbf{$\lambda$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
+% \multicolumn{1}{|r|}{0.05} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.747}} & \multicolumn{1}{r|}{\textbf{0.636}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.686}} & \textbf{0.940} \\ \hline
+% \multicolumn{1}{|r|}{0.045} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.729} & \multicolumn{1}{r|}{0.600} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.660} & \textbf{0.920} \\ \hline
+% \multicolumn{1}{|r|}{0.04} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.710} & \multicolumn{1}{r|}{0.562} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.901} \\ \hline
+% \multicolumn{1}{|r|}{0.035} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.693} & \multicolumn{1}{r|}{0.520} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.878} \\ \hline
+% \multicolumn{1}{|r|}{0.03} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.677} & \multicolumn{1}{r|}{0.476} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.840} \\ \hline
+% \multicolumn{1}{|r|}{0.025} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.666} & \multicolumn{1}{r|}{0.433} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.808} \\ \hline
+% \multicolumn{1}{|r|}{0.02} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.658} & \multicolumn{1}{r|}{0.382} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.748} \\ \hline
+% \multicolumn{1}{|r|}{0.015} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.655} & \multicolumn{1}{r|}{0.320} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.686} \\ \hline
+% \multicolumn{1}{|r|}{0.01} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.653} & \multicolumn{1}{r|}{0.243} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.716} \\ \hline
+% \multicolumn{1}{|r|}{0.005} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.652} & \multicolumn{1}{r|}{0.154} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.820} \\ \hline
+% \multicolumn{1}{|r|}{0.003} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.652} & \multicolumn{1}{r|}{0.135} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.897} \\ \hline
+% \multicolumn{1}{|r|}{0.001} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.107} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & {\ul \textbf{0.968}} \\ \hline
+% \multicolumn{7}{|l|}{\cellcolor[HTML]{C0C0C0}} \\ \hline
+% \multicolumn{7}{|c|}{\textbf{Perf. bounds with respect to $\theta$ at $\lambda=0.001$}} \\ \hline
+% \multicolumn{1}{|c|}{\textbf{$\theta$}} & \multicolumn{1}{c|}{\textbf{$\beta_f$}} & \multicolumn{1}{c|}{\textbf{$\beta_t$}} & \multicolumn{1}{c|}{\textbf{$\beta_g$}} & \multicolumn{1}{c|}{\textbf{$\beta_e$}} & \multicolumn{1}{c|}{\textbf{$\beta_p$}} & \multicolumn{1}{c|}{\textbf{$\beta_u$}} \\ \hline
+% \multicolumn{1}{|r|}{0} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.651}} & \multicolumn{1}{r|}{0.103} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.964} \\ \hline
+% \multicolumn{1}{|r|}{0.5} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.107} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \textbf{0.968} \\ \hline
+% \multicolumn{1}{|r|}{1} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{\textbf{0.109}} & \multicolumn{1}{r|}{0.651} & \multicolumn{1}{r|}{0.651} & {\ul \textbf{0.975}} \\ \hline
+% \end{tabular}}
+% \vspace{3mm}
+% \end{minipage}
+% \centering
+% \begin{subfigure}[t]{0.3\columnwidth}
+%     \centering
+%     \includegraphics[width=\columnwidth]{Figures/GeneralDecay05.png}
+%     \caption{$\lambda = 0.05$}
+% \end{subfigure}%
+% \hfill
+% \begin{subfigure}[t]{0.3\columnwidth}
+%     \centering
+%     \includegraphics[width=\columnwidth]{Figures/GeneralDecay025.png}
+%     \caption{$\lambda = 0.025$}
+% \end{subfigure}%
+% \hfill
+% \begin{subfigure}[t]{0.3\columnwidth}
+%     \centering
+%     \includegraphics[width=\columnwidth]{Figures/GeneralDecay001.png}
+%     \caption{$\lambda = 0.001$}
+% \end{subfigure}%
+% \caption{Greedy solutions and coverage level patterns observed under different sensing decay $\lambda$ values considered in Tab. \ref{Tab:GeneralDecay}.}
+% \label{Fig:GeneralDecay}
+% \end{figure}
 
 
 In our numerical experiments, we considered square-shaped mission spaces (each side is of length $600$ units) with three different obstacle arrangements named ``Blank,'' ``Maze'' and ``General'' as can be seen in Figs. \ref{Fig:DetectionFunction}-\ref{Fig:BlankDecay}, \ref{Fig:MazeRange} and \ref{Fig:GeneralDecay}, respectively. Note that, in such figures, obstacles are shown as dark green-colored blocks, candidate agent locations (ground set $X$) are shown as small black dots, and agent locations are shown as numbered pink-colored circles. Note also that light-colored areas indicate low coverage (i.e., low event detection probability) levels, while dark-colored areas indicate the opposite. The event density function was assumed to be uniform, i.e., $R(x) = 1, \forall x\in \Phi$.  
@@ -1338,10 +1319,7 @@ Using the results reported in Tabs. \ref{Tab:MazeRange} and \ref{Tab:GeneralDeca
 
 
 
-% %%% Revised up to this
-% \bigskip
-% {\color{blue} \textbf{**** Revised up to this point...} }
-% \bigskip
+
 
 
 
