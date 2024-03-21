@@ -1066,12 +1066,11 @@ INPUT .\Figures\Geometry.png
 INPUT .\Figures\Geometry.png
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmbi8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmbi8r.tfm
-INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb8t.vf
-INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7y.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
 INPUT C:\Users\shira\AppData\Local\MiKTeX\fonts\tfm\public\rsfs\rsfs10.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb7t.vf
+INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7m.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\psyro.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
@@ -1097,6 +1096,7 @@ INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.v
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
+INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7y.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy10.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
@@ -1240,10 +1240,6 @@ INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\t1pcr.fd
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\t1pcr.fd
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\t1pcr.fd
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8t.tfm
-INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
-INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
-INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
-INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7m.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\psyro.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
@@ -1265,6 +1261,10 @@ INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmri8r
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\zptmcm7t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\symbol\psyr.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
+INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
+INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
+INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
+INPUT c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8t.tfm
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmri8t.vf
 INPUT C:\Users\shira\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr8t.vf

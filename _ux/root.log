@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.11)  20 MAR 2024 18:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.11)  20 MAR 2024 20:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -658,15 +658,12 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 
 
 ]
-
-LaTeX Warning: Reference `Sec:Conclusion' on page 2 undefined on input line 206.
-
-<Figures/Geometry.png, id=78, 249.5724pt x 252.945pt>
+<Figures/Geometry.png, id=82, 249.5724pt x 252.945pt>
 File: Figures/Geometry.png Graphic file (type png)
 <use Figures/Geometry.png>
 Package pdftex.def Info: Figures/Geometry.png  used on input line 242.
 (pdftex.def)             Requested size: 180.67499pt x 183.1199pt.
-[2 <./Figures/Geometry.png>]
+ [2 <./Figures/Geometry.png>]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
@@ -745,27 +742,27 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\@ifnextchar' on input line 863.
 
 [10] [11] [12]
-<Figures/DetFun_0.png, id=358, 602.25pt x 602.25pt>
+<Figures/DetFun_0.png, id=362, 602.25pt x 602.25pt>
 File: Figures/DetFun_0.png Graphic file (type png)
 <use Figures/DetFun_0.png>
 Package pdftex.def Info: Figures/DetFun_0.png  used on input line 1018.
 (pdftex.def)             Requested size: 98.28574pt x 98.28258pt.
-<Figures/DetFun_30.png, id=359, 602.25pt x 602.25pt>
+<Figures/DetFun_30.png, id=363, 602.25pt x 602.25pt>
 File: Figures/DetFun_30.png Graphic file (type png)
 <use Figures/DetFun_30.png>
 Package pdftex.def Info: Figures/DetFun_30.png  used on input line 1024.
 (pdftex.def)             Requested size: 98.28574pt x 98.28258pt.
-<Figures/DetFun_50.png, id=360, 602.25pt x 602.25pt>
+<Figures/DetFun_50.png, id=364, 602.25pt x 602.25pt>
 File: Figures/DetFun_50.png Graphic file (type png)
 <use Figures/DetFun_50.png>
 Package pdftex.def Info: Figures/DetFun_50.png  used on input line 1030.
 (pdftex.def)             Requested size: 98.28574pt x 98.28258pt.
-<Figures/DetFun_70.png, id=361, 602.25pt x 602.25pt>
+<Figures/DetFun_70.png, id=365, 602.25pt x 602.25pt>
 File: Figures/DetFun_70.png Graphic file (type png)
 <use Figures/DetFun_70.png>
 Package pdftex.def Info: Figures/DetFun_70.png  used on input line 1036.
 (pdftex.def)             Requested size: 98.28574pt x 98.28258pt.
-<Figures/DetFun_100.png, id=362, 602.25pt x 602.25pt>
+<Figures/DetFun_100.png, id=366, 602.25pt x 602.25pt>
 File: Figures/DetFun_100.png Graphic file (type png)
 <use Figures/DetFun_100.png>
 Package pdftex.def Info: Figures/DetFun_100.png  used on input line 1042.
@@ -774,17 +771,17 @@ Package pdftex.def Info: Figures/DetFun_100.png  used on input line 1042.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/BlankRange35.png, id=365, 602.25pt x 602.25pt>
+<Figures/BlankRange35.png, id=369, 602.25pt x 602.25pt>
 File: Figures/BlankRange35.png Graphic file (type png)
 <use Figures/BlankRange35.png>
 Package pdftex.def Info: Figures/BlankRange35.png  used on input line 1096.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/BlankRange400.png, id=366, 602.25pt x 602.25pt>
+<Figures/BlankRange400.png, id=370, 602.25pt x 602.25pt>
 File: Figures/BlankRange400.png Graphic file (type png)
 <use Figures/BlankRange400.png>
 Package pdftex.def Info: Figures/BlankRange400.png  used on input line 1102.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/BlankRange800.png, id=367, 602.25pt x 602.25pt>
+<Figures/BlankRange800.png, id=371, 602.25pt x 602.25pt>
 File: Figures/BlankRange800.png Graphic file (type png)
 <use Figures/BlankRange800.png>
 Package pdftex.def Info: Figures/BlankRange800.png  used on input line 1108.
@@ -796,17 +793,17 @@ See the caption package documentation for explanation.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/BlankDecay05.png, id=368, 602.25pt x 602.25pt>
+<Figures/BlankDecay05.png, id=372, 602.25pt x 602.25pt>
 File: Figures/BlankDecay05.png Graphic file (type png)
 <use Figures/BlankDecay05.png>
 Package pdftex.def Info: Figures/BlankDecay05.png  used on input line 1159.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/BlankDecay025.png, id=369, 602.25pt x 602.25pt>
+<Figures/BlankDecay025.png, id=373, 602.25pt x 602.25pt>
 File: Figures/BlankDecay025.png Graphic file (type png)
 <use Figures/BlankDecay025.png>
 Package pdftex.def Info: Figures/BlankDecay025.png  used on input line 1165.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/BlankDecay001.png, id=370, 602.25pt x 602.25pt>
+<Figures/BlankDecay001.png, id=374, 602.25pt x 602.25pt>
 File: Figures/BlankDecay001.png Graphic file (type png)
 <use Figures/BlankDecay001.png>
 Package pdftex.def Info: Figures/BlankDecay001.png  used on input line 1171.
@@ -818,17 +815,17 @@ See the caption package documentation for explanation.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/MazeRange50.png, id=371, 602.25pt x 602.25pt>
+<Figures/MazeRange50.png, id=375, 602.25pt x 602.25pt>
 File: Figures/MazeRange50.png Graphic file (type png)
 <use Figures/MazeRange50.png>
 Package pdftex.def Info: Figures/MazeRange50.png  used on input line 1221.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/MazeRange350.png, id=372, 602.25pt x 602.25pt>
+<Figures/MazeRange350.png, id=376, 602.25pt x 602.25pt>
 File: Figures/MazeRange350.png Graphic file (type png)
 <use Figures/MazeRange350.png>
 Package pdftex.def Info: Figures/MazeRange350.png  used on input line 1227.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/MazeRange800.png, id=373, 602.25pt x 602.25pt>
+<Figures/MazeRange800.png, id=377, 602.25pt x 602.25pt>
 File: Figures/MazeRange800.png Graphic file (type png)
 <use Figures/MazeRange800.png>
 Package pdftex.def Info: Figures/MazeRange800.png  used on input line 1233.
@@ -840,17 +837,17 @@ See the caption package documentation for explanation.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/GeneralDecay05.png, id=374, 602.25pt x 602.25pt>
+<Figures/GeneralDecay05.png, id=378, 602.25pt x 602.25pt>
 File: Figures/GeneralDecay05.png Graphic file (type png)
 <use Figures/GeneralDecay05.png>
 Package pdftex.def Info: Figures/GeneralDecay05.png  used on input line 1282.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/GeneralDecay025.png, id=375, 602.25pt x 602.25pt>
+<Figures/GeneralDecay025.png, id=379, 602.25pt x 602.25pt>
 File: Figures/GeneralDecay025.png Graphic file (type png)
 <use Figures/GeneralDecay025.png>
 Package pdftex.def Info: Figures/GeneralDecay025.png  used on input line 1288.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/GeneralDecay001.png, id=376, 602.25pt x 602.25pt>
+<Figures/GeneralDecay001.png, id=380, 602.25pt x 602.25pt>
 File: Figures/GeneralDecay001.png Graphic file (type png)
 <use Figures/GeneralDecay001.png>
 Package pdftex.def Info: Figures/GeneralDecay001.png  used on input line 1294.
@@ -862,31 +859,25 @@ See the caption package documentation for explanation.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 1309.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 1304.
 (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Underfull \hbox (badness 1502) in paragraph at lines 1309--1310
+Underfull \hbox (badness 1502) in paragraph at lines 1304--1305
 \T1/ptm/m/n/10 for-mance bounds $\OML/ztmcm/m/it/10 ^^L[]$ []\T1/ptm/m/n/10 , $\OML/ztmcm/m/it/10 ^^L[]$ []\T1/ptm/m/n/10 , $\OML/ztmcm/m/it/10 ^^L[]$ []\T1/ptm/m/n/10 , $\OML/ztmcm/m/it/10 ^^L[]$ []\T1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 2790) in paragraph at lines 1309--1310
+Underfull \hbox (badness 2790) in paragraph at lines 1304--1305
 \OML/ztmcm/m/it/10 ^^L[]$ [] \T1/ptm/m/n/10 and $\OML/ztmcm/m/it/10 ^^L[]$ [] \T1/ptm/m/n/10 were all im-ple-mented for the
  []
 
 
-Underfull \hbox (badness 6047) in paragraph at lines 1309--1310
+Underfull \hbox (badness 6047) in paragraph at lines 1304--1305
 \T1/ptm/m/n/10 is avail-able at []$\T1/pcr/m/n/10 https : / / github . com / shiran27 /
  []
 
-
-LaTeX Warning: Reference `Fig:...' on page 13 undefined on input line 1312.
-
-
-LaTeX Warning: Reference `Fig:...' on page 13 undefined on input line 1312.
-
-(c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl [13] [14 <./Figures/DetFun_0.png> <./Figures/DetFun_30.png> <./Figures/DetFun_50.png> <./Figures/DetFun_70.png> <./Figures/DetFun_100.png> <./Figures/BlankRange35.png> <./Figures/BlankRange400.png> <./Figures/BlankRange800.png> <./Figures/BlankDecay05.png> <./Figures/BlankDecay025.png> <./Figures/BlankDecay001.png>] [15 <./Figures/MazeRange50.png> <./Figures/MazeRange350.png> <./Figures/MazeRange800.png> <./Figures/GeneralDecay05.png> <./Figures/GeneralDecay025.png> <./Figures/GeneralDecay001.png>]
+[13] [14 <./Figures/DetFun_0.png> <./Figures/DetFun_30.png> <./Figures/DetFun_50.png> <./Figures/DetFun_70.png> <./Figures/DetFun_100.png> <./Figures/BlankRange35.png> <./Figures/BlankRange400.png> <./Figures/BlankRange800.png> <./Figures/BlankDecay05.png> <./Figures/BlankDecay025.png> <./Figures/BlankDecay001.png>] [15 <./Figures/MazeRange50.png> <./Figures/MazeRange350.png> <./Figures/MazeRange800.png> <./Figures/GeneralDecay05.png> <./Figures/GeneralDecay025.png> <./Figures/GeneralDecay001.png>] (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.bbl
 Underfull \hbox (badness 2680) in paragraph at lines 79--88
 []\T1/ptm/m/n/8 Shirantha We-likala and Chris-tos G. Cas-san-dras.  Asymp-totic
  []
@@ -930,26 +921,23 @@ Before submitting the final camera ready copy, remember to:
 
 ] (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.aux)
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `root.out' has not changed.
-(rerunfilecheck)             Checksum: DC02F1111D2146D69DC8B8224EC1A3B5;2676.
+(rerunfilecheck)             Checksum: C8C267767B5123CFCE780289CF18E980;2763.
  ) 
 Here is how much of TeX's memory you used:
  14766 strings out of 475389
- 243483 string characters out of 2777000
- 648168 words of memory out of 3000000
- 35711 multiletter control sequences out of 15000+600000
+ 243476 string characters out of 2777000
+ 650197 words of memory out of 3000000
+ 35710 multiletter control sequences out of 15000+600000
  609331 words of font info for 207 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  60i,22n,67p,1725b,537s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on "c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.pdf" (16 pages, 696549 bytes).
+Output written on "c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\root.pdf" (16 pages, 698230 bytes).
 PDF statistics:
- 557 PDF objects out of 1000 (max. 8388607)
- 116 named destinations out of 1000 (max. 500000)
- 203 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 566 PDF objects out of 1000 (max. 8388607)
+ 117 named destinations out of 1000 (max. 500000)
+ 211 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1298,20 +1298,27 @@ In a limited sense, the extended greedy curvature measure $\alpha_u$ can be seen
 \label{Fig:GeneralDecay}
 \end{figure}
 
-%%%% Revised up to this
-% \bigskip
-% {\color{blue} \textbf{**** Revised up to this point...} }
-% \bigskip
-
 
 In our numerical experiments, we considered a square-shaped mission space (each side is of length $600$ units) with three different obstacle arrangements named ``Blank,'' ``Maze'' and ``General'' as can be seen in Fig. ... . Note that, in such figures, obstacles are shown as dark green-colored blocks, candidate agent locations (ground set $X$) are shown as small black dots, and agent locations are shown as numbered pink-colored circles. Note also that light-colored areas indicate low coverage (i.e., low event detection probability) levels, while dark-colored areas indicate the opposite. 
 
-The greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}) and the reviewed performance bounds $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}, $\beta_t$ \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ \eqref{Eq:GreedyCurvatureBoundTheory}, $\beta_e$ \eqref{Eq:ElementalCurvatureBoundTheory}, $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} and $\beta_u$ \eqref{Eq:ExtGreedyCurvatureBoundTheory} were all implemented for the considered class of multi-agent optimal coverage problems in an interactive JavaScript-based simulator which is available at \url{https://github.com/shiran27/P2-Submod_Coverage}. This simulator may be used by the reader to reproduce the reported results and also to try different new problem configurations. It is worth noting that, in evaluating the performance bounds $\beta_e$ and $\beta_p$, we have used the proposed techniques in Props. \ref{Pr:ElementalCurvatureBound} and \ref{Pr:PartialCurvatureBound}. Unlike sampling based techniques used in prior work, these techniques are computationally efficient and provide theoretically valid performance bounds. In evaluaing the extended greedy curvature, following \cite{WelikalaJ02021}, we used \eqref{Eq:ExtGreedyCurvatureMeasure} with $Q=\bar{Q}$.
+The greedy algorithm (Alg. \ref{Alg:GreedyAlgorithm}) and the reviewed performance bounds $\beta_f$ \eqref{Eq:FundamentalPerformanceBound}, $\beta_t$ \eqref{Eq:TotalCurvatureBoundTheory}, $\beta_g$ \eqref{Eq:GreedyCurvatureBoundTheory}, $\beta_e$ \eqref{Eq:ElementalCurvatureBoundTheory}, $\beta_p$ \eqref{Eq:PartialCurvatureBoundTheory} and $\beta_u$ \eqref{Eq:ExtGreedyCurvatureBoundTheory} were all implemented for the considered class of multi-agent optimal coverage problems in an interactive JavaScript-based simulator which is available at \url{https://github.com/shiran27/P2-Submod_Coverage}. This simulator may be used by the reader to reproduce the reported results and also to try different new problem configurations. 
+
+Note that, in evaluating the performance bounds $\beta_e$ and $\beta_p$, we have used the proposed techniques in Props. \ref{Pr:ElementalCurvatureBound} and \ref{Pr:PartialCurvatureBound}, respectively. Unlike sampling based techniques used in prior work, these techniques are computationally efficient and provide theoretically valid performance bounds. In evaluaing the extended greedy curvature, following \cite{WelikalaJ02021}, we used \eqref{Eq:ExtGreedyCurvatureMeasure} with $Q=\bar{Q}$.
 
 
-Figure \ref{Fig:DetectionFunction} illustrates how the greedy solution and the coverage level patterns vary with the chosen weight parameter $\theta$ in the detection function \eqref{Eq:DetectionFunction}. As stated in Rm. \ref{Rm:DetectionFunction}, choosing $\theta=1$ (i.e., promoting joint detection \eqref{Eq:JointDetection}) motivates cooperation while choosing $\theta=0$ (i.e., promoting max detection \eqref{Eq:MaxDetection}) motivates compartmentalization in sensing. Consequently, when $\theta \simeq 0$, agents are spread out in the mission space - potentially leaving blind regions in the middle but covering a wider area in the mission space (e.g., see the greedy solution shown in Fig. \ref{Fig:...}). On the other hand, when $\theta$ is high, agents are flocked together - not leaving blind regions in the middle but failing cover outer regions of the mission space (e.g., see the greedy solution shown in Fig. \ref{Fig:...}). 
+First, we demonstrate the impact of the weight parameter $\theta$ (see the detection function in \eqref{Eq:DetectionFunction}) using the Blank environment with $N=4$ agents. Here, each agent is assumed to have a sensing range $\lambda = 200$ and a sensing decay $\delta = 0.012$ (see the sensing function in \eqref{Eq:SensingFunction}). In problem setup, when the weight paramter is gradually varied from $\theta = 0$ to $\theta=1$, the resulting greedy solutions, coverage level patterns and performance bounds are shown in Figure \ref{Fig:DetectionFunction}. 
 
-Besides, the nature of the greedy solution, the weight parameter also affect the performance bounds. This is evident from the given performance boundvalues in        
+
+%%% Revised up to this
+\bigskip
+{\color{blue} \textbf{**** Revised up to this point...} }
+\bigskip
+
+
+As stated in Rm. \ref{Rm:DetectionFunction}, choosing $\theta=1$ (i.e., promoting joint detection \eqref{Eq:JointDetection}) motivates cooperation while choosing $\theta=0$ (i.e., promoting max detection \eqref{Eq:MaxDetection}) motivates compartmentalization in sensing. Consequently, as can be seen in Fig. \ref{Fig:DetectionFunction}(a), when $\theta \simeq 0$, agents are spread out in the mission space - leaving a blind region in the middle but covering a wider area in the mission space. On the other hand, as can be seen in Fig. \ref{Fig:DetectionFunction}(e), when $\theta \simeq 1$, agents are located relatively closer to each other than before - not leaving a blind regions in the middle but failing to adaquately cover some outer regions of the mission space. 
+
+
+Besides such implications on the greedy solution and the coverage pattern, as can be seen from the performance bounds reported in Figs. \ref{Fig:DetectionFunction}(a)-(e), it is evident that $\theta$ affect the performance bounds. This is evident from the given performance boundvalues in        
 
 It is worth noting that both the greedy solution and its performance bounds are affected by the choice of $\theta$. ...
 
@@ -1326,8 +1333,8 @@ In our numerical experiments, we mainly used the weight parameter $\theta=0.5$. 
 
 
 
-% \section{Conclusion}
-% \label{Sec:Conclusion}
+\section{Conclusion}
+\label{Sec:Conclusion}
 
 
 
