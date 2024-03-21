@@ -260,7 +260,38 @@ The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex fe
 \paragraph*{Combinatorial Optimization Approach}\ Motivated by the said challenges, here we take a combinatorial optimization approach to solve \eqref{Eq:CoverageProblem}. This requires reformulating \eqref{Eq:CoverageProblem} as a set function maximization problem (in set variable $S$).
 
 
-First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. Second, we replace the matrix variable $s$ with the corresponding \emph{set variable} $S = \{s_i:i\in\N\}$ with the constraint $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$ (note that: $\vert Y \vert$ denotes the coardinality of the set $Y$). A set system of the form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint of the form $S\in\mathcal{I}^N$ is known as a uniform matroid constraint of rank $N$ \cite{WelikalaJ02021}.
+First, we discretize the feasible space $\Phi$ fomulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. Second, in detection and coverage functions defined in \eqref{Eq:JointDetection}-\eqref{Eq:CoverageProblem}, we replace the matrix variable $s$ with the \emph{set variable} $S \triangleq \{s_i:i\in\N\}$ to obtain the respective set detection and set coverage problems. To limit the set cardinality (denoted by $\vert S \vert$) to $N$, we introduce the constraint $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. Finally, we restate the optimal coverage problem \eqref{Eq:CoverageProblem} as a set function maximization problem:
+\begin{equation}\label{Eq:SetCoverageProblem}
+S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S) = \int_\Omega R(x)P(x,S)dx.
+\end{equation} 
+
+
+\begin{remark}
+A set system form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint $S\in\mathcal{I}^N$ is known as a uniform matroid constraint of rank $N$ \cite{WelikalaJ02021}.
+\end{remark}
+
+
+% To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageProblem}, we next define a \emph{set coverage function} as: 
+% \begin{equation}\label{Eq:SetCoverageFunction}
+%     H(S) \triangleq \int_\Omega R(x)P(x,S)dx,
+% \end{equation}
+% where $P(x,S)$ represents a \emph{set detection function}. Inspired by \eqref{Eq:JointDetection}-\eqref{Eq:DetectionFunction}, this set detection function $P(x,S)$ is selected as:
+% \begin{equation}\label{Eq:SetDetectionFunction}
+% P(x,S) \triangleq \theta P_J(x,S) + (1-\theta)P_M(x,S)
+% \end{equation}
+% where 
+% \begin{equation}\label{Eq:JointDetection}
+% P_J(x,S) \triangleq 1-\prod_{s_i\in S}(1-p(x,s_i)),
+% \end{equation}
+% \begin{equation}\label{Eq:MaxDetection}
+% P_M(x,S) \triangleq \max_{s_i\in S} p(x,s_i).    
+% \end{equation}
+
+
+% Finally, we restate the original multi-agent optimal coverage problem \eqref{Eq:CoverageProblem} as a set function maximization problem:
+% \begin{equation}\label{Eq:SetCoverageProblem}
+% S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S).
+% \end{equation}
 
 
 %%% Revised up to this
@@ -268,27 +299,6 @@ First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $
 {\color{blue} \textbf{**** Compressed up to this point...} }
 \bigskip
 
-To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageProblem}, we next define a \emph{set coverage function} as: 
-\begin{equation}\label{Eq:SetCoverageFunction}
-    H(S) \triangleq \int_\Omega R(x)P(x,S)dx,
-\end{equation}
-where $P(x,S)$ represents a \emph{set detection function}. Inspired by \eqref{Eq:JointDetection}-\eqref{Eq:DetectionFunction}, this set detection function $P(x,S)$ is selected as:
-\begin{equation}\label{Eq:SetDetectionFunction}
-P(x,S) \triangleq \theta P_J(x,S) + (1-\theta)P_M(x,S)
-\end{equation}
-where 
-\begin{equation}\label{Eq:SetJointDetection}
-P_J(x,S) \triangleq 1-\prod_{s_i\in S}(1-p(x,s_i)),
-\end{equation}
-\begin{equation}\label{Eq:SetMaxDetection}
-P_M(x,S) \triangleq \max_{s_i\in S} p(x,s_i).    
-\end{equation}
-
-
-Finally, we restate the original multi-agent optimal coverage problem \eqref{Eq:CoverageProblem} as a set function maximization problem:
-\begin{equation}\label{Eq:SetCoverageProblem}
-S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S).
-\end{equation}
 
 Since the size of the set variable search space of the formulated set function maximization problem \eqref{Eq:SetCoverageProblem} is combinatorial (in particular $\vert \mathcal{I}^N \vert = \sum_{r=0}^N {M \choose r} =  \sum_{r=0}^M \frac{M!}{(M-r)!r!}$), obtaining an optimal solution (i.e., $S^*$) for it is impossible without significant simplifying assumptions. Therefore the overall goal is to obtain a candidate solution for \eqref{Eq:SetCoverageProblem} (say $S^G$) in an efficient manner with some guarantees on its coverage performance $H(S^G)$ with respect to optimal coverage performance $H(S^*)$. 
 
@@ -363,9 +373,9 @@ Consider $n$ polymatroid set functions $F_1,F_2,\ldots,F_n$, where each is defin
 The set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction} is a polymatroid set function.
 \end{theorem}
 \begin{proof}
-From \eqref{Eq:SetCoverageFunction} and \eqref{Eq:SetDetectionFunction}, it is clear that the set coverage function $H(S)$ can be viewed as a linear combination of set detection function components $P_J(x,S)$ \eqref{Eq:SetJointDetection} and $P_M(x,S)$ \eqref{Eq:SetMaxDetection} - with respect to the common ground set $X$. Therefore, in light of Lm. \ref{Lm:LinearityOfSubmodularity}, to prove $H(S)$ a polymatroid set function, we only have to show $P_J(x,S)$ and $P_M(x,S)$ are polymatroid set functions with respect to any feasible space point $x\in\Phi$. 
+From \eqref{Eq:SetCoverageFunction} and \eqref{Eq:SetDetectionFunction}, it is clear that the set coverage function $H(S)$ can be viewed as a linear combination of set detection function components $P_J(x,S)$ \eqref{Eq:JointDetection} and $P_M(x,S)$ \eqref{Eq:MaxDetection} - with respect to the common ground set $X$. Therefore, in light of Lm. \ref{Lm:LinearityOfSubmodularity}, to prove $H(S)$ a polymatroid set function, we only have to show $P_J(x,S)$ and $P_M(x,S)$ are polymatroid set functions with respect to any feasible space point $x\in\Phi$. 
 
-Let us first consider the set function $P_J(x,S)$ \eqref{Eq:SetJointDetection}. By definition, $P_J(x,\emptyset) = 0$, and thus, $P_J(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
+Let us first consider the set function $P_J(x,S)$ \eqref{Eq:JointDetection}. By definition, $P_J(x,\emptyset) = 0$, and thus, $P_J(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
 \begin{align}
 \Delta P_J(x,y \vert A) =&\ P_J(x,A\cup\{y\}) - P_J(x,A) \nonumber\\    
 =&\ -\prod_{s_i\in A\cup\{y\}}(1-p(x,s_i)) +\prod_{s_i\in A}(1-p(x,s_i)) \nonumber\\
@@ -374,7 +384,7 @@ Let us first consider the set function $P_J(x,S)$ \eqref{Eq:SetJointDetection}. 
 for any $A \subset X$ and $y\in X\backslash A$. 
 From \eqref{Eq:Th:SetCoverageSubmodularityStep1}, it is clear that $\Delta P_J(x,y \vert A) \geq 0$ for all $A \subset X$ and $y\in X\backslash A$. Therefore, $P_J(x,S)$ is monotone. Note also that the product term in \eqref{Eq:Th:SetCoverageSubmodularityStep1} diminishes with the growth of the set $A$. This property can be used to conclude that $\Delta P_J(x,y \vert A) \leq \Delta P_J(x,y \vert B)$, for all $y,A,B$ where $B\subseteq A \subset X$ and $y\in Y\backslash A$. Hence $P_J(x,S)$ is submodular. Therefore, $P_J(x,S)$ is a polymatroid set function.
 
-Finally, let us consider the set function $P_M(x,S)$ \eqref{Eq:SetMaxDetection}. Again, by definition, $P_M(x,\emptyset) = 0$ implying that $P_M(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
+Finally, let us consider the set function $P_M(x,S)$ \eqref{Eq:MaxDetection}. Again, by definition, $P_M(x,\emptyset) = 0$ implying that $P_M(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
 \begin{align}
 \Delta P_M(x,y \vert A) =&\ P_M(x,A\cup\{y\}) - P_M(x,A) \nonumber\\    
 =&\ \max_{s_i\in A\cup\{y\}} p(x,s_i) - \max_{s_i\in A} p(x,s_i)\nonumber\\
@@ -619,7 +629,7 @@ Clearly, this condition holds if for all feasible $(S,y_i,y_j)$,
 \end{equation}
 for some $s_i\in S$ over many feasible space locations $x\in\Phi$.
 
-Now, let us consider the requirement \eqref{Eq:ConditionForStrongSubmodularity} with respect to the $\Delta P_M$ (i.e., when $\theta = 0$ in \eqref{Eq:SetDetectionFunction}) using \eqref{Eq:SetMaxDetection}:
+Now, let us consider the requirement \eqref{Eq:ConditionForStrongSubmodularity} with respect to the $\Delta P_M$ (i.e., when $\theta = 0$ in \eqref{Eq:SetDetectionFunction}) using \eqref{Eq:MaxDetection}:
 \begin{align}
     &\Delta P_M(x,y_i \vert S \cup \{y_j\}) \ll \Delta P_M(x, y_i \vert S) \nonumber\\
     & \iff 

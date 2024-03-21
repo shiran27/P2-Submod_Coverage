@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.11)  21 MAR 2024 17:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8.28) (preloaded format=pdflatex 2022.9.11)  21 MAR 2024 18:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -651,221 +651,292 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 293.
-
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 314.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+(amsmath)                 on input line 303.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 358--360
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 3 undefined on input line 316.
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 324.
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 3 undefined on input line 363.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 368--370
  \T1/ptm/m/it/10 Proof:  \T1/ptm/m/n/10 Con-sider $\OML/ztmcm/m/it/10 n$ \T1/ptm/m/n/10 poly-ma-troid set func-tions
  []
 
 
-Underfull \hbox (badness 2753) in paragraph at lines 358--360
+Underfull \hbox (badness 2753) in paragraph at lines 368--370
 \OML/ztmcm/m/it/10 F[]; F[]; [] ; F[]$\T1/ptm/m/n/10 , where each is de-fined over a com-mon
  []
 
 
-Underfull \hbox (badness 1675) in paragraph at lines 358--360
+Underfull \hbox (badness 1675) in paragraph at lines 368--370
 \T1/ptm/m/n/10 Clearly, $\OML/ztmcm/m/it/10 F\OT1/ztmcm/m/n/10 (\OMS/ztmcm/m/n/10 ;\OT1/ztmcm/m/n/10 ) = 0$ \T1/ptm/m/n/10 as $\OML/ztmcm/m/it/10 F[]\OT1/ztmcm/m/n/10 (\OMS/ztmcm/m/n/10 ;\OT1/ztmcm/m/n/10 ) = 0$ \T1/ptm/m/n/10 and $\OML/ztmcm/m/it/10 [] \OMS/ztmcm/m/n/10 ^^U \OT1/ztmcm/m/n/10 0\OML/ztmcm/m/it/10 ; \OMS/ztmcm/m/n/10 8\OML/ztmcm/m/it/10 i \OMS/ztmcm/m/n/10 2 \U/msb/m/n/10 N[]$\T1/ptm/m/n/10 .
  []
 
-[3]
-Underfull \hbox (badness 1783) in paragraph at lines 427--429
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 3 undefined on input line 373.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 3 undefined on input line 376.
+
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 3 undefined on input line 376.
+
+
+Underfull \vbox (badness 5504) has occurred while \output is active []
+
+ [3]
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 4 undefined on input line 397.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 4 undefined on input line 433.
+
+
+Underfull \hbox (badness 1783) in paragraph at lines 437--439
 \OML/ztmcm/m/it/10 G[]\OT1/ztmcm/m/n/10 (\OML/ztmcm/m/it/10 C\OT1/ztmcm/m/n/10 ) = ^^A\OML/ztmcm/m/it/10 H\OT1/ztmcm/m/n/10 (\OML/ztmcm/m/it/10 B\OMS/ztmcm/m/n/10 j\OML/ztmcm/m/it/10 C\OT1/ztmcm/m/n/10 ) \OMS/ztmcm/m/n/10 ^^@ \OT1/ztmcm/m/n/10 ^^A\OML/ztmcm/m/it/10 H\OT1/ztmcm/m/n/10 (\OML/ztmcm/m/it/10 B\OMS/ztmcm/m/n/10 j\OML/ztmcm/m/it/10 A\OT1/ztmcm/m/n/10 )$\T1/ptm/m/n/10 . To de-duce the sign of
  []
 
 [4]
-Underfull \hbox (badness 3872) in paragraph at lines 493--494
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 5 undefined on input line 461.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 5 undefined on input line 461.
+
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 5 undefined on input line 490.
+
+
+Underfull \hbox (badness 3872) in paragraph at lines 503--504
 []\T1/ptm/m/n/10 In this sec-tion, we will dis-cuss sev-eral im-proved
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 499.
+(hyperref)                removing `\@ifnextchar' on input line 509.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 5 undefined on input line 532.
 
 [5]
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 551.
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 6 undefined on input line 538.
+
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 6 undefined on input line 538.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 583.
+(hyperref)                removing `\@ifnextchar' on input line 561.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 593.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 6 undefined on input line 595.
 
 [6]
-Overfull \hbox (5.41504pt too wide) detected at line 615
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 7 undefined on input line 619.
+
+
+Overfull \hbox (5.41504pt too wide) detected at line 625
 []
  []
 
 
-Overfull \hbox (1.3828pt too wide) detected at line 649
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 7 undefined on input line 632.
+
+
+Overfull \hbox (1.3828pt too wide) detected at line 659
 []
  []
 
-[7]
-Underfull \hbox (badness 1960) in paragraph at lines 763--765
+
+Underfull \vbox (badness 1325) has occurred while \output is active []
+
+ [7]
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 8 undefined on input line 754.
+
+
+Underfull \hbox (badness 1960) in paragraph at lines 773--775
 []\T1/ptm/m/n/10 Evaluating the el-e-men-tal cur-va-ture upper-
  []
 
 
-Underfull \hbox (badness 3312) in paragraph at lines 768--769
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 8 undefined on input line 778.
+
+
+Underfull \hbox (badness 3312) in paragraph at lines 778--779
 []\T1/ptm/m/n/10 The pro-posed el-e-men-tal cur-va-ture upper-
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 787.
+(hyperref)                removing `\@ifnextchar' on input line 797.
 
 [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 844.
+(hyperref)                removing `\@ifnextchar' on input line 854.
 
-[9] [10]
-<Figures/DetFun_0.png, id=353, 602.25pt x 602.25pt>
+[9]
+
+LaTeX Warning: Reference `Eq:SetDetectionFunction' on page 10 undefined on input line 929.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 10 undefined on input line 929.
+
+
+LaTeX Warning: Reference `Eq:SetCoverageFunction' on page 10 undefined on input line 929.
+
+[10]
+<Figures/DetFun_0.png, id=328, 602.25pt x 602.25pt>
 File: Figures/DetFun_0.png Graphic file (type png)
 <use Figures/DetFun_0.png>
-Package pdftex.def Info: Figures/DetFun_0.png  used on input line 998.
+Package pdftex.def Info: Figures/DetFun_0.png  used on input line 1008.
 (pdftex.def)             Requested size: 78.63159pt x 78.62607pt.
-<Figures/DetFun_50.png, id=355, 602.25pt x 602.25pt>
+<Figures/DetFun_50.png, id=330, 602.25pt x 602.25pt>
 File: Figures/DetFun_50.png Graphic file (type png)
 <use Figures/DetFun_50.png>
-Package pdftex.def Info: Figures/DetFun_50.png  used on input line 1010.
+Package pdftex.def Info: Figures/DetFun_50.png  used on input line 1020.
 (pdftex.def)             Requested size: 78.63159pt x 78.62607pt.
-<Figures/DetFun_100.png, id=356, 602.25pt x 602.25pt>
+<Figures/DetFun_100.png, id=331, 602.25pt x 602.25pt>
 File: Figures/DetFun_100.png Graphic file (type png)
 <use Figures/DetFun_100.png>
-Package pdftex.def Info: Figures/DetFun_100.png  used on input line 1022.
+Package pdftex.def Info: Figures/DetFun_100.png  used on input line 1032.
 (pdftex.def)             Requested size: 78.63159pt x 78.62607pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/BlankDecay05.png, id=357, 602.25pt x 602.25pt>
+<Figures/BlankDecay05.png, id=332, 602.25pt x 602.25pt>
 File: Figures/BlankDecay05.png Graphic file (type png)
 <use Figures/BlankDecay05.png>
-Package pdftex.def Info: Figures/BlankDecay05.png  used on input line 1140.
+Package pdftex.def Info: Figures/BlankDecay05.png  used on input line 1150.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/BlankDecay025.png, id=358, 602.25pt x 602.25pt>
+<Figures/BlankDecay025.png, id=333, 602.25pt x 602.25pt>
 File: Figures/BlankDecay025.png Graphic file (type png)
 <use Figures/BlankDecay025.png>
-Package pdftex.def Info: Figures/BlankDecay025.png  used on input line 1146.
+Package pdftex.def Info: Figures/BlankDecay025.png  used on input line 1156.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/BlankDecay001.png, id=359, 602.25pt x 602.25pt>
+<Figures/BlankDecay001.png, id=334, 602.25pt x 602.25pt>
 File: Figures/BlankDecay001.png Graphic file (type png)
 <use Figures/BlankDecay001.png>
-Package pdftex.def Info: Figures/BlankDecay001.png  used on input line 1152.
+Package pdftex.def Info: Figures/BlankDecay001.png  used on input line 1162.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
 
-Package caption Warning: Ambiguous sub-caption(s), use \nextfloat on input line 1155.
+Package caption Warning: Ambiguous sub-caption(s), use \nextfloat on input line 1165.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/MazeRange50.png, id=362, 602.25pt x 602.25pt>
+<Figures/MazeRange50.png, id=337, 602.25pt x 602.25pt>
 File: Figures/MazeRange50.png Graphic file (type png)
 <use Figures/MazeRange50.png>
-Package pdftex.def Info: Figures/MazeRange50.png  used on input line 1202.
+Package pdftex.def Info: Figures/MazeRange50.png  used on input line 1212.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/MazeRange350.png, id=363, 602.25pt x 602.25pt>
+<Figures/MazeRange350.png, id=338, 602.25pt x 602.25pt>
 File: Figures/MazeRange350.png Graphic file (type png)
 <use Figures/MazeRange350.png>
-Package pdftex.def Info: Figures/MazeRange350.png  used on input line 1208.
+Package pdftex.def Info: Figures/MazeRange350.png  used on input line 1218.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
-<Figures/MazeRange800.png, id=364, 602.25pt x 602.25pt>
+<Figures/MazeRange800.png, id=339, 602.25pt x 602.25pt>
 File: Figures/MazeRange800.png Graphic file (type png)
 <use Figures/MazeRange800.png>
-Package pdftex.def Info: Figures/MazeRange800.png  used on input line 1214.
+Package pdftex.def Info: Figures/MazeRange800.png  used on input line 1224.
 (pdftex.def)             Requested size: 73.71617pt x 73.70964pt.
 
-Package caption Warning: Ambiguous sub-caption(s), use \nextfloat on input line 1217.
+Package caption Warning: Ambiguous sub-caption(s), use \nextfloat on input line 1227.
 See the caption package documentation for explanation.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Reference `Fig:GeneralDecay' on page 11 undefined on input line 1283.
+LaTeX Warning: Reference `Fig:GeneralDecay' on page 11 undefined on input line 1293.
 
 [11]
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 1285.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 1295.
  (C:\Users\shira\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1289.
+(hyperref)                removing `math shift' on input line 1299.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\theta' on input line 1289.
+(hyperref)                removing `\theta' on input line 1299.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1289.
+(hyperref)                removing `math shift' on input line 1299.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [12 <./Figures/DetFun_0.png> <./Figures/DetFun_50.png> <./Figures/DetFun_100.png> <./Figures/BlankDecay05.png> <./Figures/BlankDecay025.png> <./Figures/BlankDecay001.png> <./Figures/MazeRange50.png> <./Figures/MazeRange350.png> <./Figures/MazeRange800.png>]
 
-LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1298.
-
-
-LaTeX Warning: Reference `Tab:GeneralDecay' on page 13 undefined on input line 1298.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1301.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\delta' on input line 1301.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 1301.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1301.
-
-
-LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1303.
-
-
-LaTeX Warning: Reference `Fig:BlankRange' on page 13 undefined on input line 1303.
-
-
-LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1303.
-
-
-LaTeX Warning: Reference `Fig:BlankRange' on page 13 undefined on input line 1303.
-
-
-LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1305.
-
-
 LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1308.
 
 
-LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1310.
+LaTeX Warning: Reference `Tab:GeneralDecay' on page 13 undefined on input line 1308.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1311.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\delta' on input line 1311.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\lambda' on input line 1311.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1311.
 
 
 LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1313.
 
 
-LaTeX Warning: Reference `Tab:GeneralDecay' on page 13 undefined on input line 1316.
+LaTeX Warning: Reference `Fig:BlankRange' on page 13 undefined on input line 1313.
 
 
-LaTeX Warning: Reference `Fig:GeneralDecay' on page 13 undefined on input line 1316.
+LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1313.
 
 
-LaTeX Warning: Reference `Tab:GeneralDecay' on page 13 undefined on input line 1318.
+LaTeX Warning: Reference `Fig:BlankRange' on page 13 undefined on input line 1313.
+
+
+LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1315.
+
+
+LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1318.
+
+
+LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1320.
+
+
+LaTeX Warning: Reference `Tab:BlankRange' on page 13 undefined on input line 1323.
+
+
+LaTeX Warning: Reference `Tab:GeneralDecay' on page 13 undefined on input line 1326.
+
+
+LaTeX Warning: Reference `Fig:GeneralDecay' on page 13 undefined on input line 1326.
+
+
+LaTeX Warning: Reference `Tab:GeneralDecay' on page 13 undefined on input line 1328.
 
 [13] (c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\ConfVersion.bbl
 Underfull \hbox (badness 2680) in paragraph at lines 79--88
@@ -912,17 +983,17 @@ Package rerunfilecheck Info: File `ConfVersion.out' has not changed.
 (rerunfilecheck)             Checksum: 1C91F5F8710F11639B6EEA4C1C4B5585;3262.
  ) 
 Here is how much of TeX's memory you used:
- 14704 strings out of 475389
- 241906 string characters out of 2777000
- 628607 words of memory out of 3000000
- 35658 multiletter control sequences out of 15000+600000
+ 14699 strings out of 475389
+ 241820 string characters out of 2777000
+ 628497 words of memory out of 3000000
+ 35656 multiletter control sequences out of 15000+600000
  609551 words of font info for 209 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  60i,22n,67p,1553b,532s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/public/rsfs/rsfs10.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/symbol/usyr.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb><C:/Users/shira/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on "c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\ConfVersion.pdf" (14 pages, 479762 bytes).
+Output written on "c:\Users\shira\OneDrive - stevens.edu\Research\Papers\P2_Submod_Coverage\TexFiles\P2-Submod_Coverage\_ux\ConfVersion.pdf" (14 pages, 475497 bytes).
 PDF statistics:
- 559 PDF objects out of 1000 (max. 8388607)
- 112 named destinations out of 1000 (max. 500000)
+ 534 PDF objects out of 1000 (max. 8388607)
+ 109 named destinations out of 1000 (max. 500000)
  182 words of extra memory for PDF output out of 10000 (max. 10000000)
 
