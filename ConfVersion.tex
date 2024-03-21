@@ -194,11 +194,11 @@ To detect these random events, $N$ \emph{agents} are to be placed inside the fea
 
 
 % Agent sensing functions
-The ability of an agent to \emph{detect} events is limited by its sensing capabilities and visibility obstruction from obstacles. For an agent at $s_i \in \Phi$, its \emph{visibility region} is defined as 
-$$
+The ability of an agent to \emph{detect} events is limited by its sensing capabilities and visibility obstruction from obstacles. In particular, for an agent at $s_i \in \Phi$, its \emph{visibility region} is defined as 
+$
 V(s_i) \triangleq \{x: (qx+(1-q)s_i)\in \Phi, \forall q \in [0,1] \}.
-$$ 
-Agents are assumed to be homogeneous in their \emph{sensing capabilities}. In particular, each agent has a finite \emph{sensing radius} $\delta \in \R_{\geq 0}$ and \emph{sensing decay rate} $\lambda\in\R_{\geq 0}$ that defines the probability of an agent at $s_i\in \Phi$ detecting an event at $x\in \Phi$ via a \emph{sensing function} of the form 
+$ 
+Moreover, agents are assumed to be homogeneous in their \emph{sensing capabilities}. In particular, each agent has a finite \emph{sensing radius} $\delta \in \R_{\geq 0}$ and \emph{sensing decay rate} $\lambda\in\R_{\geq 0}$ that defines the probability of an agent at $s_i\in \Phi$ detecting an event at $x\in \Phi$ via a \emph{sensing function} of the form 
 \begin{equation}
 \label{Eq:SensingFunction}
 p(x,s_i)\triangleq e^{-\lambda \Vert x - s_i\Vert}\cdot\mathbf{1}_{\{x\in V(s_i)\}}.
@@ -235,10 +235,7 @@ The joint detection function \eqref{Eq:JointDetection} offers a complete but com
 % Ultimately, the choice between these detection functions should consider the coverage application's comprehensiveness and reliability requirements, the nature of the agents, and the available computational resources.
 % \end{remark}
 
-%%% Revised up to this
-\bigskip
-{\color{blue} \textbf{**** Compressed up to this point...} }
-\bigskip
+
 
 Motivated by the contrasting nature of the joint and max detection functions, we propose the detection function
 \begin{equation}\label{Eq:DetectionFunction}
@@ -248,25 +245,28 @@ where $\theta\in[0,1]$ is a predefined weight (e.g., see Fig. \ref{Fig:Detection
 
 
 % Coverage function and coverage problem
-Using the defined event density and detection functions, the interested optimal coverage problem now can be defined as 
-\begin{equation}\label{Eq:CoverageObjective}
-H(s) \triangleq \int_\Omega R(x)P(x,s)dx,     
-\end{equation}
-The considered optimal coverage problem can be stated as
+Using the defined event density and detection functions, the considered optimal coverage problem can be stated as 
 \begin{equation}\label{Eq:CoverageProblem}
  s^* = \underset{s:s_i\in \Phi, i\in \N_N}{\arg\max}\ H(s) \triangleq \int_\Omega R(x)P(x,s)dx,  
 \end{equation}
-where $H(s)$ (or equivalently $H(S)$) is the \emph{coverage function}.
+where $H(s)$ (or equivalently, $H(S)$) is the \emph{coverage function}.
+
 
 
 \paragraph*{Continuous Optimization Approach}\ 
-The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex feasible space and a non-convex, non-linear, and non-smooth objective function. While the prior is due to the presence of obstacles in the mission space, the latter is due to the nature of the event density, sensing, joint detection, and coverage function forms. Consequently, it is extremely difficult to solve this problem without using: (1) standard global optimization solvers that are computationally expensive, (2) systematic gradient-based solvers that require extensive domain knowledge, or (3) Voronoi partition techniques that require significant limiting assumptions (e.g., convexity \cite{Yu2022} and connectivity \cite{Luo2019}).   
+The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex feasible space and a non-convex, non-linear, and non-smooth objective function. Therefore, it is extremely difficult to solve without using: (1) standard global optimization solvers that are computationally expensive, or (2) systematic gradient-based solvers that require extensive domain knowledge. 
+% (3) Voronoi partition techniques that require significant limiting assumptions (e.g., convexity \cite{Yu2022} and connectivity \cite{Luo2019}). 
 
-\paragraph*{Combinatorial Optimization Approach}\ Motivated by the aforementioned challenges associated with different continuous optimization approaches, in this paper, we take a combinatorial optimization approach to the formulated the multi-agent optimal coverage problem \eqref{Eq:CoverageProblem}. This requires reformulating \eqref{Eq:CoverageProblem} as a set function maximization problem.
+\paragraph*{Combinatorial Optimization Approach}\ Motivated by the said challenges, here we take a combinatorial optimization approach to solve \eqref{Eq:CoverageProblem}. This requires reformulating \eqref{Eq:CoverageProblem} as a set function maximization problem (in set variable $S$).
 
-First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. For this discretization, a grid can be placed inside the mission space, and then all the grid points except for those that fall inside obstacles can be considered as the ground set\footnote{If obstacle and/or grid resolution are large (compared to the mission space dimensions), the resulting grid-based ground set needs to be further optimized to ensure uniformity over feasible space. This can be achieved by assuming all points in the obtained ground set are occupied by a set of ``virtual'' agents and then executing a simplified multi-agent optimal coverage solver. The resulting virtual agent locations can then be treated as the ground set.}.
 
-Second, upon formulating the ground set $X$, we define a \emph{set variable} $S = \{s_i:i\in\N\}$ to represent the set of selected locations for agent placement. As we are interested in placing only $N$ agents strictly in locations selected from the ground set $X$, we need to constrain this set variable $S$ such that $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. It is worth noting that a set system of the form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint of the form $S\in\mathcal{I}^N$ is known as a uniform matroid constraint of rank $N$. 
+First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. Second, we replace the matrix variable $s$ with the corresponding \emph{set variable} $S = \{s_i:i\in\N\}$ with the constraint $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$ (note that: $\vert Y \vert$ denotes the coardinality of the set $Y$). A set system of the form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of rank $N$, and a set constraint of the form $S\in\mathcal{I}^N$ is known as a uniform matroid constraint of rank $N$ \cite{WelikalaJ02021}.
+
+
+%%% Revised up to this
+\bigskip
+{\color{blue} \textbf{**** Compressed up to this point...} }
+\bigskip
 
 To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageProblem}, we next define a \emph{set coverage function} as: 
 \begin{equation}\label{Eq:SetCoverageFunction}
