@@ -553,11 +553,6 @@ One final remark on the total curvature $\alpha_t$ \eqref{Eq:TotalCurvatureCoeff
 \subsection{Greedy Curvature \cite{Conforti1984}}
 \label{SubSec:GreedyCurvature}
 
-%%%% Revised up to this
-\bigskip
-{\color{blue} \textbf{**** Compressed up to this point...} }
-\bigskip
-
 The \emph{greedy curvature} of \eqref{Eq:SetCoverageProblem} is given by   
 \begin{equation}\label{Eq:GreedyCurvatureCoefficientTheory}
     \alpha_g \triangleq \max_{0 \leq i \leq N-1} \left[ \max_{y \in X^i}\left(1 - \frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)}\right) \right],
@@ -567,23 +562,19 @@ where $X^i \triangleq \{y: y \in X \backslash S^i, (S^i \cup \{y\}) \in \mathcal
     \beta_g \triangleq 1-\alpha_g\left(1-\frac{1}{N}\right) \leq \frac{H(S^G)}{H(S^*)}. 
 \end{equation}
 
+Note that $\beta_g$ monotonically decreases with $\alpha_g$, and $\alpha_g \in [0,1]$ (as $H$ is submodular). Therefore, as $\alpha_g \rightarrow 0$, $\beta_g \rightarrow 1$, and as $\alpha_g \rightarrow 1$, $\beta_g \rightarrow \frac{1}{N} < \beta_f$. Using these facts and \eqref{Eq:GreedyCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of 
+$ % \begin{equation}\label{Eq:GreedyCurvatureGamma}
+\gamma_g \triangleq \min_{0 \leq i \leq N-1} \left[ \min_{y \in X^i}\left(\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)}\right) \right].
+$ % \end{equation}
+Similar to before, the submodularity of $H$ implies that $\gamma_g$ is large only when 
+$\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)} \simeq 1, \forall y\in X^i, i\in \N_{N-1}^0$. 
+In other words, similar to the total curvature, the greedy curvature provides a significantly improved performance bound when $H$ is weakly submodular. 
 
-
-Note that $\beta_g$ is a monotonically decreasing function in $\alpha_g$, and due to the submodularity of $H$, $0 \leq \alpha_g \leq 1$. Consequently, as $\alpha_g \rightarrow 0$, $\beta_g \rightarrow 1$, and on the other hand, as $\alpha_g \rightarrow 1$, $\beta_g \rightarrow \frac{1}{N}$ (which may be worse than $\beta_f$, when $\frac{1}{N} < \beta_f$). Using these facts and \eqref{Eq:GreedyCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of 
-\begin{equation}\label{Eq:GreedyCurvatureGamma}
-    \gamma_g \triangleq \min_{0 \leq i \leq N-1} \left[ \min_{y \in X^i}\left(\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)}\right) \right].
-\end{equation}
-Similar to before, the diminishing returns property of $H$ implies that $\gamma_g$ is large only when 
-$\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)} \simeq 1, \forall y\in X^i, i\in \{0,1,2,...,N-1\}$. In other words, similar to the total curvature, the greedy curvature provides a significantly improved performance bound when $H$ is weakly submodular. 
-
-
-In fact, as reported in \cite{Sun2020}, when $H$ is significantly weakly submodular, it can provide better performance bounds even compared to those provided by the total curvature, i.e., $\beta_f \ll \beta_t \leq \beta_g \simeq 1$. This observation can be theoretically justified using \eqref{Eq:TotolCurvatureGamma} and \eqref{Eq:GreedyCurvatureGamma} as follows. Due to submodularity, $\Delta H(y \vert X \backslash \{y\}) \leq \Delta H(y\vert S^i)$ for any $y$ and $S^i$, and thus, $\gamma_t \leq \gamma_g$. This, with weak submodularity of $H$ leads to $\alpha_t \geq \alpha_g \simeq 0$. Now, noticing that the growth of $\beta_g$ is faster as $\alpha_g \rightarrow 0$ compared to that of $\beta_t$ as $\alpha_t \rightarrow 0$, we get $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
-
-
+In fact, as observed in \cite{Sun2020}, when $H$ is significantly weakly submodular, it can provide better performance bounds even compared to those provided by the total curvature, i.e., $\beta_f \ll \beta_t \leq \beta_g \simeq 1$. This observation can be theoretically justified using $\gamma_t$ and $\gamma_g$ as follows. Due to submodularity, $\Delta H(y \vert X \backslash \{y\}) \leq \Delta H(y\vert S^i)$ for any $y$ and $S^i$, and thus, $\gamma_t \leq \gamma_g$. This, with weak submodularity of $H$ leads to $\alpha_t \geq \alpha_g \simeq 0$. Now, noticing that the growth of $\beta_g$ is faster as $\alpha_g \rightarrow 0$ compared to that of $\beta_t$ as $\alpha_t \rightarrow 0$, we get $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
 
 We can follow the same steps and arguments as before to show that such improved performance bounds can only be achieved when the ground set is sparse and/or when the agents have weak sensing capabilities. On the other hand, when the ground set is dense and when the agents have strong sensing capabilities, greedy curvature provides poor performance bounds (often, it may even be worse than $\beta_f$). 
 
-However, compared to the total curvature, greedy curvature has some more redeeming qualities: it is always fully defined, and it can be computed efficiently using only the evaluations of $H$ executed in the greedy algorithm.
+However, compared to the total curvature, greedy curvature has wo key redeeming qualities: it is always fully defined, and it can be computed efficiently using only the evaluations of $H$ executed in the greedy algorithm.
 
 
 
@@ -599,6 +590,12 @@ The corresponding performance bound $\beta_e$ is given by
 \begin{equation}\label{Eq:ElementalCurvatureBoundTheory}
     \beta_e \triangleq 1-\left(\frac{\alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}{1 + \alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}\right)^N \leq \frac{H(S^G)}{H(S^*)}.
 \end{equation}
+
+%%%% Revised up to this
+\bigskip
+{\color{blue} \textbf{**** Compressed up to this point...} }
+\bigskip
+
 
 It can be shown that $\beta_e$ is a monotonically decreasing function in $\alpha_e$, and due to the submodularity of $H$, $0 \leq \alpha_e \leq 1$. Consequently, when $\alpha_e \rightarrow 0$, $\beta_e \rightarrow 1$ and when $\alpha_e \rightarrow 1$, $\beta_e \rightarrow \beta_f$ (the latter is unlike $\beta_g$, but similar to $\beta_t$).
 
