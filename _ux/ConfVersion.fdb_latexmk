@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex _ux/ConfVersion"] 1711061696 "_ux/ConfVersion.aux" "_ux/ConfVersion.bbl" "_ux/ConfVersion" 1711061811 0
+["bibtex _ux/ConfVersion"] 1711106604 "_ux/ConfVersion.aux" "_ux/ConfVersion.bbl" "_ux/ConfVersion" 1711106611 0
   "./References.bib" 1711054907 62244 2e3e94a2bb55f481f522092f1e169b6b ""
   "C:/Users/shira/AppData/Local/Programs/MiKTeX/bibtex/bst/urlbst/plainurl.bst" 1675594511 33495 46cfb45e24a877059f9f7e142c7fc61c ""
-  "_ux/ConfVersion.aux" 1711061808 13328 d70ffff35ab72b0e27d7bec76cef6f22 "pdflatex"
+  "_ux/ConfVersion.aux" 1711106610 12536 7d3320f9ce13cd8d459ed9a2567ab1f0 "pdflatex"
   (generated)
   "_ux/ConfVersion.bbl"
   "_ux/ConfVersion.blg"
   (rewritten before read)
-["pdflatex"] 1711061801 "c:/Users/shira/OneDrive - stevens.edu/Research/Papers/P2_Submod_Coverage/TexFiles/P2-Submod_Coverage/ConfVersion.tex" "_ux/ConfVersion.pdf" "ConfVersion" 1711061811 0
+["pdflatex"] 1711106605 "c:/Users/shira/OneDrive - stevens.edu/Research/Papers/P2_Submod_Coverage/TexFiles/P2-Submod_Coverage/ConfVersion.tex" "_ux/ConfVersion.pdf" "ConfVersion" 1711106611 0
   "C:/Users/shira/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1710967970 83358 a8328cf182cf32ae8c92cd2e930e6977 ""
   "C:/Users/shira/AppData/Local/MiKTeX/fonts/tfm/public/rsfs/rsfs10.tfm" 1702066292 688 37338d6ab346c2f1466b29e195316aa4 ""
   "C:/Users/shira/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1662922612 10785261 84c1c2452bc5c32066c8e3023642fa7d ""
@@ -156,7 +156,7 @@
   "C:/Users/shira/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/shira/AppData/Local/Programs/MiKTeX/tex/latex/varwidth/varwidth.sty" 1238469540 10894 d359a13923460b2a73d4312d613554c8 ""
   "C:/Users/shira/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "ConfVersion.tex" 1711061799 130779 a7ff00a7a1e3381cdcf2e1b0e596d5e8 ""
+  "ConfVersion.tex" 1711106597 128035 e68ce6b9d81ed4ccccfd75f1e0d7412c ""
   "Figures/BlankDecay001.png" 1710967302 26377 54e93bf03c59096f0018c1d142c508af ""
   "Figures/BlankDecay025.png" 1710967302 41639 daae387701ec5efc6303c21329e47173 ""
   "Figures/BlankDecay05.png" 1710967302 43829 f1eac35acfa3c433feeda3c70ee50462 ""
@@ -166,10 +166,10 @@
   "Figures/MazeRange350.png" 1710967302 44949 d71ad97b2164e63818e3620fa99289ae ""
   "Figures/MazeRange50.png" 1710967302 31722 3958598fbfef6d73602705431583d179 ""
   "Figures/MazeRange800.png" 1710967302 44910 1c6d02600d4b0ecccb5dabd55d5c6c05 ""
-  "_ux/ConfVersion.aux" 1711061808 13328 d70ffff35ab72b0e27d7bec76cef6f22 "pdflatex"
-  "_ux/ConfVersion.bbl" 1711061697 5128 fbefc827d4d969cea8ea915e0ab91276 "bibtex _ux/ConfVersion"
-  "_ux/ConfVersion.out" 1711061808 3262 1c91f5f8710f11639b6eea4c1c4b5585 "pdflatex"
-  "c:/Users/shira/OneDrive - stevens.edu/Research/Papers/P2_Submod_Coverage/TexFiles/P2-Submod_Coverage/ConfVersion.tex" 1711061799 130779 a7ff00a7a1e3381cdcf2e1b0e596d5e8 ""
+  "_ux/ConfVersion.aux" 1711106610 12536 7d3320f9ce13cd8d459ed9a2567ab1f0 "pdflatex"
+  "_ux/ConfVersion.bbl" 1711106605 5023 815e9c344feec2c397b1b00e2945a479 "bibtex _ux/ConfVersion"
+  "_ux/ConfVersion.out" 1711106610 2988 b8723f0800816822be8c3cf09b846715 "pdflatex"
+  "c:/Users/shira/OneDrive - stevens.edu/Research/Papers/P2_Submod_Coverage/TexFiles/P2-Submod_Coverage/ConfVersion.tex" 1711106597 128035 e68ce6b9d81ed4ccccfd75f1e0d7412c ""
   "ieeeconf.cls" 1709006995 202167 c8a8a2004c9762153e255667fc17d954 ""
   "picins.sty" 1709006995 18385 916739e9c8f52c6a085688f05d1594e2 ""
   (generated)

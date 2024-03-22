@@ -75,17 +75,6 @@ Zengfu Wang, Bill Moran, Xuezhi Wang, and Quan Pan.
   with A Greedy Method}.
 \newblock {\em Journal of Combinatorial Optimization}, 31(1):29--43, 2016.
 
-\bibitem{Welikala2019P3}
-Shirantha Welikala and Christos~G. Cassandras.
-\newblock {Asymptotic Analysis for Greedy Initialization of Threshold-Based
-  Distributed Optimization of Persistent Monitoring on Graphs}.
-\newblock In {\em Proc. of 21st IFAC World Congress}, volume~53, pages
-  3433--3438, 2020.
-\newblock URL:
-  \url{https://www.sciencedirect.com/science/article/pii/S2405896320322734},
-  \href {https://doi.org/10.1016/j.ifacol.2020.12.1670}
-  {\path{doi:10.1016/j.ifacol.2020.12.1670}}.
-
 \bibitem{Welikala2019J1}
 Shirantha Welikala and Christos~G. Cassandras.
 \newblock {Distributed Non-Convex Optimization of Multi-Agent Systems Using
@@ -93,6 +82,14 @@ Shirantha Welikala and Christos~G. Cassandras.
 \newblock {\em IEEE Trans. on Automatic Control}, 2020.
 \newblock \href {https://doi.org/10.1109/TAC.2020.3034869}
   {\path{doi:10.1109/TAC.2020.3034869}}.
+
+\bibitem{Welikala2024Ax1}
+Shirantha Welikala and Christos~G Cassandras.
+\newblock {Performance-Guaranteed Solutions for Multi-Agent Optimal Coverage
+  Problems using Submodularity, Curvature, and Greedy Algorithms}.
+\newblock {\em arXiv e-prints}, page xxxx.xxxxx, 2023.
+\newblock URL: \url{http://arxiv.org/abs/xxxx.xxxxx}, \href
+  {https://arxiv.org/abs/xxxx.xxxxx} {\path{arXiv:xxxx.xxxxx}}.
 
 \bibitem{WelikalaJ02021}
 Shirantha Welikala, Christos~G. Cassandras, Hai Lin, and Panos~J. Antsaklis.

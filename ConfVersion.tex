@@ -506,53 +506,57 @@ The corresponding performance bound $\beta_t$ is given by
     \beta_t \triangleq \frac{1}{\alpha_t} \left[ 1 - \left( 1 -\frac{\alpha_t}{N} \right)^N \right] \leq \frac{H(S^G)}{H(S^*)}.
 \end{equation}
 
-%%% Revised up to this
-\bigskip
-{\color{blue} \textbf{**** Compressed up to this point...} }
-\bigskip
-
-From \eqref{Eq:TotalCurvatureBoundTheory} and \eqref{Eq:FundamentalPerformanceBound}, it is easy to see that: (1) when $\alpha_t\rightarrow 1$, $\beta_t\rightarrow\beta_f$ (i.e., no improvement); (2) when $\alpha_t\rightarrow 0$, $\beta_t\rightarrow 1$ (i.e., a significant improvement); and  (3) $\beta_t$ is monotonically decreasing in $\alpha_t$. Using the above three facts and \eqref{Eq:TotalCurvatureCoefficientTheory}, note that the improvement in the performance bound is proportional to the magnitude of:
-\begin{equation}\label{Eq:TotolCurvatureGamma}
+From \eqref{Eq:TotalCurvatureBoundTheory} and \eqref{Eq:FundamentalPerformanceBound}, it is easy to see that: 
+(1) when $\alpha_t\rightarrow 1$, $\beta_t\rightarrow\beta_f$ (i.e., no improvement); 
+(2) when $\alpha_t\rightarrow 0$, $\beta_t\rightarrow 1$ (i.e., a significant improvement); and  
+(3) $\beta_t$ is monotonically decreasing in $\alpha_t$. 
+Using these three facts and \eqref{Eq:TotalCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of:
+$
     \gamma_t \triangleq \min_{y \in X}\left[\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)}\right].
-\end{equation}
-The diminishing returns (submodularity) property of $H$ implies $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \leq 1, \forall y\in X$. Therefore, $\gamma_t$ is large only when $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \simeq 1, \forall y\in X$. In other words, a significantly improved performance bound from the total curvature measure can only be obtained when $H$ is just ``weakly'' submodular (i.e., when $H$ is closer to being modular rather than submodular). This is also clear from simplifying the condition $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \simeq 1, \forall y \in X$ using \eqref{Eq:MarginalCoverage}, as it leads to
+$
+Note that, the submodularity of $H$ implies $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \leq 1, \forall y\in X$. Thus, $\gamma_t$ is large only when $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \simeq 1, \forall y\in X$. 
+
+In other words, a significantly improved performance bound from the total curvature measure can only be obtained when $H$ is just ``weakly'' submodular (i.e., when $H$ is closer to being modular rather than submodular). This is also clear from simplifying the condition $\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)} \simeq 1, \forall y \in X$, which leads to the condition:
 \begin{equation}
 \label{Eq:ConditionForWeakSubmodularity}
-     H(X) \simeq H(y) + H(X\backslash \{y\}), \quad \mbox{for all } y\in X
+     H(X) \simeq H(y) + H(X\backslash \{y\}), \quad \mbox{for all } y\in X,
 \end{equation}
 which holds whenever $H$ is modular. 
 
-In particular, as $H$ is the set coverage function \eqref{Eq:SetCoverageProblem}, the above condition \eqref{Eq:ConditionForWeakSubmodularity} holds (leading to improved performance bounds) when an agent deployed at any $y\in X$ and all other agents deployed at $X \backslash \{y\}$ contribute to the coverage objective independently in a modular fashion. This happens when the ground set $X$ is very sparse and/or when the agents have significantly weak non-overlapping sensing capabilities (i.e., small range $\delta$ and high decay $\lambda$ in \eqref{Eq:SensingFunction}). 
+As $H$ is the set coverage function \eqref{Eq:SetCoverageProblem}, \eqref{Eq:ConditionForWeakSubmodularity} holds when an agent deployed at any $y\in X$ and all other agents deployed at $X \backslash \{y\}$ contribute to the global coverage objective independently in a modular fashion. This happens when the ground set $X$ is very sparse and/or when the agents have significantly weak non-overlapping sensing capabilities (i.e., small range $\delta$ and high decay $\lambda$ in \eqref{Eq:SensingFunction}). 
 
-However, the condition \eqref{Eq:ConditionForWeakSubmodularity} is easily violated (leading to poor performance bounds) if 
-$$
-H(X) \ll H(y) + H(X\backslash \{y\}), \quad \mbox{ for some } y\in X. 
-$$
-To interpret this condition using \eqref{Eq:SetCoverageProblem}, we need to consider the corresponding detection function \eqref{Eq:SetDetectionFunction} requirement: 
-$$
-P(x,X) \ll P(x,\{y\}) + P(x,X\backslash \{y\}), \quad \mbox{for some } y\in X
-$$
-for a majority of $x\in\Phi$. Now, using \eqref{Eq:Th:SetCoverageSubmodularityStep1} and \eqref{Eq:Th:SetCoverageSubmodularityStep2}, we get 
-\begin{align*}
-0\ll&\ \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))\\
-&+(1-\theta) (p(x,y)-\max\{p(x,y)-\max_{s_i\in X\backslash \{y\}}p(x,s_i),0\}),
-\end{align*}
-where the second term can be further simplified to obtain:
-\begin{align*}
-0\ll&\ \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))\\
-&+(1-\theta) (\min\{\max_{s_i\in X\backslash \{y\}}p(x,s_i),p(x,y)\}).  
-\end{align*}
-Since $\theta \in [0,1]$, we need to consider both terms above separately. However, both terms lead to the same condition (under which the above requirement holds):
-$$0 \ll p(x,y) \mbox{ and } 0 \ll p(x,s_i), \mbox{ for some } s_i \in X\backslash \{y\}.$$
+
+However, \eqref{Eq:ConditionForWeakSubmodularity} is easily violated if 
+$H(X) \ll H(y) + H(X\backslash \{y\})$ for some $y\in X$.
+To interpret this case using \eqref{Eq:SetCoverageProblem}, let us consider the analogous detection function \eqref{Eq:DetectionFunction} requirement: 
+$P(x,X) \ll P(x,\{y\}) + P(x,X\backslash \{y\})$ for some $y\in X$,
+for a majority of $x\in\Phi$. Now, using \eqref{Eq:Th:SetCoverageSubmodularityStep1} and \eqref{Eq:Th:SetCoverageSubmodularityStep2} this requirement can be simplified to:
+% \begin{align*}
+% 0\ll&\ \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))\\
+% &+(1-\theta) (p(x,y)-\max\{p(x,y)-\max_{s_i\in X\backslash \{y\}}p(x,s_i),0\}),
+% \end{align*}
+% where the second term can be further simplified to obtain:
+% \begin{align*}
+$
+0\ll \theta(p(x,y)(1-\prod_{s_i\in X\backslash \{y\}}(1-p(x,s_i)))
++(1-\theta)(\min\{\max_{s_i\in X\backslash \{y\}}p(x,s_i),p(x,y)\})$.  
+% \end{align*}
+Since $\theta \in [0,1]$, we need to consider both terms in the above requirement separately. However, they both lead to a common requirement:
+$0 \ll p(x,y)$ and $0 \ll p(x,s_i)$, for some $s_i \in X\backslash \{y\}.$
 In all, the total curvature measure leads to poor performance bounds when there exists some $y\in X$ and $s_i\in X\backslash \{y\}$ so that 
-$$0\ll p(x,y) \simeq p(x,s_i) \simeq 1,$$
-for many feasible space locations $x\in \Phi$. Evidently, this requirement holds when the ground set $X$ is dense and when the agents have significantly strong overlapping sensing capabilities (i.e., large range $\delta$ and small decay $\lambda$ in \eqref{Eq:SensingFunction}).
+$0\ll p(x,y) \simeq p(x,s_i) \simeq 1,$
+for many feasible space locations $x\in \Phi$. Notably, this condition holds when the ground set $X$ is dense and the agents have significantly strong sensing capabilities (i.e., large range $\delta$ and small decay $\lambda$ in \eqref{Eq:SensingFunction}).
 
-One final remark about the total curvature measure is that it requires an evaluation of $H(X)$ and $M(\triangleq \vert X\vert$) evaluations of $H(X\backslash \{y\})$ terms (i.e., for all $y\in X$). In certain coverage applications, this might be ill-defined \cite{Sun2020} and computationally expensive as often $H(S)$ is of the complexity $O(\vert S \vert)$.
+One final remark on the total curvature $\alpha_t$ \eqref{Eq:TotalCurvatureCoefficientTheory} is that it requires an evaluation of $H(X)$ and $M(\triangleq \vert X\vert$) evaluations of $H(X\backslash \{y\})$ terms. In certain coverage applications, this might be ill-defined \cite{Sun2020} or computationally expensive as often $H(S)$ is of the complexity $O(\vert S \vert \bar{M})$ (where $\bar{M}$ is size of the discretization used to evaluate the coverage integral in \eqref{Eq:SetCoverageProblem}).
 
 
 \subsection{Greedy Curvature \cite{Conforti1984}}
 \label{SubSec:GreedyCurvature}
+
+%%%% Revised up to this
+\bigskip
+{\color{blue} \textbf{**** Compressed up to this point...} }
+\bigskip
 
 The \emph{greedy curvature} of \eqref{Eq:SetCoverageProblem} is given by   
 \begin{equation}\label{Eq:GreedyCurvatureCoefficientTheory}
@@ -951,7 +955,7 @@ In this section, we summarize our findings on the effectiveness and computationa
 \multirow{5}{*}{$\beta$} & 
 \multicolumn{4}{c|}{$\beta_f \ll \beta \simeq 1$ when: }&
   \multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Complexity\end{tabular}} &
-  \multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Remarks \\ $H(S)\sim O(\bar{M})$\\ Alg. \ref{Alg:GreedyAlgorithm} $\sim O(N^2 M \bar{M})$  \end{tabular}} \\ \cline{2-5}
+  \multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Remarks \\ $H(S)\sim O(\vert S\vert\bar{M})$\\ Alg. \ref{Alg:GreedyAlgorithm} $\sim O(N^2 M \bar{M})$  \end{tabular}} \\ \cline{2-5}
  & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}} Agent Sensing \eqref{Eq:SensingFunction} \end{tabular}} & \multicolumn{2}{c|}{Denseness of $X$} &  &  \\ \cline{2-5}
  & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Low \\ $\delta \downarrow,\lambda \uparrow$ \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} High \\ $\delta \uparrow, \lambda \downarrow$ \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Low \\ ($M \downarrow$) \end{tabular}}    & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} High \\ ($M\uparrow$) \end{tabular}}    &  &  \\ \hline
  %% Total Curvature

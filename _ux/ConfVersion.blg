@@ -11,46 +11,45 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: References.bib
 Warning--can't use both volume and number fields in Rezazadeh2019
-Warning--can't use both volume and number fields in Welikala2019P3
 You've used 16 entries,
             2943 wiz_defined-function locations,
-            761 strings with 8528 characters,
-and the built_in function-call counts, 8360 in all, are:
-= -- 899
-> -- 307
-< -- 5
-+ -- 114
+            761 strings with 8482 characters,
+and the built_in function-call counts, 8298 in all, are:
+= -- 895
+> -- 308
+< -- 4
++ -- 112
 - -- 92
-* -- 529
-:= -- 1186
+* -- 513
+:= -- 1176
 add.period$ -- 57
 call.type$ -- 16
 change.case$ -- 94
 chr.to.int$ -- 0
-cite$ -- 18
-duplicate$ -- 215
-empty$ -- 745
+cite$ -- 17
+duplicate$ -- 222
+empty$ -- 730
 format.name$ -- 92
-if$ -- 2110
+if$ -- 2104
 int.to.chr$ -- 0
 int.to.str$ -- 16
 missing$ -- 16
 newline$ -- 92
 num.names$ -- 32
-pop$ -- 156
+pop$ -- 155
 preamble$ -- 1
 purify$ -- 78
 quote$ -- 0
-skip$ -- 546
+skip$ -- 558
 stack$ -- 0
-substring$ -- 500
-swap$ -- 70
-text.length$ -- 29
+substring$ -- 476
+swap$ -- 77
+text.length$ -- 24
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 64
-warning$ -- 2
-while$ -- 63
+warning$ -- 1
+while$ -- 61
 width$ -- 18
-write$ -- 198
-(There were 2 warnings)
+write$ -- 197
+(There was 1 warning)
