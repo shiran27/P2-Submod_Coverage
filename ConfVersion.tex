@@ -574,7 +574,7 @@ In fact, as observed in \cite{Sun2020}, when $H$ is significantly weakly submodu
 
 We can follow the same steps and arguments as before to show that such improved performance bounds can only be achieved when the ground set is sparse and/or when the agents have weak sensing capabilities. On the other hand, when the ground set is dense and when the agents have strong sensing capabilities, greedy curvature provides poor performance bounds (often, it may even be worse than $\beta_f$). 
 
-However, compared to the total curvature, greedy curvature has wo key redeeming qualities: it is always fully defined, and it can be computed efficiently using only the evaluations of $H$ executed in the greedy algorithm.
+Nevertheless, compared to the total curvature, greedy curvature has wo key redeeming qualities: it is always fully defined, and it can be computed efficiently using only the evaluations of $H$ executed in the greedy algorithm.
 
 
 
@@ -591,21 +591,25 @@ The corresponding performance bound $\beta_e$ is given by
     \beta_e \triangleq 1-\left(\frac{\alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}{1 + \alpha_e + \alpha_e^2 + \cdots + \alpha_e^{N-1}}\right)^N \leq \frac{H(S^G)}{H(S^*)}.
 \end{equation}
 
+
+
+It can be shown that $\beta_e$ monotonically decreases with $\alpha_e$, and due to the submodularity of $H$, $0 \leq \alpha_e \leq 1$. Therefore, when $\alpha_e \rightarrow 0$, $\beta_e \rightarrow 1$ and when $\alpha_e \rightarrow 1$, $\beta_e \rightarrow \beta_f$.
+
+According to  \cite[Prop. 2.1]{Nemhauser1978}, submodularity of $H$ also implies that $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \leq 1$, for all feasible $(S,y_i,y_j)$ considered in \eqref{Eq:ElementalCurvatureCoefficientTheory}. Therefore, when there exists some feasible $(S,y_i,y_j)$ such that  $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \simeq 1$, i.e. when $H$ is weakly submodular (closer to being modular) in that region, based on \eqref{Eq:ElementalCurvatureCoefficientTheory}, $\alpha_e \simeq 1$ implying $\beta_e \simeq \beta_f$ (i.e., no improvement). 
+
+% This modularity argument is also evident from considering a simplified case of condition $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \simeq 1$ assuming $S=\emptyset$, as it leads to
+% $$
+% H(\{y_i,y_j\}) \simeq H(\{y_j\}) + H(\{y_i\}), \quad \mbox{for some } y_i,y_j\in X
+% $$
+% which holds whenever $H$ is modular.
+
+
 %%%% Revised up to this
 \bigskip
 {\color{blue} \textbf{**** Compressed up to this point...} }
 \bigskip
 
-
-It can be shown that $\beta_e$ is a monotonically decreasing function in $\alpha_e$, and due to the submodularity of $H$, $0 \leq \alpha_e \leq 1$. Consequently, when $\alpha_e \rightarrow 0$, $\beta_e \rightarrow 1$ and when $\alpha_e \rightarrow 1$, $\beta_e \rightarrow \beta_f$ (the latter is unlike $\beta_g$, but similar to $\beta_t$).
-
-Since $H$ is submodular, according to  \cite[Prop. 2.1]{Nemhauser1978}, for all feasible $(S,y_i,y_j)$ considered in \eqref{Eq:ElementalCurvatureCoefficientTheory}, $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \leq 1$. Therefore, based on \eqref{Eq:ElementalCurvatureCoefficientTheory}, whenever there exists some feasible $(S,y_i,y_j)$ such that  $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \simeq 1$, i.e. when $H$ is weakly submodular (or, equivalently, closer to being modular) in that region, the elemental curvature measure will provide poor performance bounds (closer to $\beta_f$). This modularity argument is also evident from considering a simplified case of condition $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \simeq 1$ assuming $S=\emptyset$, as it leads to
-$$
-H(\{y_i,y_j\}) \simeq H(\{y_j\}) + H(\{y_i\}), \quad \mbox{for some } y_i,y_j\in X
-$$
-which holds whenever $H$ is modular.
-
-As we observed before, the coverage function $H$ shows such modular behaviors (leading to poor performance bounds $\beta_e\simeq \beta_f$) when the ground set $X$ is very sparse and/or when agents have significantly weak non-overlapping sensing capabilities. It is worth highlighting that this particular behavior of elemental curvature contrasts from that of the previously discussed total curvature and greedy curvature - where weakly submodular scenarios (with agents having weak sensing capabilities) lead to significantly improved performance bounds $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
+As explained earlier, $H$ is weakly submodular (which implied $\beta_e \simeq \beta_f$) when the ground set $X$ is very sparse and/or when agents have significantly weak non-overlapping sensing capabilities. Therefore, elemental curvature contrasts from total and greedy curvature - where weakly submodular scenarios led to significantly improved performance bounds $\beta_f \ll \beta_t \leq \beta_g \simeq 1$.
 
 
 On the other hand, the elemental curvature provides an improved performance bound when $\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)} \ll 1$ over all feasible $(S,y_i,y_j)$ considered in \eqref{Eq:ElementalCurvatureCoefficientTheory}. To further interpret this condition, we need to consider the corresponding marginal detection function \eqref{Eq:MarginalDetection} requirement:
