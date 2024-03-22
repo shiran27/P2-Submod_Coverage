@@ -152,12 +152,12 @@ In this paper, we consider a more general coverage problem than before and inves
 
 % Our contributions
 In particular, our contributions are as follows: 
-(1) We consider a more general coverage problem (compared to those in \cite{WelikalaJ02021,Sun2019});
-(2) Submodularity and several other key properties of the considered coverage problem are established; 
-(3) We review five curvature measures that are applicable to the considered coverage problem (to the best of our knowledge, this review is exhaustive);
-(4) Special properties and techniques for numerical evaluation of some complex curvature measures for coverage problems are discussed; 
-(5) We detail the effectiveness complexity of different curvature metrics with respect to various coverage problem parameters; and 
-(6) We implement the proposed coverage problem setup in a simulation environment and evaluate different curvature measures and their performance bounds under different problem conditions.
+\textbf{(1)} We consider a more general coverage problem (compared to those in \cite{WelikalaJ02021,Sun2019});
+\textbf{(2)} Submodularity and several other key properties of the considered coverage problem are established; 
+\textbf{(3)} We review five curvature measures that are applicable to the considered coverage problem (to the best of our knowledge, this review is exhaustive);
+\textbf{(4)} Special properties and techniques for numerical evaluation of some complex curvature measures for coverage problems are discussed; 
+\textbf{(5)} We detail the effectiveness complexity of different curvature metrics with respect to various coverage problem parameters; and 
+\textbf{(6)} We implement the proposed coverage problem setup in a simulation environment and evaluate different curvature measures and their performance bounds under different problem conditions.
 
 
 
@@ -260,9 +260,9 @@ The optimal coverage problem \eqref{Eq:CoverageProblem} involves a non-convex fe
 \paragraph*{Combinatorial Optimization Approach}\ Motivated by the said challenges, here we take a combinatorial optimization approach to solve \eqref{Eq:CoverageProblem}. This requires reformulating \eqref{Eq:CoverageProblem} as a set function maximization problem (in set variable $S$).
 
 
-First, we discretize the feasible space $\Phi$ fomulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. Second, in detection and coverage functions defined in \eqref{Eq:JointDetection}-\eqref{Eq:CoverageProblem}, we replace the matrix variable $s$ with the \emph{set variable} $S \triangleq \{s_i:i\in\N\}$ to obtain the respective set detection and set coverage problems. To limit the set cardinality (denoted by $\vert S \vert$) to $N$, we introduce the constraint $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. Finally, we restate the optimal coverage problem \eqref{Eq:CoverageProblem} as a set function maximization problem:
+First, we discretize the feasible space $\Phi$ formulating a \emph{ground set} $X = \{x_l:x_l\in \Phi, l\in\N_M\}$. Second, we replace the matrix variable $s$ with the \emph{set variable} $S \triangleq \{s_i:i\in\N\}$ in detection and coverage functions defined in \eqref{Eq:JointDetection}-\eqref{Eq:CoverageProblem}, to obtain their respective set detection and set coverage functions. To limit the cardinality of $S$ (denoted by $\vert S \vert$) to $N$, we introduce the constraint $S \in \mathcal{I}^N \triangleq \{Y: Y \subseteq X, \vert Y \vert \leq N\}$. Finally, we restate the optimal coverage problem \eqref{Eq:CoverageProblem} as a set function maximization problem:
 \begin{equation}\label{Eq:SetCoverageProblem}
-S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S) = \int_\Omega R(x)P(x,S)dx.
+S^* = \underset{S\in\mathcal{I}^N}{\arg\max}\ H(S) \triangleq \int_\Omega R(x)P(x,S)dx.
 \end{equation} 
 
 
@@ -272,7 +272,7 @@ A set system form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of ra
 
 
 % To represent the coverage function value of the agent placement defined by the set variable $S$, using the coverage function \eqref{Eq:CoverageProblem}, we next define a \emph{set coverage function} as: 
-% \begin{equation}\label{Eq:SetCoverageFunction}
+% \begin{equation}\label{Eq:SetCoverageProblem}
 %     H(S) \triangleq \int_\Omega R(x)P(x,S)dx,
 % \end{equation}
 % where $P(x,S)$ represents a \emph{set detection function}. Inspired by \eqref{Eq:JointDetection}-\eqref{Eq:DetectionFunction}, this set detection function $P(x,S)$ is selected as:
@@ -294,30 +294,24 @@ A set system form $(X,\mathcal{I}^N)$ is known as a \emph{uniform matroid} of ra
 % \end{equation}
 
 
-%%% Revised up to this
-\bigskip
-{\color{blue} \textbf{**** Compressed up to this point...} }
-\bigskip
+Clearly, the size of the search space of \eqref{Eq:SetCoverageProblem} is combinatorial as $\vert \mathcal{I}^N \vert = \sum_{r=0}^N {M \choose r}$. Therefore, obtaining an optimal solution $S^*$ for it is impossible without significant simplifying assumptions. Hence our goal here is to obtain a candidate solution for \eqref{Eq:SetCoverageProblem} (say $S^G$) in an efficient manner with some guarantees on its coverage performance $H(S^G)$ with respect to the optimal coverage performance $H(S^*)$. 
 
 
-Since the size of the set variable search space of the formulated set function maximization problem \eqref{Eq:SetCoverageProblem} is combinatorial (in particular $\vert \mathcal{I}^N \vert = \sum_{r=0}^N {M \choose r} =  \sum_{r=0}^M \frac{M!}{(M-r)!r!}$), obtaining an optimal solution (i.e., $S^*$) for it is impossible without significant simplifying assumptions. Therefore the overall goal is to obtain a candidate solution for \eqref{Eq:SetCoverageProblem} (say $S^G$) in an efficient manner with some guarantees on its coverage performance $H(S^G)$ with respect to optimal coverage performance $H(S^*)$. 
 
-
-One obvious approach to obtaining such a candidate solution efficiently is via a vanilla \emph{greedy algorithm} as given in Alg. \ref{Alg:GreedyAlgorithm}. Note that it uses the \emph{marginal coverage function} defined as
+To efficiently obtain such a candidate solution, we use a vanilla \emph{greedy algorithm} as given in Alg. \ref{Alg:GreedyAlgorithm}. Note that it uses the notion of \emph{marginal coverage function} defined as
 \begin{equation}\label{Eq:MarginalCoverage}
-    \Delta H(y \vert S^{i-1}) \triangleq H(S^{i-1}\cup\{y\}) - H(S^{i-1})
+    \Delta H(y \vert S^{i-1}) \triangleq H(S^{i-1}\cup\{y\}) - H(S^{i-1}),
 \end{equation}
-to iteratively determine the optimal agent placements until $N$ such agent placements have been chosen. Note that, in \eqref{Eq:MarginalCoverage}, we require $S^{i-1}\in\mathcal{I}^N$ and $S^{i-1}\cup\{y\} \in\mathcal{I}^N$, and clearly, $y \in X \backslash S^{i-1}$ (to ensure $\Delta H(y \vert S^{i-1})>0$). While the latter condition means that no two agents are allowed at the same place in the mission space, if necessary, by appropriately defining the ground set $X$, we can relax such placement constraints. 
+to iteratively determine optimal individual agent placements until $N$ such agent placements have been chosen.  
 
-Let us define the notion of \emph{marginal detection function} as
+Motivated by the linear relationship between the set coverage function $H(S)$ \eqref{Eq:SetCoverageProblem} and set detection function $P(x,S)$ \eqref{Eq:DetectionFunction}, we define the notion of \emph{marginal detection function} as 
 \begin{equation}\label{Eq:MarginalDetection}
-    \Delta P(x, y \vert S^{i-1}) = P(x, S^{i-1}\cup\{y\}) - P(x, S^{i-1}).
+    \Delta P(x, y \vert S^{i-1}) \triangleq P(x, S^{i-1}\cup\{y\}) - P(x, S^{i-1}).
 \end{equation}
-This definition is motivated by the linear relationship \eqref{Eq:SetCoverageFunction} between the set coverage function $H(S)$ and the set detection function $P(x,S)$ with respect to the set argument $S$, because a similar linear relationship exists between the corresponding marginal functions $\Delta H(y \vert S)$ \eqref{Eq:MarginalCoverage} and $\Delta P(x,y\vert S)$ \eqref{Eq:MarginalDetection}. In the sequel, we exploit these linear relationships to conclude certain set function properties of $H(S)$ using those of $P(x,S)$ and $\Delta P(x,y\vert S)$.
+Through \eqref{Eq:SetCoverageProblem}, it is easy to see that a similar linear relationship also exists between the marginal functions $\Delta H(y \vert S)$ \eqref{Eq:MarginalCoverage} and $\Delta P(x,y\vert S)$ \eqref{Eq:MarginalDetection}. In the sequel, we exploit these linear relationships to conclude certain set function properties of $H(S)$ using those of $P(x,S)$ and $\Delta P(x,y\vert S)$. 
 
 % Finally note that we use the notation $Z^i$ 
-Finally, we point out that, the notation $S^i \triangleq \{s^1,s^2,\ldots,s^i\}$ (with $S^0=\emptyset$ and $S^N=S^G$) used to represent the greedy solution obtained after $i$ greedy iterations in Alg. \ref{Alg:GreedyAlgorithm} will be used more liberally for any $i\in\{0,1,2,\ldots,M\}$ in the sequel. 
-
+Finally, we point out that, in the sequel, the notations in \eqref{Eq:MarginalCoverage} and \eqref{Eq:MarginalDetection} will be used more liberally by replacing $y$ and $S^{i-1}$ respectively with sets $A$ and $B$, where $A,B\subseteq X$ (e.g., see Th. \ref{Th:SubmodularityOfMarginalCoverage}). Also, the notation $S^i \triangleq \{s^1,s^2,\ldots,s^i\}$ used to represent the greedy solution obtained after $i$ greedy iterations in Alg. \ref{Alg:GreedyAlgorithm} will be used more liberally for any $i\in\N_M^0$ (e.g., see \eqref{Eq:UpperBoundAlphaiForfYStar}). 
 
 
 \begin{algorithm}[!h]
@@ -338,176 +332,170 @@ Finally, we point out that, the notation $S^i \triangleq \{s^1,s^2,\ldots,s^i\}$
 \section{The Greedy Solution with Performance Bound Guarantees}
 \label{Sec:Preliminaries}
 
-% Introduce the necessary notations, preliminary definitions, problem formulation, greedy solution, and performance bounds...
-
-In this section, we will show that the greedy solution $S^G$ obtained using Alg. \ref{Alg:GreedyAlgorithm} for the optimal coverage problem \eqref{Eq:SetCoverageProblem} is not only computationally efficient but also entertains performance guarantees with respect to the global optimal coverage performance $H(S^*)$. For this, we first need to introduce some standard set function properties.
-
-For generality, let us consider an arbitrary set function $F:2^Y \rightarrow \R$ defined over a finite ground set $Y$. Similar to before, the corresponding marginal function is defined as 
-\begin{equation}
-    \Delta F(y \vert A) \triangleq F(A\cup\{y\}) - F(A)
-\end{equation}
-to represent the gain of set function value due to the addition of an extra element $y \in Y \backslash A$ to the set $A$. Note that we can use this marginal function notation more liberally as $\Delta F(B \vert A) \triangleq f(A\cup B) - f(A)$ for any $A, B \subseteq Y$ (even allowing $B \not\subseteq Y\backslash A$).  
+In this section, we show that the greedy solution $S^G$ given by Alg. \ref{Alg:GreedyAlgorithm} for the optimal coverage problem \eqref{Eq:SetCoverageProblem} not only efficient but also entertains performance guarantees with respect to the global optimal performance $H(S^*)$. For this, we first need to introduce some standard set function properties.
 
 
-\begin{definition} \cite{WelikalaJ02021} \label{Def:Submodularity} The set function $F:2^Y \rightarrow \R$ is:
-\begin{enumerate}
-    \item \emph{normalized} if $F(\emptyset) = 0$;
-    \item \emph{monotone} if $\Delta F(y \vert A)\geq 0$ for all $y,A$ where $A \subset Y$ and $y\in Y\backslash A$, or equivalently, if $F(B) \leq F(A)$ for all $B,A$ where $B \subseteq A \subseteq Y$;
-    \item \emph{submodular} if $\Delta f(y\vert A) \leq \Delta f(y\vert B)$ for all $y,A,B$ where $B\subseteq A \subset Y$ and $y\in Y \backslash A$, or equivalently, \\if $F(A\cup B) + F(A\cap B) \leq F(A) + F(B)$ for all $A,B\subseteq Y$,
-    \item a \emph{polymatroid} set function if it is normalized, monotone and submodular \cite{Liu2018,Boros2003}. 
-\end{enumerate}
+\begin{definition} \cite{WelikalaJ02021} \label{Def:Submodularity} 
+Let $F:2^Y \rightarrow \R$ be an arbitrary set function defined over a finite ground set $Y$, and $\Delta F(y \vert A) \triangleq F(A\cup\{y\}) - F(A)$ be the corresponding marginal gain function. This set function $F$ is:
+\textbf{(1)} \emph{normalized} if $F(\emptyset) = 0$; 
+\textbf{(2)} \emph{monotone} if $\Delta F(y \vert A)\geq 0$ for all $y,A$ where $A \subset Y$ and $y\in Y\backslash A$, or equivalently, if $F(B) \leq F(A)$ for all $B,A$ where $B \subseteq A \subseteq Y$;
+\textbf{(3)} \emph{submodular} if $\Delta f(y\vert A) \leq \Delta f(y\vert B)$ for all $y,A,B$ where $B\subseteq A \subset Y$ and $y\in Y \backslash A$, or equivalently, if $F(A\cup B) + F(A\cap B) \leq F(A) + F(B)$ for all $A,B\subseteq Y$;  
+\textbf{(4)} a \emph{polymatroid} set function if all the above properties hold \cite{Boros2003}. 
 \end{definition}
 
-It is worth noting that the first condition outlined for the submodularity property in Def. \ref{Def:Submodularity}-(3) is more commonly known as the \emph{diminishing returns} property. 
+% Note that the first condition outlined for submodularity in Def. \ref{Def:Submodularity}-(3) is commonly known as the \emph{diminishing returns} property. 
 
-The following lemma and the theorem establish the polymatroid nature of the set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction}.
+The following lemma and the theorem establish that the coverage function $H(S)$ in \eqref{Eq:SetCoverageProblem} is a polymatroid set function.
+
+
 
 \begin{lemma}\label{Lm:LinearityOfSubmodularity}
 With respect to a common ground set, any positive linear combination of arbitrary polymatroid set functions is also a polymatroid set function.    
 \end{lemma}
 \begin{proof}
-Consider $n$ polymatroid set functions $F_1,F_2,\ldots,F_n$, where each is defined over a common ground set $Y$. Let $F\triangleq \sum_{i\in\N_n} \alpha_i F_i$, where $\alpha_i \geq 0, \forall i \in\N_n$. Clearly, $F(\emptyset)=0$ as $F_i(\emptyset)=0$ and $\alpha_i \geq 0, \forall i\in\N_n$. Therefore, $F$ is normalized. With respect to any $A,B$ such that $B \subseteq A \subseteq Y$, note that $F(B)\geq F(A)$ holds as $F_i(B) \leq F_i(A)$ and $\alpha_i \geq 0, \forall i\in\N_n$. Thus, $F$ is monotone. Using the same arguments, the submodularity and, thus, the polymatroid nature of $F$ can be established.
+The proof directly follows from: (1) considering $F_1,F_2,\ldots,F_n$ to be $n$ polymatroid set functions defined over a common ground set, (2) defining $F\triangleq \sum_{i\in\N_n} \alpha_i F_i$, where $\alpha_i \geq 0, \forall i \in\N_n$, and (3) testing respective conditions in Def. \ref{Def:Submodularity}. A more detailed proof can be found in \cite{Welikala2024Ax1}. 
+% Consider $n$ polymatroid set functions $F_1,F_2,\ldots,F_n$, where each is defined over a common ground set $Y$. Let $F\triangleq \sum_{i\in\N_n} \alpha_i F_i$, where $\alpha_i \geq 0, \forall i \in\N_n$. Clearly, $F(\emptyset)=0$ as $F_i(\emptyset)=0$ and $\alpha_i \geq 0, \forall i\in\N_n$. Therefore, $F$ is normalized. With respect to any $A,B$ such that $B \subseteq A \subseteq Y$, note that $F(B)\geq F(A)$ holds as $F_i(B) \leq F_i(A)$ and $\alpha_i \geq 0, \forall i\in\N_n$. Thus, $F$ is monotone. Using the same arguments, the submodularity and, thus, the polymatroid nature of $F$ can be established.
 \end{proof}
 
 \begin{theorem}\label{Th:SetCoverageSubmodularity}
-The set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction} is a polymatroid set function.
+The set coverage function $H(S)$ in \eqref{Eq:SetCoverageProblem} is a polymatroid set function.
 \end{theorem}
+
 \begin{proof}
-From \eqref{Eq:SetCoverageFunction} and \eqref{Eq:SetDetectionFunction}, it is clear that the set coverage function $H(S)$ can be viewed as a linear combination of set detection function components $P_J(x,S)$ \eqref{Eq:JointDetection} and $P_M(x,S)$ \eqref{Eq:MaxDetection} - with respect to the common ground set $X$. Therefore, in light of Lm. \ref{Lm:LinearityOfSubmodularity}, to prove $H(S)$ a polymatroid set function, we only have to show $P_J(x,S)$ and $P_M(x,S)$ are polymatroid set functions with respect to any feasible space point $x\in\Phi$. 
+Note that $H(S)$ is a linear combination of set detection function components $P_J(x,S)$ \eqref{Eq:JointDetection} and $P_M(x,S)$ \eqref{Eq:MaxDetection} with respect to the common ground set $X$. Thus, under Lm. \ref{Lm:LinearityOfSubmodularity}, we only have to prove $P_J(x,S)$ and $P_M(x,S)$ are polymatroid set functions with respect to any feasible space point $x\in\Phi$. 
 
-Let us first consider the set function $P_J(x,S)$ \eqref{Eq:JointDetection}. By definition, $P_J(x,\emptyset) = 0$, and thus, $P_J(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
+We start by considering $P_J(x,S)$. By definition, $P_J(x,\emptyset) = 0$, and thus, it is normalized. The corresponding marginal function $\Delta P_J(x,y \vert A) = P_J(x,A\cup\{y\}) - P_J(x,A) =  -\prod_{s_i\in A\cup\{y\}}(1-p(x,s_i)) +\prod_{s_i\in A}(1-p(x,s_i))$, leading to:
 \begin{align}
-\Delta P_J(x,y \vert A) =&\ P_J(x,A\cup\{y\}) - P_J(x,A) \nonumber\\    
-=&\ -\prod_{s_i\in A\cup\{y\}}(1-p(x,s_i)) +\prod_{s_i\in A}(1-p(x,s_i)) \nonumber\\
-=&\ p(x,y)\prod_{s_i\in A}(1-p(x,s_i)), \label{Eq:Th:SetCoverageSubmodularityStep1}
+\Delta P_J(x,y \vert A)  = p(x,y)\prod_{s_i\in A}(1-p(x,s_i)), \label{Eq:Th:SetCoverageSubmodularityStep1}
 \end{align}
-for any $A \subset X$ and $y\in X\backslash A$. 
-From \eqref{Eq:Th:SetCoverageSubmodularityStep1}, it is clear that $\Delta P_J(x,y \vert A) \geq 0$ for all $A \subset X$ and $y\in X\backslash A$. Therefore, $P_J(x,S)$ is monotone. Note also that the product term in \eqref{Eq:Th:SetCoverageSubmodularityStep1} diminishes with the growth of the set $A$. This property can be used to conclude that $\Delta P_J(x,y \vert A) \leq \Delta P_J(x,y \vert B)$, for all $y,A,B$ where $B\subseteq A \subset X$ and $y\in Y\backslash A$. Hence $P_J(x,S)$ is submodular. Therefore, $P_J(x,S)$ is a polymatroid set function.
+for any $A \subset X$ and $y\in X\backslash A$. Therefore, $\Delta P_J(x,y \vert A) \geq 0$, which implies that $P_J(x,S)$ is monotone. Note also that the product term in \eqref{Eq:Th:SetCoverageSubmodularityStep1} diminishes with the growth of the set $A$. Therefore, $\Delta P_J(x,y \vert A) \leq \Delta P_J(x,y \vert B)$, for all $y,A,B$ where $B\subseteq A \subset X$ and $y\in Y\backslash A$. Hence $P_J(x,S)$ is submodular, and thus, it is also a polymatroid set function.
 
-Finally, let us consider the set function $P_M(x,S)$ \eqref{Eq:MaxDetection}. Again, by definition, $P_M(x,\emptyset) = 0$ implying that $P_M(x,S)$ is normalized. The corresponding marginal function \eqref{Eq:MarginalDetection} can be derived as:
+Finally, we consider $P_M(x,S)$. Note that $P_M(x,\emptyset) = 0$, which implies that it is normalized. The corresponding marginal function 
+$\Delta P_M(x,y \vert A) = P_M(x,A\cup\{y\}) - P_M(x,A) = \max_{s_i\in A\cup\{y\}} p(x,s_i) - \max_{s_i\in A} p(x,s_i)$, leading to:
 \begin{align}
-\Delta P_M(x,y \vert A) =&\ P_M(x,A\cup\{y\}) - P_M(x,A) \nonumber\\    
-=&\ \max_{s_i\in A\cup\{y\}} p(x,s_i) - \max_{s_i\in A} p(x,s_i)\nonumber\\
-=&\ \max\{p(x,y)-\max_{s_i\in A} p(x,s_i),0\}, \label{Eq:Th:SetCoverageSubmodularityStep2}
+\Delta P_M(x,y \vert A) = \max\{0,p(x,y)-\max_{s_i\in A} p(x,s_i)\}, \label{Eq:Th:SetCoverageSubmodularityStep2}
 \end{align}
-for any $A \subset X$ and $y\in X\backslash A$. From \eqref{Eq:Th:SetCoverageSubmodularityStep2}, it is clear that $\Delta P_M(x,y \vert A) \geq 0$ for all $A \subset X$ and $y\in X\backslash A$. Therefore, $P_M(x,S)$ is monotone. Note also that the first term inside the outer max operator in \eqref{Eq:Th:SetCoverageSubmodularityStep2} diminishes with the growth of the set $A$. This property implies that $\Delta P_M(x,y \vert A) \leq \Delta P_M(x,y \vert B)$, for all $y,A,B$ where $B \subseteq A \subset X$ and $y \in Y\backslash A$. Hence $P_M(x,S)$ is submodular. Consequently, $P_M(x,S)$ is a polymatroid set function. This completes the proof.
+for any $A \subset X$ and $y\in X\backslash A$. Therefore, $\Delta P_M(x,y \vert A) \geq 0$, implying that $P_M(x,S)$ is monotone. Note also that the second inner term in \eqref{Eq:Th:SetCoverageSubmodularityStep2} diminishes with the growth of the set $A$. Thus, $\Delta P_M(x,y \vert A) \leq \Delta P_M(x,y \vert B)$, for all $y,A,B$ where $B \subseteq A \subset X$ and $y \in Y\backslash A$. Hence $P_M(x,S)$ is submodular, and thus, it is a polymatroid set function. This completes the proof.
 \end{proof}
 
+This polymatroid nature of set coverage function $H(S)$ \eqref{Eq:SetCoverageProblem} enables establishing \emph{performance bounds} (denoted by $\beta$) for the greedy solution $S^G$ (given by Alg. \ref{Alg:GreedyAlgorithm}). Formally, a performance bound is defined as a theoretically established lower bound for the ratio $\frac{H(S^G)}{H(S^*)}$, i.e., 
+$\beta \leq \frac{H(S^G)}{H(S^*)}.$
+Having a performance bound $\beta \simeq 1$ implies that the performance of the greedy solution $S^G$ is close to that of the global optimal solution $S^*$. Thus, $\beta$ is an indicator of the effectiveness of the greedy approach to solving the coverage problem \eqref{Eq:SetCoverageProblem}.   
 
-As a direct result of this polymatroid nature of the set coverage function $H(S)$ \eqref{Eq:SetCoverageFunction}, we can characterize the proximity of the performance of the greedy solution (i.e., $H(S^G)$) to that of the globally optimal solution (i.e., $H(S^*)$). For this characterization, we particularly use the notion of a \emph{performance bound}, (denoted by $\beta$) defined as a theoretically established lower bound for the ratio $\frac{H(S^G)}{H(S^*)}$, i.e., 
-\begin{equation}\label{Eq:Def:PerformanceBound}
-    \beta \leq \frac{H(S^G)}{H(S^*)}.
-\end{equation}
-Having a performance bound $\beta$ close to $1$ implies that the performance of the greedy solution is close to that of the global optimal solution. Consequently, $\beta$ can also serve as an indicator of the effectiveness of the greedy approach to solve the interested optimal coverage problem \eqref{Eq:SetCoverageProblem}.   
 
-The seminal work \cite{Nemhauser1978} has established a performance bound (henceforth called the \emph{fundamental performance bound}, and denoted by $\beta_f$) for polymatroid set function maximization problems, which, in light of Th. \ref{Th:SetCoverageSubmodularity}, is applicable to the optimal coverage problem \eqref{Eq:SetCoverageProblem} as: 
+
+The seminal work \cite{Nemhauser1978} has established a performance bound (henceforth called the \emph{fundamental performance bound}, and denoted by $\beta_f$) for polymatroid set function maximization problems. This, in light of Th. \ref{Th:SetCoverageSubmodularity}, is applicable to the optimal coverage problem \eqref{Eq:SetCoverageProblem} as: 
 \begin{equation}\label{Eq:FundamentalPerformanceBound}
     \beta_f \triangleq 1-\left(1-\frac{1}{N}\right)^N \leq \frac{H(S^G)}{H(S^*)}.
 \end{equation}
-Note that, while $\beta_f$ decreases with the number of agents $N$, it is lower-bounded by $1-\frac{1}{e} \simeq 0.6321$, because $\lim_{N\rightarrow\infty} \beta_f = (1-\frac{1}{e})$. This implies that the coverage performance of the greedy solution will always be not worse than 63.21\% of the maximum achievable coverage performance.
+While $\beta_f$ decreases with the number of agents $N$, it is lower-bounded by $1-\frac{1}{e} \simeq 0.6321$, because $\lim_{N\rightarrow\infty} \beta_f = (1-\frac{1}{e})$. This implies that the coverage performance of the greedy solution will always be not worse than 63.21\% of the maximum achievable coverage performance.
 
-Moreover, as shown in \cite{WelikalaJ02021}, upon obtaining the greedy solution $S^G$ from Alg. \ref{Alg:GreedyAlgorithm}, any subsequently improved solution $\bar{S}^G\in\mathcal{I}^N$ (e.g., via a gradient process \cite{Sun2019,Sun2020} or an interchange scheme \cite{Welikala2019P3}), will have an improved performance bound $\bar{\beta}$ than the original performance bound $\beta$ such that  
-$$\beta \leq \bar{\beta} \triangleq \beta * \frac{H(\bar{S}^G)}{H(S^G)} \leq \frac{H(\bar{S}^G)}{H(S^*)}.$$ 
+As we will see in the next section, further improved performance bounds beyond $\beta_f$ can be achieved by exploiting certain characteristics called \emph{curvature measures} of the interested set function maximization problem. 
 
-Besides (and independently from) improving the original greedy solution, as we will see in the next section, an improved performance bound can also be achieved by exploiting certain characteristics (called \emph{curvature measures}) of the interested set function maximization problem. 
 
-Before moving on, we provide a minor technical lemma along with a theorem that establishes the polymatroid nature of the marginal coverage function $\Delta H (B \vert A)$ with respect to both of its set arguments $A$ and $B$. 
+Before moving on, we provide a theorem that establishes the polymatroid nature of the marginal coverage function $\Delta H (B \vert A)$ with respect to both of its set arguments $A$ and $B$. 
 
-\begin{lemma}\label{Lm:MaxMinusMax}
-For any $a,b \in \R$, $\max \{a,b\} - \max\{c,d\} = \max\{\min\{a-c,a-d\},\min\{b-c,b-d\}\}$.
-\end{lemma}
-\begin{proof}
-The proof follows from simplifying the left-hand side (LHS) of the given relationship:
-\begin{align*}
-\mbox{LHS} =&\ \max\{a-\max\{c,d\},b-\max\{c,d\}\}\\
-=&\ \max\{a+\min\{-c,-d\},b+\min\{-c,-d\}\}\\
-=&\ \max\{\min\{a-c,a-d\},\min\{b-c,b-d\}\}.
-\end{align*}
-\end{proof}
+% \begin{lemma}\label{Lm:MaxMinusMax}
+% For any $a,b \in \R$, $\max \{a,b\} - \max\{c,d\} = \max\{\min\{a-c,a-d\},\min\{b-c,b-d\}\}$.
+% \end{lemma}
+% \begin{proof}
+% The proof follows from simplifying the left-hand side (LHS) of the given relationship:
+% \begin{align*}
+% \mbox{LHS} =&\ \max\{a-\max\{c,d\},b-\max\{c,d\}\}\\
+% =&\ \max\{a+\min\{-c,-d\},b+\min\{-c,-d\}\}\\
+% =&\ \max\{\min\{a-c,a-d\},\min\{b-c,b-d\}\}.
+% \end{align*}
+% \end{proof}
 
 
 \begin{theorem}\label{Th:SubmodularityOfMarginalCoverage}
-For a fixed set $A \subset X$, the marginal coverage function $G_A(B) \triangleq \Delta H (B \vert A)$ is a polymatroid set function over $B \subseteq X \backslash A$. Moreover, for a fixed set $B \subset X$, the affine negated marginal coverage function $G_B(A) \triangleq -\Delta H (B \vert A)+H(B)$ is a polymatroid set function over $A \subseteq X \backslash B$.
+For a fixed set $A \subset X$, the marginal coverage function $G_A(B) \triangleq \Delta H (B \vert A)$ is a polymatroid set function over $B \subseteq X \backslash A$. Also, for a fixed set $B \subset X$, the affine negated marginal coverage function $G_B(A) \triangleq -\Delta H (B \vert A)+H(B)$ is a polymatroid set function over $A \subseteq X \backslash B$.
 \end{theorem} 
 \begin{proof}
-The first result directly follows from the polymatroid nature of the set coverage function $H(S)$  \eqref{Eq:SetCoverageFunction} established in Th. \ref{Th:SetCoverageSubmodularity} and the theoretical result in \cite[Lm. 1]{WelikalaJ02021}.
-
-To establish the second result, first, note that $G_B(\emptyset) = -\Delta H (B \vert \emptyset)+H(B) = -H(B)+H(\emptyset)+H(B) = 0$. Therefore the set function $G_B(\cdot)$ is normalized. 
-
-Second, consider a set $C \subseteq A \subseteq X\backslash B$. Then, 
-$G_B(A)-G_B(C) = \Delta H (B \vert C) - \Delta H (B \vert A)$. To deduce the sign of $\Delta H (B \vert C) - \Delta H (B \vert A)$, we need to inquire about the sign of $\Delta P(x,B\vert C) - \Delta P(x, B \vert A)$ for all $x \in \Omega$. Note that
-\begin{align*}
-\Delta P_J(x,B\vert C) 
-=&\ P_J(x,B\cup C) - P_J(x,C) \\
-=&\ \prod_{s_i\in C}(1-p(x,s_i)) - \prod_{s_i\in B\cup C} (1-p(x,s_i))\\
-=&\ (1-\prod_{s_i\in B}(1-p(x,s_i)))\prod_{s_i\in C} (1-p(x,s_i))
-\end{align*}
-where the last step is due to $C\subseteq X \backslash B$. Similarly, we get 
-$$
-\Delta P_J(x,B\vert A) = (1-\prod_{s_i\in B}(1-p(x,s_i)))\prod_{s_i\in A} (1-p(x,s_i)).
-$$
-Since $C\subseteq A$, from the above two results, it is clear that $\Delta P_J(x,B\vert C) - \Delta P_J(x, B \vert A) \geq 0$ for all $x \in \Omega$. 
-Note also that,
-\begin{align*}
-    \Delta P_M(x,B \vert C) =&\ P_M(x,B\cup C) - P_M(x,C)\\
-    =&\ \max_{s_i \in B\cup C} p(x,s_i)  - \max_{s_i\in C} p(x,s_i)\\
-    =&\ \max\{\max_{s_i \in B} p(x,s_i) - \max_{s_i \in C} p(x,s_i),0\}
-\end{align*}
-where the last step is due to $C\subseteq X \backslash B$. Similarly, we get 
-$$
-\Delta P_M(x,B \vert A) = 
-\max\{\max_{s_i \in B} p(x,s_i) - \max_{s_i \in A} p(x,s_i),0\}.
-$$
-Since $C\subseteq A$, from the above two results, we get $P_M(x,B\vert C) - \Delta P_M(x, B \vert A) \geq 0$ for all $x \in \Omega$. Using the above two main conclusions with \eqref{Eq:SetDetectionFunction}, we get $\Delta P(x,B\vert C) - \Delta P(x, B \vert A)\geq$ for all $x \in \Omega$. This result, together with \eqref{Eq:SetCoverageFunction}, implies that $\Delta H (B \vert C) - \Delta H (B \vert A) \geq 0$. Therefore, the set function $G_B(\cdot)$ is monotone.
-
-Finally, let us consider an element $y\in (X\backslash B)\backslash A$ and a set $C \subseteq A \subseteq X\backslash B$. For submodularity of $G_B(\cdot)$, we require 
-\begin{align*}
-&G_B(A\cup\{y\})-G_B(A) \leq G_B(C\cup\{y\})-G_B(C)\\
-&\iff G_B(A\cup\{y\})-G_B(C\cup\{y\}) \leq G_B(A)-G_B(C)\\
-&\iff \Delta H (B \vert C\cup\{y\}) - \Delta H (B \vert A\cup\{y\}) \\
-&\quad\quad\quad\quad \quad\quad\quad\quad \quad\quad\quad\quad
-\leq \Delta H (B \vert C) - \Delta H (B \vert A)\\
-&\iff \Delta P(x,B\vert C\cup\{y\}) - \Delta P(x, B \vert A \cup \{y\}) \\
-&\quad\quad\quad\quad \quad\quad\quad\quad 
-\leq \Delta P(x,B\vert C) - \Delta P(x, B \vert A), \forall x\in\Omega.
-\end{align*}
-Note that, using the previously obtained $P_J(x,B\vert C)$ and $\Delta P_J(x,B\vert A)$ expressions, we get 
-\begin{align*}
-\Delta P_J(x,B\vert C)-\Delta P_J(x,B\vert A) = 
-(1-\prod_{s_i\in B}(1-p(x,s_i)))\\
-\times (1-\prod_{s_i\in A \backslash C} (1-p(x,s_i)))\prod_{s_i\in C} (1-p(x,s_i)).
-\end{align*}
-In this expression, if $A\rightarrow A\cup\{y\}$ and $C \rightarrow C \cup\{y\}$, only the last product term changes; in particular, it decreases, and so does the overall expression.
-Note also that, using the previously obtained $P_M(x,B\vert C)$ and $\Delta P_M(x,B\vert A)$ terms and the notation $P_S \triangleq \max_{s_i\in S} p(x,s_i)$, we get (also using Lm. \ref{Lm:MaxMinusMax})
-\begin{align*}
-\Delta P_M(x,B\vert C) &- \Delta P_M(x,B\vert A) \\
-=&\ \max\{P_B-P_C,0\}-\max\{P_B-P_A,0\}\\
-=&\  \max\{\min\{P_A-P_C,P_B-P_C\},\min\{P_A-P_B,0\}\}\\
-=&\ \max\{\min\{P_A,P_B\}-P_C,\min\{P_A,P_B\}-P_B\}\\
-=&\ \min\{P_A,P_B\} - \min\{P_C,P_B\}.
-\end{align*}
-In this expression, if $A\rightarrow A\cup\{y\}$ and $C \rightarrow C \cup\{y\}$, the increment in $P_C$ will be larger than the increment in $P_A$ as $C \subseteq A$, and thus the overall expression decreases. 
-Using these two conclusions with \eqref{Eq:SetDetectionFunction}, we get 
-$\Delta P(x,B\vert C\cup\{y\}) - \Delta P(x, B \vert A \cup \{y\}) \leq \Delta P(x,B\vert C) - \Delta P(x, B \vert A), \forall x\in\Omega$, which implies that $G_B(\cdot)$ is submodular. 
-
-Consequently, $G_B(\cdot)$ is a polymatroid set function. This completes the proof.
+Due to space constraints, the proof is omitted here, but can be found in \cite{Welikala2024Ax1}. 
 \end{proof}
+% \begin{proof}
+% The first result directly follows from the polymatroid nature of the set coverage function $H(S)$  \eqref{Eq:SetCoverageProblem} established in Th. \ref{Th:SetCoverageSubmodularity} and the theoretical result in \cite[Lm. 1]{WelikalaJ02021}.
+
+% To establish the second result, first, note that $G_B(\emptyset) = -\Delta H (B \vert \emptyset)+H(B) = -H(B)+H(\emptyset)+H(B) = 0$. Therefore the set function $G_B(\cdot)$ is normalized. 
+
+% Second, consider a set $C \subseteq A \subseteq X\backslash B$. Then, 
+% $G_B(A)-G_B(C) = \Delta H (B \vert C) - \Delta H (B \vert A)$. To deduce the sign of $\Delta H (B \vert C) - \Delta H (B \vert A)$, we need to inquire about the sign of $\Delta P(x,B\vert C) - \Delta P(x, B \vert A)$ for all $x \in \Omega$. Note that
+% \begin{align*}
+% \Delta P_J(x,B\vert C) 
+% =&\ P_J(x,B\cup C) - P_J(x,C) \\
+% =&\ \prod_{s_i\in C}(1-p(x,s_i)) - \prod_{s_i\in B\cup C} (1-p(x,s_i))\\
+% =&\ (1-\prod_{s_i\in B}(1-p(x,s_i)))\prod_{s_i\in C} (1-p(x,s_i))
+% \end{align*}
+% where the last step is due to $C\subseteq X \backslash B$. Similarly, we get 
+% $$
+% \Delta P_J(x,B\vert A) = (1-\prod_{s_i\in B}(1-p(x,s_i)))\prod_{s_i\in A} (1-p(x,s_i)).
+% $$
+% Since $C\subseteq A$, from the above two results, it is clear that $\Delta P_J(x,B\vert C) - \Delta P_J(x, B \vert A) \geq 0$ for all $x \in \Omega$. 
+% Note also that,
+% \begin{align*}
+%     \Delta P_M(x,B \vert C) =&\ P_M(x,B\cup C) - P_M(x,C)\\
+%     =&\ \max_{s_i \in B\cup C} p(x,s_i)  - \max_{s_i\in C} p(x,s_i)\\
+%     =&\ \max\{\max_{s_i \in B} p(x,s_i) - \max_{s_i \in C} p(x,s_i),0\}
+% \end{align*}
+% where the last step is due to $C\subseteq X \backslash B$. Similarly, we get 
+% $$
+% \Delta P_M(x,B \vert A) = 
+% \max\{\max_{s_i \in B} p(x,s_i) - \max_{s_i \in A} p(x,s_i),0\}.
+% $$
+% Since $C\subseteq A$, from the above two results, we get $P_M(x,B\vert C) - \Delta P_M(x, B \vert A) \geq 0$ for all $x \in \Omega$. Using the above two main conclusions with \eqref{Eq:SetDetectionFunction}, we get $\Delta P(x,B\vert C) - \Delta P(x, B \vert A)\geq$ for all $x \in \Omega$. This result, together with \eqref{Eq:SetCoverageProblem}, implies that $\Delta H (B \vert C) - \Delta H (B \vert A) \geq 0$. Therefore, the set function $G_B(\cdot)$ is monotone.
+
+% Finally, let us consider an element $y\in (X\backslash B)\backslash A$ and a set $C \subseteq A \subseteq X\backslash B$. For submodularity of $G_B(\cdot)$, we require 
+% \begin{align*}
+% &G_B(A\cup\{y\})-G_B(A) \leq G_B(C\cup\{y\})-G_B(C)\\
+% &\iff G_B(A\cup\{y\})-G_B(C\cup\{y\}) \leq G_B(A)-G_B(C)\\
+% &\iff \Delta H (B \vert C\cup\{y\}) - \Delta H (B \vert A\cup\{y\}) \\
+% &\quad\quad\quad\quad \quad\quad\quad\quad \quad\quad\quad\quad
+% \leq \Delta H (B \vert C) - \Delta H (B \vert A)\\
+% &\iff \Delta P(x,B\vert C\cup\{y\}) - \Delta P(x, B \vert A \cup \{y\}) \\
+% &\quad\quad\quad\quad \quad\quad\quad\quad 
+% \leq \Delta P(x,B\vert C) - \Delta P(x, B \vert A), \forall x\in\Omega.
+% \end{align*}
+% Note that, using the previously obtained $P_J(x,B\vert C)$ and $\Delta P_J(x,B\vert A)$ expressions, we get 
+% \begin{align*}
+% \Delta P_J(x,B\vert C)-\Delta P_J(x,B\vert A) = 
+% (1-\prod_{s_i\in B}(1-p(x,s_i)))\\
+% \times (1-\prod_{s_i\in A \backslash C} (1-p(x,s_i)))\prod_{s_i\in C} (1-p(x,s_i)).
+% \end{align*}
+% In this expression, if $A\rightarrow A\cup\{y\}$ and $C \rightarrow C \cup\{y\}$, only the last product term changes; in particular, it decreases, and so does the overall expression.
+% Note also that, using the previously obtained $P_M(x,B\vert C)$ and $\Delta P_M(x,B\vert A)$ terms and the notation $P_S \triangleq \max_{s_i\in S} p(x,s_i)$, we get 
+% \begin{align*}
+% \Delta P_M(x,B\vert C) &- \Delta P_M(x,B\vert A) \\
+% =&\ \max\{P_B-P_C,0\}-\max\{P_B-P_A,0\}\\
+% =&\  \max\{\min\{P_A-P_C,P_B-P_C\},\min\{P_A-P_B,0\}\}\\
+% =&\ \max\{\min\{P_A,P_B\}-P_C,\min\{P_A,P_B\}-P_B\}\\
+% =&\ \min\{P_A,P_B\} - \min\{P_C,P_B\}.
+% \end{align*}
+% In this expression, if $A\rightarrow A\cup\{y\}$ and $C \rightarrow C \cup\{y\}$, the increment in $P_C$ will be larger than the increment in $P_A$ as $C \subseteq A$, and thus the overall expression decreases. 
+% Using these two conclusions with \eqref{Eq:SetDetectionFunction}, we get 
+% $\Delta P(x,B\vert C\cup\{y\}) - \Delta P(x, B \vert A \cup \{y\}) \leq \Delta P(x,B\vert C) - \Delta P(x, B \vert A), \forall x\in\Omega$, which implies that $G_B(\cdot)$ is submodular. 
+
+% Consequently, $G_B(\cdot)$ is a polymatroid set function. This completes the proof.
+% \end{proof}
 
 
-The above result further emphasizes the deep polymatroid characteristics of optimal coverage problems. Moreover, as we will see in the sequel, it enables the computation of efficient estimates for some curvature measures introduced in the next section.
+The above result further emphasizes the deep polymatroid features of optimal coverage problems. Moreover, as we will see in the sequel, it enables achieving computationally efficient estimates for some (otherwise computationally intractable) curvature measures discussed in the next section.
 
 
 \section{Improved Performance Bound Guarantees using Curvature Measures}
 \label{Sec:CurvatureMeasures}
 
-In this section, we will discuss several improved performance-bound guarantees that are applicable to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem} and its greedy solution $S^G$ given by Alg. \ref{Alg:GreedyAlgorithm}. The goal is to obtain tighter performance bounds for $S^G$, i.e., closer to 1 compared to $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound}. This is important as such a performance bound will accurately characterize the proximity of $S^G$ to $S^*$, and thus allow making informed decisions regarding spending extra resources (e.g., computational power, agents and sensing capabilities) to seek a further improved coverage solution beyond $S^G$. 
+In this section, we discuss several improved performance bounds (i.e., closer to $1$ compared to $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound}) applicable for the greedy solution $S^G$ given by Alg. \ref{Alg:GreedyAlgorithm} for the optimal coverage problem in \eqref{Eq:SetCoverageProblem}.  
+This is important as such an improved performance bound will accurately characterize the proximity of $S^G$ to $S^*$ and thus enable making informed decisions regarding spending extra resources (e.g., computational power, agents, and sensing capabilities) to seek further improved coverage solutions beyond $S^G$. 
 
 
-As mentioned earlier, curvature measures are used to obtain such improved performance bounds. These curvature measures are dependent purely on the underlying objective function, the ground set, and the feasible space, which, in the considered optimal coverage problem, are $H(S)$, $X$, and $\mathcal{I}^N$, respectively. In this section, we will review five established curvature measures and their respective performance bounds, outlining their unique characteristics, strengths, and weaknesses in their application to the considered optimal coverage problem \eqref{Eq:SetCoverageProblem}. 
+In particular, curvature measures are used to obtain such improved performance bounds, and they are dependent purely on the underlying objective function, the ground set, and the feasible space, which, in the considered optimal coverage problem, are $H(S)$, $X$, and $\mathcal{I}^N$, respectively. Here, we will review five established curvature measures and their respective performance bounds, outlining their characteristics, strengths, and weaknesses in the context of optimal coverage problems \eqref{Eq:SetCoverageProblem}. 
 
 
 \subsection{Total Curvature \cite{Conforti1984}}
 \label{SubSec:TotalCurvature}
+
+
 
 By definition, the \emph{total curvature} of \eqref{Eq:SetCoverageProblem} is given by  
 \begin{equation}\label{Eq:TotalCurvatureCoefficientTheory}
@@ -518,7 +506,12 @@ The corresponding performance bound $\beta_t$ is given by
     \beta_t \triangleq \frac{1}{\alpha_t} \left[ 1 - \left( 1 -\frac{\alpha_t}{N} \right)^N \right] \leq \frac{H(S^G)}{H(S^*)}.
 \end{equation}
 
-From comparing \eqref{Eq:TotalCurvatureBoundTheory} and \eqref{Eq:FundamentalPerformanceBound}, it is clear that when $\alpha_t\rightarrow 1$, the corresponding performance bound $\beta_t\rightarrow\beta_f$ (i.e., no improvement). However, on the other hand, when $\alpha_t\rightarrow 0$, the corresponding performance bound $\beta_t\rightarrow 1$ (i.e., a significant improvement). Moreover, it can be shown that $\beta_t$ is monotonically decreasing in $\alpha_t$. Using the above three facts and \eqref{Eq:TotalCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of:
+%%% Revised up to this
+\bigskip
+{\color{blue} \textbf{**** Compressed up to this point...} }
+\bigskip
+
+From \eqref{Eq:TotalCurvatureBoundTheory} and \eqref{Eq:FundamentalPerformanceBound}, it is easy to see that: (1) when $\alpha_t\rightarrow 1$, $\beta_t\rightarrow\beta_f$ (i.e., no improvement); (2) when $\alpha_t\rightarrow 0$, $\beta_t\rightarrow 1$ (i.e., a significant improvement); and  (3) $\beta_t$ is monotonically decreasing in $\alpha_t$. Using the above three facts and \eqref{Eq:TotalCurvatureCoefficientTheory}, note that the improvement in the performance bound is proportional to the magnitude of:
 \begin{equation}\label{Eq:TotolCurvatureGamma}
     \gamma_t \triangleq \min_{y \in X}\left[\frac{\Delta H(y \vert X \backslash \{y\})}{\Delta H(y \vert \emptyset)}\right].
 \end{equation}
@@ -529,13 +522,13 @@ The diminishing returns (submodularity) property of $H$ implies $\frac{\Delta H(
 \end{equation}
 which holds whenever $H$ is modular. 
 
-In particular, as $H$ is the set coverage function \eqref{Eq:SetCoverageFunction}, the above condition \eqref{Eq:ConditionForWeakSubmodularity} holds (leading to improved performance bounds) when an agent deployed at any $y\in X$ and all other agents deployed at $X \backslash \{y\}$ contribute to the coverage objective independently in a modular fashion. This happens when the ground set $X$ is very sparse and/or when the agents have significantly weak non-overlapping sensing capabilities (i.e., small range $\delta$ and high decay $\lambda$ in \eqref{Eq:SensingFunction}). 
+In particular, as $H$ is the set coverage function \eqref{Eq:SetCoverageProblem}, the above condition \eqref{Eq:ConditionForWeakSubmodularity} holds (leading to improved performance bounds) when an agent deployed at any $y\in X$ and all other agents deployed at $X \backslash \{y\}$ contribute to the coverage objective independently in a modular fashion. This happens when the ground set $X$ is very sparse and/or when the agents have significantly weak non-overlapping sensing capabilities (i.e., small range $\delta$ and high decay $\lambda$ in \eqref{Eq:SensingFunction}). 
 
 However, the condition \eqref{Eq:ConditionForWeakSubmodularity} is easily violated (leading to poor performance bounds) if 
 $$
 H(X) \ll H(y) + H(X\backslash \{y\}), \quad \mbox{ for some } y\in X. 
 $$
-To interpret this condition using \eqref{Eq:SetCoverageFunction}, we need to consider the corresponding detection function \eqref{Eq:SetDetectionFunction} requirement: 
+To interpret this condition using \eqref{Eq:SetCoverageProblem}, we need to consider the corresponding detection function \eqref{Eq:SetDetectionFunction} requirement: 
 $$
 P(x,X) \ll P(x,\{y\}) + P(x,X\backslash \{y\}), \quad \mbox{for some } y\in X
 $$
@@ -570,6 +563,8 @@ where $X^i \triangleq \{y: y \in X \backslash S^i, (S^i \cup \{y\}) \in \mathcal
     \beta_g \triangleq 1-\alpha_g\left(1-\frac{1}{N}\right) \leq \frac{H(S^G)}{H(S^*)}. 
 \end{equation}
 
+
+
 Note that $\beta_g$ is a monotonically decreasing function in $\alpha_g$, and due to the submodularity of $H$, $0 \leq \alpha_g \leq 1$. Consequently, as $\alpha_g \rightarrow 0$, $\beta_g \rightarrow 1$, and on the other hand, as $\alpha_g \rightarrow 1$, $\beta_g \rightarrow \frac{1}{N}$ (which may be worse than $\beta_f$, when $\frac{1}{N} < \beta_f$). Using these facts and \eqref{Eq:GreedyCurvatureCoefficientTheory}, it is easy to see that the improvement in the performance bound is proportional to the magnitude of 
 \begin{equation}\label{Eq:GreedyCurvatureGamma}
     \gamma_g \triangleq \min_{0 \leq i \leq N-1} \left[ \min_{y \in X^i}\left(\frac{\Delta H(y\vert S^i)}{\Delta H(y\vert \emptyset)}\right) \right].
@@ -592,7 +587,7 @@ However, compared to the total curvature, greedy curvature has some more redeemi
 
 \subsection{Elemental Curvature \cite{Wang2016}}\label{SubSec:ElementalCurvature}
 
-The \emph{elemental curvature} of \eqref{Eq:SetCoverageFunction} is given by 
+The \emph{elemental curvature} of \eqref{Eq:SetCoverageProblem} is given by 
 \begin{equation}\label{Eq:ElementalCurvatureCoefficientTheory}
     \alpha_e \triangleq \max_{\substack{(S,y_i,y_j): S \subset X,\\ y_i,y_j \in X \backslash S,\ y_i \neq y_j.}}\left[\frac{\Delta H(y_i \vert S \cup \{y_j\})}{\Delta H(y_i \vert S)}\right].
 \end{equation}
@@ -685,89 +680,92 @@ An upper-bound for the elemental curvature $\alpha_e$ in \eqref{Eq:ElementalCurv
 \end{equation}
 \end{proposition}
 \begin{proof}
-Note that, for any $A,B$ with $A\cap B = \emptyset$, we can write 
-$\Delta H(A \vert B) = \int_\Phi R(x) \theta \Delta P_J(x, A \vert B) dx + \int_\Phi R(x) (1-\theta) \Delta P_M(x,A \vert B) dx,$
-where each term in the right-hand side (RHS) is strictly positive. Using this fact, $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} can be upper-bounded by:
-\begin{align}
-\alpha_e \leq \max_{y_i,y_j,S}\max &\left\{ \frac{\int_\Phi R(x)\theta \Delta P_J(x,y_i\vert S\cup \{y_j\})dx}
-{\int_\Phi R(x)\theta \Delta P_J(x,y_i\vert S)dx},\nonumber \right.\\
-\label{Eq:Pr:ElementalCurvatureBoundStep1}
-&\left. 
-\frac{\int_\Phi R(x)(1-\theta) \Delta P_M(x,y_i\vert S\cup \{y_j\})dx}
-{\int_\Phi R(x)(1-\theta) \Delta P_M(x,y_i\vert S)dx} \right\}.    
-\end{align}
-
-Let us now define subsets of $\Phi$ over which the above inner fraction denominator integrands are non-zero: 
-$$\Phi_{y_i,S}^J \triangleq \{x:x\in\Phi,\Delta P_J(x, y_i \vert S)\neq 0\},$$  
-$$\Phi_{y_i,S}^M \triangleq \{x:x\in\Phi,\Delta P_M(x, y_i \vert S)\neq 0\}.$$ Using the definitions of the marginal detection functions (and our earlier notations $P_S, P_{y_i}$ and $P_{y_j}$):
-\begin{equation}
-\begin{aligned}
-\Delta P_J(x,y_i\vert S\cup \{y_j\}) =&\  
-p(x,y_i)(1-p(x,y_j))\prod_{s_i\in S}(1-p(x,s_i)),\\
-\Delta P_J(x,y_i\vert S) =&\  
-p(x,y_i)\prod_{s_i\in S}(1-p(x,s_i)),\\
-\Delta P_M(x,y_i\vert S\cup \{y_j\}) =&\ \max\{0,P_{y_i}-\max\{P_S,P_{y_j}\}\},\\
-\Delta P_M(x,y_i\vert S) =&\ \max\{0,P_{y_i}-P_S\}\},\\
-\end{aligned}
-\end{equation}
-it is easy to see that, for any $x\not\in\Phi_{y_i,S}^J$, $\Delta P_J(x,y_i\vert S\cup \{y_j\}) = 0$, and for any $x\not\in\Phi_{y_i,S}^M$, $\Delta P_M(x,y_i\vert S\cup \{y_j\}) = 0$ (the latter is due to $P_{y_i}<P_S \implies P_{y_i} < P_S \leq \max\{P_S,P_{y_j}\}$). This fact enables restricting the integrals in the two fractions in \eqref{Eq:Pr:ElementalCurvatureBoundStep1} respectively to the sets $\Phi_{y_i,S}^J$ and $\Phi_{y_i,S}^M$, leading to:  
-\begin{align}
-\alpha_e \leq \max_{y_i,y_j,S}\max \left\{ \frac{\int_{\Phi_{y_i,S}^J} R(x)\theta \Delta P_J(x,y_i\vert S\cup \{y_j\})dx}
-{\int_{\Phi_{y_i,S}^J} R(x)\theta \Delta P_J(x,y_i\vert S)dx},\nonumber \right.\\\left. 
-\frac{\int_{\Phi_{y_i,S}^M} R(x)(1-\theta) \Delta P_M(x,y_i\vert S\cup \{y_j\})dx}
-{\int_{\Phi_{y_i,S}^M} R(x)(1-\theta) \Delta P_M(x,y_i\vert S)dx} \right\}\nonumber\\
-\leq 
-\max_{y_i,y_j,S}\max \left\{\max_{x\in \Phi_{y_i,S}^J} \frac{\Delta P_J(x,y_i\vert S\cup \{y_j\})}
-{\Delta P_J(x,y_i\vert S)},\nonumber \right.\nonumber\\
-\left. 
-\max_{x\in \Phi_{y_i,S}^M} \frac{\Delta P_M(x,y_i\vert S\cup \{y_j\})}
-{\Delta P_M(x,y_i\vert S)} \right\}\nonumber\\
-\leq 
-\max_{y_i,y_j,S}\max \left\{\max_{x\in \Phi_{y_i,S}^J} (1-p(x,y_j)),\nonumber \right.\\
-\label{Eq:Pr:ElementalCurvatureBoundStep2}
-\left. 
-\max_{x\in \Phi_{y_i,S}^M}\frac{\max\{0,P_{y_i}-\max\{P_S,P_{y_j}\}\}}
-{P_{y_i}-P_S} \right\}
-\end{align}
-
-Let us now consider the inner second fraction term. Note that, for any $x\in \Phi_{y_i,S}^M$, $P_{y_i}>P_S$, which implies three possibilities for $P_{y_j}$: 
-(1) $P_{y_i}>P_S \geq P_{y_j}$;
-(2) $P_{y_i} > P_{y_j} >P_S$; or 
-(3) $P_{y_j} \geq P_{y_i} >P_S$. Based on this, we  define three mutually exclusive sub-regions of $\Phi_{y_i,S}^M = \Phi_{y_i,S}^{M,1} \cup \Phi_{y_i,S}^{M,2} \cup \Phi_{y_i,S}^{M,3}$ as 
-\begin{equation*}
-\begin{aligned}
-\Phi_{y_i,S}^{M,1} \triangleq \{x:p(x,y_i) > \max_{s_i\in S}p(x,s_i) \geq p(x,y_j)\},\\
-\Phi_{y_i,S}^{M,2} \triangleq \{x:p(x,y_i) > p(x,y_j) > \max_{s_i\in S}p(x,s_i)\},\\
-\Phi_{y_i,S}^{M,3} \triangleq \{x:p(x,y_j) \geq p(x,y_i) > \max_{s_i\in S}p(x,s_i)\}.
-\end{aligned}    
-\end{equation*}
-Using these sub-regions, the inner second fraction term in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} can be simplified as  
-\begin{equation*}
-\frac{\max\{0,P_{y_i}-\max\{P_S,P_{y_j}\}\}}
-{P_{y_i}-P_S} = 
-\begin{cases}
-    \frac{P_{y_i}-P_S}{P_{y_i}-P_S}=1,\quad &x \in \Phi_{y_i,S}^{M,1}\\
-    \frac{P_{y_i}-P_{y_j}}{P_{y_i}-P_S}<1,\quad &x \in \Phi_{y_i,S}^{M,2}\\
-    0.\quad  &x \in \Phi_{y_i,S}^{M,3}
-\end{cases}
-\end{equation*}
-Therefore, as one can always select $y_i, y_j$ and $S$ such that $\Phi_{y_i,S}^{M,1} \neq \emptyset$, the inner second maximization in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} becomes $1$. Consequently, all outer maximizations in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} becomes $1$. Thus, whenever we use $\theta \neq 1$ in \eqref{Eq:SetDetectionFunction}, the above approach to bounding $\alpha_e$ leads to the trivial bound $\alpha_e \leq 1$. 
-
-Note, however, that, if $\theta = 1$, we can omit the inner second fraction term in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} entirely. This leads to 
-\begin{equation*}
-\alpha_e \leq 
-\max_{y_i,y_j,S} \max_{x\in \Phi_{y_i,S}^J} (1-p(x,y_j)) 
-= 1-\min_{y_i,y_j,S} \min_{x\in \Phi_{y_i,S}^J} p(x,y_j).
-\end{equation*}
-Finally, recall that $x\in\Phi_{y_i,S}^J$ if and only if $p(x,y_i) \neq 0$ and $p(x,s_i) \neq 1$ for some $s_i\in S$. Note that, based on \eqref{Eq:SensingFunction}, for any $s_i\in S$, $p(x,s_i) \neq 1 \iff x\neq s_i$. Therefore, the condition $p(x,s_i) \neq 1$ for some $s_i\in S$ holds for any choice of $S$. Thus, $x\in\Phi_{y_i,S}^J$ if and only if $p(x,y_i) \neq 0$, leading to    
-\begin{align*}
-\alpha_e \leq&\  
-1-\min_{y_i,y_j} \min_{x: p(x,y_i) \neq 0} p(x,y_j)\\
-=&\ 1-\min_{\substack{(y_i,y_j,x):y_i\in X, y_j \in X\backslash\{y_i\},\\ 
-x\in \Phi, p(x,y_i) \neq 0}} p(x,y_j).
-\end{align*}
-This completes the proof.
+Due to space constraints, the proof is omitted here, but can be found in \cite{Welikala2024Ax1}. 
 \end{proof}
+% \begin{proof}
+% Note that, for any $A,B$ with $A\cap B = \emptyset$, we can write 
+% $\Delta H(A \vert B) = \int_\Phi R(x) \theta \Delta P_J(x, A \vert B) dx + \int_\Phi R(x) (1-\theta) \Delta P_M(x,A \vert B) dx,$
+% where each term in the right-hand side (RHS) is strictly positive. Using this fact, $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} can be upper-bounded by:
+% \begin{align}
+% \alpha_e \leq \max_{y_i,y_j,S}\max &\left\{ \frac{\int_\Phi R(x)\theta \Delta P_J(x,y_i\vert S\cup \{y_j\})dx}
+% {\int_\Phi R(x)\theta \Delta P_J(x,y_i\vert S)dx},\nonumber \right.\\
+% \label{Eq:Pr:ElementalCurvatureBoundStep1}
+% &\left. 
+% \frac{\int_\Phi R(x)(1-\theta) \Delta P_M(x,y_i\vert S\cup \{y_j\})dx}
+% {\int_\Phi R(x)(1-\theta) \Delta P_M(x,y_i\vert S)dx} \right\}.    
+% \end{align}
+
+% Let us now define subsets of $\Phi$ over which the above inner fraction denominator integrands are non-zero: 
+% $$\Phi_{y_i,S}^J \triangleq \{x:x\in\Phi,\Delta P_J(x, y_i \vert S)\neq 0\},$$  
+% $$\Phi_{y_i,S}^M \triangleq \{x:x\in\Phi,\Delta P_M(x, y_i \vert S)\neq 0\}.$$ Using the definitions of the marginal detection functions (and our earlier notations $P_S, P_{y_i}$ and $P_{y_j}$):
+% \begin{equation}
+% \begin{aligned}
+% \Delta P_J(x,y_i\vert S\cup \{y_j\}) =&\  
+% p(x,y_i)(1-p(x,y_j))\prod_{s_i\in S}(1-p(x,s_i)),\\
+% \Delta P_J(x,y_i\vert S) =&\  
+% p(x,y_i)\prod_{s_i\in S}(1-p(x,s_i)),\\
+% \Delta P_M(x,y_i\vert S\cup \{y_j\}) =&\ \max\{0,P_{y_i}-\max\{P_S,P_{y_j}\}\},\\
+% \Delta P_M(x,y_i\vert S) =&\ \max\{0,P_{y_i}-P_S\}\},\\
+% \end{aligned}
+% \end{equation}
+% it is easy to see that, for any $x\not\in\Phi_{y_i,S}^J$, $\Delta P_J(x,y_i\vert S\cup \{y_j\}) = 0$, and for any $x\not\in\Phi_{y_i,S}^M$, $\Delta P_M(x,y_i\vert S\cup \{y_j\}) = 0$ (the latter is due to $P_{y_i}<P_S \implies P_{y_i} < P_S \leq \max\{P_S,P_{y_j}\}$). This fact enables restricting the integrals in the two fractions in \eqref{Eq:Pr:ElementalCurvatureBoundStep1} respectively to the sets $\Phi_{y_i,S}^J$ and $\Phi_{y_i,S}^M$, leading to:  
+% \begin{align}
+% \alpha_e \leq \max_{y_i,y_j,S}\max \left\{ \frac{\int_{\Phi_{y_i,S}^J} R(x)\theta \Delta P_J(x,y_i\vert S\cup \{y_j\})dx}
+% {\int_{\Phi_{y_i,S}^J} R(x)\theta \Delta P_J(x,y_i\vert S)dx},\nonumber \right.\\\left. 
+% \frac{\int_{\Phi_{y_i,S}^M} R(x)(1-\theta) \Delta P_M(x,y_i\vert S\cup \{y_j\})dx}
+% {\int_{\Phi_{y_i,S}^M} R(x)(1-\theta) \Delta P_M(x,y_i\vert S)dx} \right\}\nonumber\\
+% \leq 
+% \max_{y_i,y_j,S}\max \left\{\max_{x\in \Phi_{y_i,S}^J} \frac{\Delta P_J(x,y_i\vert S\cup \{y_j\})}
+% {\Delta P_J(x,y_i\vert S)},\nonumber \right.\nonumber\\
+% \left. 
+% \max_{x\in \Phi_{y_i,S}^M} \frac{\Delta P_M(x,y_i\vert S\cup \{y_j\})}
+% {\Delta P_M(x,y_i\vert S)} \right\}\nonumber\\
+% \leq 
+% \max_{y_i,y_j,S}\max \left\{\max_{x\in \Phi_{y_i,S}^J} (1-p(x,y_j)),\nonumber \right.\\
+% \label{Eq:Pr:ElementalCurvatureBoundStep2}
+% \left. 
+% \max_{x\in \Phi_{y_i,S}^M}\frac{\max\{0,P_{y_i}-\max\{P_S,P_{y_j}\}\}}
+% {P_{y_i}-P_S} \right\}
+% \end{align}
+
+% Let us now consider the inner second fraction term. Note that, for any $x\in \Phi_{y_i,S}^M$, $P_{y_i}>P_S$, which implies three possibilities for $P_{y_j}$: 
+% (1) $P_{y_i}>P_S \geq P_{y_j}$;
+% (2) $P_{y_i} > P_{y_j} >P_S$; or 
+% (3) $P_{y_j} \geq P_{y_i} >P_S$. Based on this, we  define three mutually exclusive sub-regions of $\Phi_{y_i,S}^M = \Phi_{y_i,S}^{M,1} \cup \Phi_{y_i,S}^{M,2} \cup \Phi_{y_i,S}^{M,3}$ as 
+% \begin{equation*}
+% \begin{aligned}
+% \Phi_{y_i,S}^{M,1} \triangleq \{x:p(x,y_i) > \max_{s_i\in S}p(x,s_i) \geq p(x,y_j)\},\\
+% \Phi_{y_i,S}^{M,2} \triangleq \{x:p(x,y_i) > p(x,y_j) > \max_{s_i\in S}p(x,s_i)\},\\
+% \Phi_{y_i,S}^{M,3} \triangleq \{x:p(x,y_j) \geq p(x,y_i) > \max_{s_i\in S}p(x,s_i)\}.
+% \end{aligned}    
+% \end{equation*}
+% Using these sub-regions, the inner second fraction term in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} can be simplified as  
+% \begin{equation*}
+% \frac{\max\{0,P_{y_i}-\max\{P_S,P_{y_j}\}\}}
+% {P_{y_i}-P_S} = 
+% \begin{cases}
+%     \frac{P_{y_i}-P_S}{P_{y_i}-P_S}=1,\quad &x \in \Phi_{y_i,S}^{M,1}\\
+%     \frac{P_{y_i}-P_{y_j}}{P_{y_i}-P_S}<1,\quad &x \in \Phi_{y_i,S}^{M,2}\\
+%     0.\quad  &x \in \Phi_{y_i,S}^{M,3}
+% \end{cases}
+% \end{equation*}
+% Therefore, as one can always select $y_i, y_j$ and $S$ such that $\Phi_{y_i,S}^{M,1} \neq \emptyset$, the inner second maximization in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} becomes $1$. Consequently, all outer maximizations in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} becomes $1$. Thus, whenever we use $\theta \neq 1$ in \eqref{Eq:SetDetectionFunction}, the above approach to bounding $\alpha_e$ leads to the trivial bound $\alpha_e \leq 1$. 
+
+% Note, however, that, if $\theta = 1$, we can omit the inner second fraction term in \eqref{Eq:Pr:ElementalCurvatureBoundStep2} entirely. This leads to 
+% \begin{equation*}
+% \alpha_e \leq 
+% \max_{y_i,y_j,S} \max_{x\in \Phi_{y_i,S}^J} (1-p(x,y_j)) 
+% = 1-\min_{y_i,y_j,S} \min_{x\in \Phi_{y_i,S}^J} p(x,y_j).
+% \end{equation*}
+% Finally, recall that $x\in\Phi_{y_i,S}^J$ if and only if $p(x,y_i) \neq 0$ and $p(x,s_i) \neq 1$ for some $s_i\in S$. Note that, based on \eqref{Eq:SensingFunction}, for any $s_i\in S$, $p(x,s_i) \neq 1 \iff x\neq s_i$. Therefore, the condition $p(x,s_i) \neq 1$ for some $s_i\in S$ holds for any choice of $S$. Thus, $x\in\Phi_{y_i,S}^J$ if and only if $p(x,y_i) \neq 0$, leading to    
+% \begin{align*}
+% \alpha_e \leq&\  
+% 1-\min_{y_i,y_j} \min_{x: p(x,y_i) \neq 0} p(x,y_j)\\
+% =&\ 1-\min_{\substack{(y_i,y_j,x):y_i\in X, y_j \in X\backslash\{y_i\},\\ 
+% x\in \Phi, p(x,y_i) \neq 0}} p(x,y_j).
+% \end{align*}
+% This completes the proof.
+% \end{proof}
 
 \begin{remark}
 Evaluating the elemental curvature upper-bound $\bar{\alpha}_e$ proposed in \eqref{Eq:Pr:ElementalCurvatureBound} is significantly more computationally efficient compared to evaluating the original elemental curvature metric $\alpha_e$ as defined in \eqref{Eq:ElementalCurvatureCoefficientTheory}. 
@@ -829,20 +827,23 @@ where $A^G_y$ is the greedy solution for the polymatroid maximization (under a u
 \end{equation}
 \end{proposition}
 \begin{proof}
-Using the change of variables $A \triangleq S\backslash \{y\}$ (instead of $S$) in \eqref{Eq:PartialCurvatureCoefficientTheory}, we get 
-\begin{align}
-\alpha_p =&\  
-\max_{\substack{(A,y): y\in X, \\ A \subseteq X \backslash \{y\}, \vert A \vert = N-1}}\left[1-\frac{\Delta H(y \vert A) }{\Delta H(y \vert \emptyset)}\right]\\
-=&\ 
-\max_{y\in X} \left(\frac{1}{H(\{y\})}\max_{\substack{A \subseteq X \backslash \{y\}\\\vert A \vert = N-1}}\left[H(\{y\})-\Delta H(y \vert A)\right] \right).   
-\end{align}
-According to Th. \ref{Th:SubmodularityOfMarginalCoverage}, for any $y\in X$, the above inner maximization problem is a polymatroid maximization problem. Therefore, the fundamental performance bound $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound} (now with $N\rightarrow N-1$) is applicable to relate the performance of its optimal solution $A_y^*$ \eqref{Eq:PartialCurvatureBound2} and its greedy solution $A_y^G$. In particular, using the technical result \cite[Lm. 2(b)]{WelikalaJ02021}, this inner maximization can be replaced by an upper-bound to obtain: 
-\begin{equation*}
-\alpha_p \leq  
-\max_{y\in X} \left(\frac{1}{H(\{y\})}\frac{1}{\beta_f}\left[H(\{y\})-\Delta H(y \vert A_y^G)\right] \right),   
-\end{equation*}
-which leads to the expression in \eqref{Eq:PartialCurvatureBound}.
+Due to space constraints, the proof is omitted here, but can be found in \cite{Welikala2024Ax1}.    
 \end{proof}
+% \begin{proof}
+% Using the change of variables $A \triangleq S\backslash \{y\}$ (instead of $S$) in \eqref{Eq:PartialCurvatureCoefficientTheory}, we get 
+% \begin{align}
+% \alpha_p =&\  
+% \max_{\substack{(A,y): y\in X, \\ A \subseteq X \backslash \{y\}, \vert A \vert = N-1}}\left[1-\frac{\Delta H(y \vert A) }{\Delta H(y \vert \emptyset)}\right]\\
+% =&\ 
+% \max_{y\in X} \left(\frac{1}{H(\{y\})}\max_{\substack{A \subseteq X \backslash \{y\}\\\vert A \vert = N-1}}\left[H(\{y\})-\Delta H(y \vert A)\right] \right).   
+% \end{align}
+% According to Th. \ref{Th:SubmodularityOfMarginalCoverage}, for any $y\in X$, the above inner maximization problem is a polymatroid maximization problem. Therefore, the fundamental performance bound $\beta_f$ in \eqref{Eq:FundamentalPerformanceBound} (now with $N\rightarrow N-1$) is applicable to relate the performance of its optimal solution $A_y^*$ \eqref{Eq:PartialCurvatureBound2} and its greedy solution $A_y^G$. In particular, using the technical result \cite[Lm. 2(b)]{WelikalaJ02021}, this inner maximization can be replaced by an upper-bound to obtain: 
+% \begin{equation*}
+% \alpha_p \leq  
+% \max_{y\in X} \left(\frac{1}{H(\{y\})}\frac{1}{\beta_f}\left[H(\{y\})-\Delta H(y \vert A_y^G)\right] \right),   
+% \end{equation*}
+% which leads to the expression in \eqref{Eq:PartialCurvatureBound}.
+% \end{proof}
 
 Finally, we point out that the upper bound for $\alpha_p$ established in the above proposition can be computed efficiently, and when used in \eqref{Eq:PartialCurvatureBoundTheory}, provides a lower bound to actual partial curvature-based performance bound $\beta_p$. 
 
@@ -922,57 +923,55 @@ In all, the extended greedy curvature measure-based performance bound $\beta_u$ 
 % Additional remarks about the extended greedy curvature based performance bound: 
 % Theoretical/practical implications, limitations and potential future research directions...
 
-In this section, we summarize our findings on different curvature measures in the context of multi-agent optimal coverage problems. We start by analyzing the computational complexity of the greedy solution and considered curvature measures for the coverage problems. 
+In this section, we summarize our findings on the effectiveness and computational complexity of different curvature-based performance bounds in optimal coverage problems. In particular, our findings have been summarized in Tab. \ref{Tab:SummaryTable}. 
 
 
-\subsection{Computational Complexity}
-Let us assume the sensing function $p(x,s_i)$ in \eqref{Eq:SensingFunction} for any $x\in \Phi, s_i \in X$ is of complexity $O(1)$. Consequently, the set detection function $P(x,S)$ in \eqref{Eq:SetDetectionFunction} for any $x \in \Phi, S \subseteq X$ is of complexity $O(\vert S \vert)$. Now, let us assume the coverage integral in \eqref{Eq:SetCoverageFunction} is computed by discretizing the feasible space $\Phi$ into $\bar{M}$ points. Therefore, the set coverage function $H(S)$ in \eqref{Eq:SetCoverageFunction} for any $S\subseteq X$ is of complexity $O(\vert S \vert \bar{M})$. 
+% \subsection{Computational Complexity}
+% Let us assume the sensing function $p(x,s_i)$ in \eqref{Eq:SensingFunction} for any $x\in \Phi, s_i \in X$ is of complexity $O(1)$. Consequently, the set detection function $P(x,S)$ in \eqref{Eq:SetDetectionFunction} for any $x \in \Phi, S \subseteq X$ is of complexity $O(\vert S \vert)$. Now, let us assume the coverage integral in \eqref{Eq:SetCoverageProblem} is computed by discretizing the feasible space $\Phi$ into $\bar{M}$ points. Therefore, the set coverage function $H(S)$ in \eqref{Eq:SetCoverageProblem} for any $S\subseteq X$ is of complexity $O(\vert S \vert \bar{M})$. 
 
 
-Now, looking at the $i$\tsup{th} greedy iteration (see Alg. \ref{Alg:GreedyAlgorithm}), it is easy to see that the marginal gain $\Delta H (y\vert S^{i-1})$ is of complexity $O(i\bar{M})$ and $M-i+1$ such marginal gain evaluations are required. Therefore, complexity of the $i$\tsup{th} greedy iteration is $O((M-i+1)i\bar{M})$. As the iteration index $i \in \N_N$ with $N<M$, the overall complexity of the greedy algorithm can be shown to be $O(N^2 M \bar{M})$. It is worth noting here that the complexity of a brute-force evaluation of \eqref{Eq:SetCoverageProblem} is $O(N{M \choose N}\bar{M}) \sim O(M^N \bar{M})$. 
+% Now, looking at the $i$\tsup{th} greedy iteration (see Alg. \ref{Alg:GreedyAlgorithm}), it is easy to see that the marginal gain $\Delta H (y\vert S^{i-1})$ is of complexity $O(i\bar{M})$ and $M-i+1$ such marginal gain evaluations are required. Therefore, complexity of the $i$\tsup{th} greedy iteration is $O((M-i+1)i\bar{M})$. As the iteration index $i \in \N_N$ with $N<M$, the overall complexity of the greedy algorithm can be shown to be $O(N^2 M \bar{M})$. It is worth noting here that the complexity of a brute-force evaluation of \eqref{Eq:SetCoverageProblem} is $O(N{M \choose N}\bar{M}) \sim O(M^N \bar{M})$. 
 
-The total curvature $\alpha_t$ in \eqref{Eq:TotalCurvatureCoefficientTheory} requires additional evaluations $H(X)$ and $H(X\backslash \{y\})$ for all $y\in X$. Using this, it can shown that $\alpha_t$ is of complexity $O(M^2\bar{M})$. The greedy curvature  $\alpha_g$ in \eqref{Eq:GreedyCurvatureCoefficientTheory} requires no additional evaluations except for $N$ ratios; thus, it is of complexity $O(N)$. 
+% The total curvature $\alpha_t$ in \eqref{Eq:TotalCurvatureCoefficientTheory} requires additional evaluations $H(X)$ and $H(X\backslash \{y\})$ for all $y\in X$. Using this, it can shown that $\alpha_t$ is of complexity $O(M^2\bar{M})$. The greedy curvature  $\alpha_g$ in \eqref{Eq:GreedyCurvatureCoefficientTheory} requires no additional evaluations except for $N$ ratios; thus, it is of complexity $O(N)$. 
 
-The elemental curvature $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} involves a set function maximization. Omitting lower order $H$ terms, the complexity of $\beta_e$ can be seen as that of evaluating $H(S\cup\{y_i,y_j\})$ for all possible set variables $\{y_i,y_j\}\subset X$ and $S\subset X\backslash \{y_i,y_j\}$. Using the relationships $\sum_{r=0}^M {M \choose r} = 2^M$ and $\sum_{r=0}^M r {M \choose r} = M2^{M-1}$, it can be shown that $\alpha_e$ is of complexity $O(M^3 2^M \bar{M})$. Note, however, that the conservative upper-bound $\bar{\alpha}_e$ proposed for $\alpha_e$ (see \eqref{Eq:Pr:ElementalCurvatureBound}) is of complexity $O(M^2\bar{M})$ as it involves searching over $\{y_i,y_j\}\subset X$ and $x\in\Phi$ (where $X$ and $\Phi$ have been discretized into $M$ and $\bar{M}$ points, respectively).
+% The elemental curvature $\alpha_e$ in \eqref{Eq:ElementalCurvatureCoefficientTheory} involves a set function maximization. Omitting lower order $H$ terms, the complexity of $\beta_e$ can be seen as that of evaluating $H(S\cup\{y_i,y_j\})$ for all possible set variables $\{y_i,y_j\}\subset X$ and $S\subset X\backslash \{y_i,y_j\}$. Using the relationships $\sum_{r=0}^M {M \choose r} = 2^M$ and $\sum_{r=0}^M r {M \choose r} = M2^{M-1}$, it can be shown that $\alpha_e$ is of complexity $O(M^3 2^M \bar{M})$. Note, however, that the conservative upper-bound $\bar{\alpha}_e$ proposed for $\alpha_e$ (see \eqref{Eq:Pr:ElementalCurvatureBound}) is of complexity $O(M^2\bar{M})$ as it involves searching over $\{y_i,y_j\}\subset X$ and $x\in\Phi$ (where $X$ and $\Phi$ have been discretized into $M$ and $\bar{M}$ points, respectively).
 
-The partial curvature $\alpha_p$ in \eqref{Eq:PartialCurvatureCoefficientTheory} also involves a set function maximization. Using similar arguments as before, the complexity of $\beta_p$ can be seen as that of evaluating $H(A\cup \{y_i\})$ for all possible $y_i\in X$ and $A \subseteq X\backslash \{y_i\}$ with $\vert A \vert = N-1$. It can be shown that $\alpha_p$ is of the complexity $O(M^2 2^M \bar{M})$ if the constraint  $\vert A \vert = N-1$ is omitted, otherwise $O(M \sum_{r=0}^{N-1} r{M-1 \choose r}  \bar{M}) \sim O(M^N \bar{M})$. Note also that the conservative upper-bound for $\alpha_p$ given in \eqref{Eq:PartialCurvatureBound} is of complexity $O(N^2 M^2 \bar{M})$ (as it requires $M$ separate greedy solution evaluations where each greedy solution $O(N^2 M \bar{M})$).
+% The partial curvature $\alpha_p$ in \eqref{Eq:PartialCurvatureCoefficientTheory} also involves a set function maximization. Using similar arguments as before, the complexity of $\beta_p$ can be seen as that of evaluating $H(A\cup \{y_i\})$ for all possible $y_i\in X$ and $A \subseteq X\backslash \{y_i\}$ with $\vert A \vert = N-1$. It can be shown that $\alpha_p$ is of the complexity $O(M^2 2^M \bar{M})$ if the constraint  $\vert A \vert = N-1$ is omitted, otherwise $O(M \sum_{r=0}^{N-1} r{M-1 \choose r}  \bar{M}) \sim O(M^N \bar{M})$. Note also that the conservative upper-bound for $\alpha_p$ given in \eqref{Eq:PartialCurvatureBound} is of complexity $O(N^2 M^2 \bar{M})$ (as it requires $M$ separate greedy solution evaluations where each greedy solution $O(N^2 M \bar{M})$).
       
-The extended greedy curvature $\alpha_u$ in \eqref{Eq:ExtGreedyCurvatureMeasure}, if evaluated using $nN+1$ additional greedy iterations, where $n\in \N$, its complexity is $O(n^2N^2M\bar{M})$. Note that when the maximum possible extra greedy iterations are used in evaluating $\alpha_u$, its complexity is $O(M^3\bar{M})$.
+% The extended greedy curvature $\alpha_u$ in \eqref{Eq:ExtGreedyCurvatureMeasure}, if evaluated using $nN+1$ additional greedy iterations, where $n\in \N$, its complexity is $O(n^2N^2M\bar{M})$. Note that when the maximum possible extra greedy iterations are used in evaluating $\alpha_u$, its complexity is $O(M^3\bar{M})$.
 
 
-\begin{table*}[!ht]
+\begin{table}[!ht]
 \centering
-\caption{Characteristics of Different Curvature Metrics in the Context of Optimal Coverage Problem}
+\caption{Characteristics of different curvature-based performance metrics in the context of optimal coverage problems}
 \label{Tab:SummaryTable}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|c|c|cccc|c|c|}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|c|cccc|c|c|}
 \hline
-\multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Curvature \\ Measure \\ $\alpha$ \end{tabular}} &
-\multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Performance \\ Bound \\ $\beta$ \end{tabular}} &
-\multicolumn{4}{c|}{Effectiveness of $\beta$ (i.e., $\beta_f \ll \beta \simeq 1$) when: }&
+\multirow{5}{*}{$\beta$} & 
+\multicolumn{4}{c|}{$\beta_f \ll \beta \simeq 1$ when: }&
   \multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Complexity\end{tabular}} &
-  \multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Additional Remarks \\ (Note: Alg. \ref{Alg:GreedyAlgorithm} $\sim O(N^2 M \bar{M})$)  \end{tabular}} \\ \cline{3-6}
- &  & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}} Agent Sensing \\ Capabilities \eqref{Eq:SensingFunction} \end{tabular}} & \multicolumn{2}{c|}{Denseness of $X$} &  &  \\ \cline{3-6}
- &  & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Low \\ ($\delta \downarrow,\ \lambda \uparrow$) \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} High \\ ($\delta \uparrow,\ \lambda \downarrow$) \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Low \\ ($M \downarrow$) \end{tabular}}    & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} High \\ ($M\uparrow$) \end{tabular}}    &  &  \\ \hline
+  \multirow{5}{*}{\begin{tabular}[c]{@{}c@{}} Remarks \\ $H(S)\sim O(\bar{M})$\\ Alg. \ref{Alg:GreedyAlgorithm} $\sim O(N^2 M \bar{M})$  \end{tabular}} \\ \cline{2-5}
+ & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}} Agent Sensing \eqref{Eq:SensingFunction} \end{tabular}} & \multicolumn{2}{c|}{Denseness of $X$} &  &  \\ \cline{2-5}
+ & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Low \\ $\delta \downarrow,\lambda \uparrow$ \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} High \\ $\delta \uparrow, \lambda \downarrow$ \end{tabular}} & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} Low \\ ($M \downarrow$) \end{tabular}}    & \multicolumn{1}{c|}{\begin{tabular}[c]{@{}c@{}} High \\ ($M\uparrow$) \end{tabular}}    &  &  \\ \hline
  %% Total Curvature
- ``Total'' $\alpha_t$ & $\beta_t$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark}    &   \xmark  & $O(M^2 \bar{M})$ &  \\ \hline
+ $\beta_t$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark}    &   \xmark  & $O(M^2 \bar{M})$ &  \\ \hline
  %% Greedy Curvature
- ``Greedy'' $\alpha_g$ & $\beta_g$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark}    &  \xmark    &  $O(N)$ & \begin{tabular}[c]{@{}c@{}} $\beta_g$ is a byproduct of Alg. \ref{Alg:GreedyAlgorithm} \\ When $\beta_f \ll \beta_t \simeq 1$, $\beta_t \leq \beta_g \simeq 1$ \end{tabular} \\ \hline
+ $\beta_g$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark}    &  \xmark    &  $O(N)$ & \begin{tabular}[c]{@{}c@{}}  \end{tabular} \\ \hline
  %% Elemental Curvature
- ``Elemental'' $\alpha_e$ & $\beta_e$ & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark}    &  \cmark    & $O(M^3 2^M \bar{M})$ & Conservative estimate \eqref{Eq:Pr:ElementalCurvatureBound}: $O(M^2\bar{M})$ \\ \hline
+ $\beta_e$ & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark}    &  \cmark    & $O(M^3 2^M \bar{M})$ & Estimate \eqref{Eq:Pr:ElementalCurvatureBound}: $O(M^2\bar{M})$ \\ \hline
  %% Partial Curvature
- ``Partial'' $\alpha_p$ & $\beta_p$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark}    &  \xmark    & $O(M^N \bar{M})$ & 
- \begin{tabular}[c]{@{}c@{}} Without set constraints: $O(M^2 2^M \bar{M})$ \\ Conservative estimate \eqref{Eq:PartialCurvatureBound} $O(N^2 M^2 \bar{M})$ \\ In general: $\beta_f \leq \beta_t \leq \beta_p \leq 1$\end{tabular}  \\ \hline
+ $\beta_p$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\xmark} & \multicolumn{1}{c|}{\cmark}    &  \xmark    & $O(M^N \bar{M})$ & 
+ \begin{tabular}[c]{@{}c@{}} Estimate \eqref{Eq:PartialCurvatureBound}: $O(N^2 M^2 \bar{M})$ \end{tabular}  \\ \hline
  %% Extended Greedy Curvature
- ``Ext. Greedy'' $\alpha_u$ & $\beta_e$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\cmark}    &  \cmark    & $O(n^2N^2M\bar{M})$ &  
- \begin{tabular}[c]{@{}c@{}} i.e., with $nN+1$ extra iterations. \\ With $M-N$ extra iterations: $O(M^3\bar{M})$ \end{tabular} \\ \hline
+ $\beta_e$ & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\cmark} & \multicolumn{1}{c|}{\cmark}    &  \cmark    & $O(n^2N^2M\bar{M})$ &  
+ \begin{tabular}[c]{@{}c@{}} (i.e., for $nN$ extra iter.)\\ Worst Case: $O(M^3\bar{M})$ \end{tabular} \\ \hline
 \end{tabular}%
 }
-\end{table*}
+\end{table}
 
 
-\subsection{Summary}
-Our findings on the effectiveness and computational complexity of different curvature-based performance bounds have been summarized in Tab. \ref{Tab:SummaryTable}. 
+
 
 In terms of effectiveness, we have observed that total, greedy, and partial curvature measures provide significantly improved performance bounds when agents have low sensing capabilities (i.e., high decay $\lambda$ and/or low range $\delta$) and/or when the ground set is sparse (i.e., low $M$). In particular, compared to the total curvature, (1) greedy curvature performs slightly better in such ``weakly submodular'' scenarios, and (2) partial curvature performs slightly better in general. 
 Conversely, the elemental curvature measure provides significantly improved performance bounds when agents have strong sensing capabilities (i.e., low decay $\lambda$ and/or high range $\delta$) and/or when the ground set is dense (i.e., high $M$). Most importantly, the extended greedy curvature distinguishes itself by being able to provide significantly improved performance bounds regardless of the nature of agent sensing capabilities or ground set denseness - proving its versatility in a broad range of scenarios.
@@ -1336,11 +1335,10 @@ Using the results reported in Tabs. \ref{Tab:MazeRange} and \ref{Tab:GeneralDeca
 
 
 
-
 \section{Conclusion}
 \label{Sec:Conclusion}
 
-In this paper, we considered a generalized class of multi-agent optimal coverage problems, combining the max detection and joint detection aspects of coverage applications when defining the coverage objective. We next established submodularity and several other interesting properties of the proposed coverage objective. These properties enabled efficient solving of the considered optimal coverage problem via greedy algorithms with performance-bound guarantees. To obtain further improved performance bounds, we reviewed five curvature measures found in the literature. In particular, we discussed their effectiveness and computational complexity and proposed novel techniques to estimate an efficient candidate for some of such curvature measures. We also implemented the proposed coverage problem in an interactive simulator along with its greedy solutions, and performance bounds. Numerical results given by the simulator validated our earlier conclusions regarding the used detection function and the effectiveness of different performance bounds. Ongoing research explores meaningful ways to combine the strengths of data-driven curvature measures (practicality and effectiveness) with theoretical curvature measures (guarantees). 
+In this paper, we considered a generalized class of multi-agent optimal coverage problems and established its several polymatroid features. These properties enabled efficient solving of the considered optimal coverage problem via greedy algorithms with performance-bound guarantees. To obtain further improved performance bounds, we reviewed five curvature measures found in the literature. In particular, we identified their effectiveness and computational complexity features and proposed novel techniques to estimate efficient candidates for some of such curvature measures. We also implemented the proposed coverage problem in an interactive simulator along with its greedy solutions, and performance bounds. The obtained numerical results validated our findings. Ongoing research activities explore meaningful ways to combine the strengths of data-driven and theoretical curvature measures.
 
 % In this paper, we considered the class of monotone submodular set function maximization problems subject to cardinality constraints. Different curvature measures and corresponding performance bounds found in the literature were reviewed for this class of problems, outlining their strengths and weaknesses. In particular, computational complexity, technical requirements and inherent limitations were the main weaknesses observed. A novel curvature measure was proposed along with a corresponding performance bound that does not suffer from the limitations identified in its predecessors. We named this curvature measure as the \emph{extended greedy curvature} since it thrives on the information seen when executing additional greedy iterations. A well-known class of multi-agent coverage problems was used to examine the effectiveness of the proposed performance bound compared to the other performance bounds found in the literature. Ongoing research explores the effectiveness of this new performance bound on other applications and under different quantified strength levels of the submodularity property.
 
